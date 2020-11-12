@@ -1,5 +1,7 @@
 package it.polimi.db2.gamifiedmarketing.entity;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,12 +11,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotNull
     private String firstName;
 
+    @NotNull
     private String lastName;
 
+    @NotNull
     private String email;
 
+    @NotNull
     private String password;
 
     public User() {
