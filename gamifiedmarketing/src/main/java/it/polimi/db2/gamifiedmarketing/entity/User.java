@@ -1,8 +1,11 @@
 package it.polimi.db2.gamifiedmarketing.entity;
 
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -28,6 +31,13 @@ public class User {
     @NotNull
     @Enumerated
     private UserRole role;
+
+    @CreationTimestamp
+    @NotNull
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     public User() {
     }

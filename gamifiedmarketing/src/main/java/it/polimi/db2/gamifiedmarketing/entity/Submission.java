@@ -1,8 +1,11 @@
 package it.polimi.db2.gamifiedmarketing.entity;
 
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -20,6 +23,13 @@ public class Submission {
     private ExpertiseLevel expertiseLevel;
 
     private SubStatus submissionStatus;
+
+    @CreationTimestamp
+    @NotNull
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     public Submission() {
     }
