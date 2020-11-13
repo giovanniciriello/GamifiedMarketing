@@ -39,6 +39,9 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @NotNull
+    private Boolean banned;
+
     public User() {
     }
 
@@ -104,5 +107,13 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Boolean getBanned() {
+        return banned;
+    }
+
+    public void setBanned(Boolean banned) {
+        this.banned = banned;
     }
 }
