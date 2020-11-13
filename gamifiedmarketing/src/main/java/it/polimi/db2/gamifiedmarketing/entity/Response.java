@@ -20,6 +20,10 @@ public class Response {
     @JoinColumn(name = "question_id")
     private Question question;
 
+    @ManyToOne
+    @JoinColumn(name = "submission_id")
+    private Submission submission;
+
     public Response() {
     }
 
