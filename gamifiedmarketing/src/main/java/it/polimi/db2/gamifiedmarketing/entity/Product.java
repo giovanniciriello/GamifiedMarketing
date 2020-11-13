@@ -20,12 +20,14 @@ public class Product {
     @NotNull
     private String name;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Temporal(TemporalType.DATE)
     @Column(unique=true)
     private Date date;
 
+    @Column(length=1024)
     private String imageUrl;
 
     @CreationTimestamp

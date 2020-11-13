@@ -14,6 +14,7 @@ public class Response {
     private Integer id;
 
     @NotNull
+    @Column(columnDefinition = "TEXT")
     private String body;
 
     @ManyToOne

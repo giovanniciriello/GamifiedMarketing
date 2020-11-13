@@ -20,6 +20,7 @@ public class Question {
     @NotNull
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String subtitle;
 
     @CreationTimestamp
