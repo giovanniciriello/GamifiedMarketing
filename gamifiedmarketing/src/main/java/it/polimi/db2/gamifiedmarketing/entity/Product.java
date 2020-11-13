@@ -19,12 +19,12 @@ public class Product {
     @NotNull
     private String name;
 
-    @Temporal(TemporalType.DATE)
-    private Date date;
-
     private String description;
 
-    @NotNull
+    @Temporal(TemporalType.DATE)
+    @Column(unique=true)
+    private Date date;
+
     private String imageUrl;
 
     @CreationTimestamp
@@ -33,6 +33,10 @@ public class Product {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
     public Product() {
     }
@@ -74,5 +78,13 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

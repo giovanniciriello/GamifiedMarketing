@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -41,6 +42,9 @@ public class User {
 
     @NotNull
     private Boolean banned;
+
+    @OneToMany(mappedBy = "user")
+    private List<Product> products;
 
     public User() {
     }
