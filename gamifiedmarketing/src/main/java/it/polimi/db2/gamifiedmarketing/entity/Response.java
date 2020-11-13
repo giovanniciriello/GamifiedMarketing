@@ -3,6 +3,7 @@ package it.polimi.db2.gamifiedmarketing.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "responses")
@@ -14,6 +15,13 @@ public class Response {
 
     @NotNull
     private String body;
+
+    public Response() {
+    }
+
+    public Response(String body) {
+        this.body = body;
+    }
 
     public Integer getId() {
         return id;
