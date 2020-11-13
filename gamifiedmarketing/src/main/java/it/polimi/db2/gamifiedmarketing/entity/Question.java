@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "questions")
@@ -31,6 +32,9 @@ public class Question {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+    
+    @OneToMany(mappedBy = "question")
+    private List<Response> responses;
 
     public Question() {
     }

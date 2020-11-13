@@ -16,6 +16,10 @@ public class Response {
     @NotNull
     private String body;
 
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private Question question;
+
     public Response() {
     }
 
