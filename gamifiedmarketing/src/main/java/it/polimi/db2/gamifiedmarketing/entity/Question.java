@@ -28,6 +28,10 @@ public class Question {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @ManyToOne
+    @JoinColumn(name="product_id")
+    private Product product;
+
     public Question() {
     }
 
