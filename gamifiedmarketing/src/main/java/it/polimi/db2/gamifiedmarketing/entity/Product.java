@@ -42,6 +42,9 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Question> questions;
 
+    @OneToMany(mappedBy = "product")
+    private List<Submission> submissions;
+
     public Product() {
     }
 
