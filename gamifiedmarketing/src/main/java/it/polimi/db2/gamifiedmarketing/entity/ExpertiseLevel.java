@@ -9,7 +9,7 @@ public enum ExpertiseLevel {
         this.value = value;
     }
 
-    public static ExpertiseLevel getMissionStatusFromInt(int value) {
+    public static ExpertiseLevel getExpertiseLevelFromInt(int value) {
         switch (value) {
             case 0:
                 return ExpertiseLevel.LOW;
