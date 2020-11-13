@@ -24,6 +24,16 @@ public class Product {
     @NotNull
     private String imageUrl;
 
+    public Product() {
+    }
+
+    public Product(String name, Date date, String description, String imageUrl) {
+        this.name = name;
+        this.date = date;
+        this.description = description;
+        this.imageUrl = imageUrl;
+    }
+
     public Integer getId() {
         return id;
     }
