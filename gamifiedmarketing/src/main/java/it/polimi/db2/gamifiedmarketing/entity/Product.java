@@ -3,6 +3,7 @@ package it.polimi.db2.gamifiedmarketing.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "products")
@@ -14,6 +15,9 @@ public class Product {
 
     @NotNull
     private String name;
+
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
     private String description;
 
