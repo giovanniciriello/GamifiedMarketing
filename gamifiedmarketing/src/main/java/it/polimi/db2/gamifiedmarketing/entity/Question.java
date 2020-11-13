@@ -3,6 +3,7 @@ package it.polimi.db2.gamifiedmarketing.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "questions")
@@ -16,6 +17,14 @@ public class Question {
     private String title;
 
     private String subtitle;
+
+    public Question() {
+    }
+
+    public Question(String title, String subtitle) {
+        this.title = title;
+        this.subtitle = subtitle;
+    }
 
     public String getTitle() {
         return title;
