@@ -32,6 +32,22 @@ public class User {
     public User() {
     }
 
+    public User(String first, String last, String email, String password) {
+        this.firstName = first;
+        this.lastName = last;
+        this.email = email;
+        this.password = password;
+        this.role = UserRole.CUSTOMER;
+    }
+
+    public User(String first, String last, String email, String password, UserRole role) {
+        this.firstName = first;
+        this.lastName = last;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -70,5 +86,13 @@ public class User {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
