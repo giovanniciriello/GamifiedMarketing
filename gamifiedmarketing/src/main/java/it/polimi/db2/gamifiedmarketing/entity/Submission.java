@@ -3,6 +3,7 @@ package it.polimi.db2.gamifiedmarketing.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "submissions")
@@ -19,6 +20,16 @@ public class Submission {
     private ExpertiseLevel expertiseLevel;
 
     private SubStatus submissionStatus;
+
+    public Submission() {
+    }
+
+    public Submission(Integer age, Sex sex, ExpertiseLevel expertiseLevel, SubStatus submissionStatus) {
+        this.age = age;
+        this.sex = sex;
+        this.expertiseLevel = expertiseLevel;
+        this.submissionStatus = submissionStatus;
+    }
 
     public Integer getId() {
         return id;
