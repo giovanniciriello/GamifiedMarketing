@@ -138,6 +138,10 @@ public class User {
         product.setUser(this);
     }
 
+    public void removeProduct(Product product){
+        getProducts().remove(product);
+    }
+
     // Methods for the Bi-directional relationship ( User 1:N Submission )
     public List<Submission> getSubmissions() {
         return submissions;
@@ -149,5 +153,9 @@ public class User {
         // Here we must align both sides of the relationship
         // If @submission is new, then invoking persist() on @user cascades also to @submission
         submission.setUser(this);
+    }
+
+    public void removeSubmission(Submission submission){
+        getSubmissions().remove(submission);
     }
 }
