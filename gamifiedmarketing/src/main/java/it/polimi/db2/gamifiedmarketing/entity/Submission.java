@@ -1,12 +1,14 @@
 package it.polimi.db2.gamifiedmarketing.entity;
 
 import com.sun.istack.NotNull;
+import it.polimi.db2.gamifiedmarketing.entity.enums.ExpertiseLevel;
+import it.polimi.db2.gamifiedmarketing.entity.enums.Sex;
+import it.polimi.db2.gamifiedmarketing.entity.enums.SubStatus;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity

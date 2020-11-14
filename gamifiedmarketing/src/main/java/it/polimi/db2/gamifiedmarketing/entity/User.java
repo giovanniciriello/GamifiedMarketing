@@ -1,6 +1,7 @@
 package it.polimi.db2.gamifiedmarketing.entity;
 
 import com.sun.istack.NotNull;
+import it.polimi.db2.gamifiedmarketing.entity.enums.UserRole;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
