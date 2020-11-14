@@ -37,9 +37,10 @@ public class Product {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    // Any product is instantiated by only one administrator
     @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    @JoinColumn(name="admin_id")
+    private User admin;
 
     @OneToMany(mappedBy = "product")
     private List<Question> questions;
@@ -97,11 +98,11 @@ public class Product {
         this.date = date;
     }
 
-    public User getUser(){
-        return this.user;
+    public User getAdmin(){
+        return this.admin;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAdmin(User user) {
+        this.admin = user;
     }
 }

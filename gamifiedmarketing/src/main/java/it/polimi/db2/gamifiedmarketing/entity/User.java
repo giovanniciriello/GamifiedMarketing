@@ -44,8 +44,8 @@ public class User {
     @NotNull
     private Boolean banned;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
-    private List<Product> products;
+    @OneToMany(mappedBy = "admin", cascade = {CascadeType.PERSIST})
+    private List<Product> productsCreated;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
     private List<Submission> submissions;
@@ -125,9 +125,9 @@ public class User {
         this.banned = banned;
     }
 
-    // Methods for the Bi-directional relationship ( User 1:N Product )
+    // Methods for the Bi-directional relationship ( User (admin) 1:N Product )
     public List<Product> getProducts() {
-        return products;
+        return productsCreated;
     }
 
     public void addProduct(Product product){
@@ -135,7 +135,7 @@ public class User {
 
         // Here we must align both sides of the relationship
         // If @product is new, then invoking persist() on @user cascades also to @product
-        product.setUser(this);
+        product.setAdmin(this);
     }
 
     public void removeProduct(Product product){
