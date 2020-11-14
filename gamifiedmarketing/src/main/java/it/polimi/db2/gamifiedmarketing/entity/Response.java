@@ -47,4 +47,11 @@ public class Response {
     public void setBody(String body) {
         this.body = body;
     }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+    }
 }
