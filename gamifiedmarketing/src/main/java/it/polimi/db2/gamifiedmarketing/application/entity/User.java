@@ -25,11 +25,10 @@ public class User {
     private String lastName;
 
     @NotNull
-    @Column(unique=true)
+    @Column(unique = true, length = 128)
     private String email;
 
     @NotNull
-    @Column(nullable = false)
     private String password;
 
     @NotNull
