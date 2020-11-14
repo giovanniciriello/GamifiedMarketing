@@ -1,7 +1,7 @@
-package it.polimi.db2.gamifiedmarketing.controller;
+package it.polimi.db2.gamifiedmarketing.application.controller;
 
-import it.polimi.db2.gamifiedmarketing.entity.User;
-import it.polimi.db2.gamifiedmarketing.repository.UserRepository;
+import it.polimi.db2.gamifiedmarketing.application.entity.User;
+import it.polimi.db2.gamifiedmarketing.application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

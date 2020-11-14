@@ -1,4 +1,4 @@
-package it.polimi.db2.gamifiedmarketing.entity;
+package it.polimi.db2.gamifiedmarketing.application.entity;
 
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.CreationTimestamp;

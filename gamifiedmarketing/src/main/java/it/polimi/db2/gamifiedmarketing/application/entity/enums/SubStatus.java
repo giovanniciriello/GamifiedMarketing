@@ -1,4 +1,4 @@
-package it.polimi.db2.gamifiedmarketing.entity.enums;
+package it.polimi.db2.gamifiedmarketing.application.entity.enums;
 
 public enum SubStatus {
     CREATED(0), CANCELED(1), CONFIRMED(2);

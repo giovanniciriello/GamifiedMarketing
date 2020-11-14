@@ -1,9 +1,9 @@
-package it.polimi.db2.gamifiedmarketing.entity;
+package it.polimi.db2.gamifiedmarketing.application.entity;
 
 import com.sun.istack.NotNull;
-import it.polimi.db2.gamifiedmarketing.entity.enums.ExpertiseLevel;
-import it.polimi.db2.gamifiedmarketing.entity.enums.Sex;
-import it.polimi.db2.gamifiedmarketing.entity.enums.SubStatus;
+import it.polimi.db2.gamifiedmarketing.application.entity.enums.ExpertiseLevel;
+import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
+import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

@@ -1,4 +1,4 @@
-package it.polimi.db2.gamifiedmarketing.entity.enums;
+package it.polimi.db2.gamifiedmarketing.application.entity.enums;
 
 public enum ExpertiseLevel {
     LOW(0), MEDIUM(1), HIGH(2);
