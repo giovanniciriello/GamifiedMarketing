@@ -54,4 +54,12 @@ public class Response {
 
     public void setQuestion(Question question) {
     }
+
+    public Submission getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(Submission submission) {
+        this.submission = submission;
+    }
 }
