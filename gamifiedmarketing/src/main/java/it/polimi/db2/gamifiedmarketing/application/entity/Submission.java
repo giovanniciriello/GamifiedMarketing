@@ -1,6 +1,5 @@
 package it.polimi.db2.gamifiedmarketing.application.entity;
 
-import com.sun.istack.NotNull;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.ExpertiseLevel;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
@@ -8,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 

@@ -1,11 +1,12 @@
 package it.polimi.db2.gamifiedmarketing.application.entity;
 
-import com.sun.istack.NotNull;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.UserRole;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class User {
     private String email;
 
     @NotNull
+    @Column(nullable = false)
     private String password;
 
     @NotNull
@@ -42,6 +44,7 @@ public class User {
     private LocalDateTime updatedAt;
 
     @NotNull
+    @Value("")
     private Boolean banned;
 
     @OneToMany(mappedBy = "admin", cascade = {CascadeType.PERSIST})

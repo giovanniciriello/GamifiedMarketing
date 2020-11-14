@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-@EntityScan(basePackages = "it.polimi.db2.gamifiedmarketing.entity")
 public class GamifiedMarketingApplication {
 
     public static void main(String[] args) {

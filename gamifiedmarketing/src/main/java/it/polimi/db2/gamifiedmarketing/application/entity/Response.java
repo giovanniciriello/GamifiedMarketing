@@ -1,6 +1,6 @@
 package it.polimi.db2.gamifiedmarketing.application.entity;
 
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 
