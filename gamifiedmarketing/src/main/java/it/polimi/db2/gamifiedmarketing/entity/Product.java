@@ -96,4 +96,12 @@ public class Product {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public User getUser(){
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

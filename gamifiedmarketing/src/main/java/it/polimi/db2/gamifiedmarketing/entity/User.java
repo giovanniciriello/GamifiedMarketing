@@ -44,7 +44,7 @@ public class User {
     @NotNull
     private Boolean banned;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
     private List<Product> products;
 
     @OneToMany(mappedBy = "user")
@@ -124,4 +124,18 @@ public class User {
     public void setBanned(Boolean banned) {
         this.banned = banned;
     }
+
+    // Methods for the Bi-directional relationship ( User 1:N Product )
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void addProduct(Product product){
+        getProducts().add(product);
+
+        // Here we must align both sides of the relationship
+        // If @product is new, then invoking persist() on @user cascades also to @product
+        product.setUser(this);
+    }
+
 }
