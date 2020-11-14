@@ -53,6 +53,7 @@ public class Response {
     }
 
     public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public Submission getSubmission() {

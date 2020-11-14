@@ -147,7 +147,7 @@ public class User {
         return submissions;
     }
 
-    public void addSubmissions(Submission submission){
+    public void addSubmission(Submission submission){
         getSubmissions().add(submission);
 
         // Here we must align both sides of the relationship

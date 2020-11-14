@@ -111,7 +111,7 @@ public class Product {
         return questions;
     }
 
-    public void addQuestions(Question question){
+    public void addQuestion(Question question){
         getQuestions().add(question);
 
         // Here we must align both sides of the relationship
@@ -128,7 +128,7 @@ public class Product {
         return submissions;
     }
 
-    public void addSubmissions(Submission submission){
+    public void addSubmission(Submission submission){
         getSubmissions().add(submission);
 
         // Here we must align both sides of the relationship
