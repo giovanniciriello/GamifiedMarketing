@@ -42,10 +42,10 @@ public class Product {
     @JoinColumn(name="admin_id")
     private User admin;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST})
     private List<Question> questions;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST})
     private List<Submission> submissions;
 
     public Product() {
@@ -104,5 +104,39 @@ public class Product {
 
     public void setAdmin(User user) {
         this.admin = user;
+    }
+
+    // Methods for the Bi-directional relationship ( Product 1:N Question )
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void addQuestions(Question question){
+        getQuestions().add(question);
+
+        // Here we must align both sides of the relationship
+        // If @question is new, then invoking persist() on @product cascades also to @question
+        question.setProduct(this);
+    }
+
+    public void removeQuestion(Question question){
+        getQuestions().remove(question);
+    }
+
+    // Methods for the Bi-directional relationship ( Product 1:N Submission )
+    public List<Submission> getSubmissions() {
+        return submissions;
+    }
+
+    public void addSubmissions(Submission submission){
+        getSubmissions().add(submission);
+
+        // Here we must align both sides of the relationship
+        // If @submission is new, then invoking persist() on @product cascades also to @submission
+        submission.setProduct(this);
+    }
+
+    public void removeSubmission(Submission submission){
+        getSubmissions().remove(submission);
     }
 }
