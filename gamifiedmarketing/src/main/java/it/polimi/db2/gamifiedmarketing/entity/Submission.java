@@ -110,4 +110,21 @@ public class Submission {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    // Methods for the Bi-directional relationship ( Submission 1:N Response )
+    public List<Response> getResponses() {
+        return responses;
+    }
+
+    public void addResponse(Response response){
+        getResponses().add(response);
+
+        // Here we must align both sides of the relationship
+        // If @submission is new, then invoking persist() on @user cascades also to @submission
+        response.setSubmission(this);
+    }
+
+    public void removeResponses(Response response){
+        getResponses().remove(responses);
+    }
 }
