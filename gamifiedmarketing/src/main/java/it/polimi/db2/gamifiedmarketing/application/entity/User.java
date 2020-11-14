@@ -25,26 +25,24 @@ public class User {
     private String lastName;
 
     @NotNull
-    @Column(unique=true)
+    @Column(unique = true, length = 128)
     private String email;
 
     @NotNull
-    @Column(nullable = false)
     private String password;
 
     @NotNull
     @Enumerated
     private UserRole role;
 
-    @CreationTimestamp
     @NotNull
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @NotNull
-    @Value("")
     private Boolean banned;
 
     @OneToMany(mappedBy = "admin", cascade = {CascadeType.PERSIST})
@@ -61,6 +59,7 @@ public class User {
         this.lastName = last;
         this.email = email;
         this.password = password;
+        this.banned = false;
         this.role = UserRole.CUSTOMER;
     }
 
@@ -68,6 +67,7 @@ public class User {
         this.firstName = first;
         this.lastName = last;
         this.email = email;
+        this.banned = false;
         this.password = password;
         this.role = role;
     }
