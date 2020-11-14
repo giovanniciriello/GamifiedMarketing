@@ -13,9 +13,7 @@ public class UserController {
 
     @PostMapping("/add")
     public String addUser(@RequestParam String first, @RequestParam String last) {
-        User user = new User();
-        user.setFirstName(first);
-        user.setLastName(last);
+        User user = new User("Matteo", "Giordano", "email@email.it", "pwd");
         userRepository.save(user);
         return "Added new user to repo!";
     }
