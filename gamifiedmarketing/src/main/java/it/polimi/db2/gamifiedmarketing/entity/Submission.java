@@ -94,4 +94,12 @@ public class Submission {
     public void setSubmissionStatus(SubStatus submissionStatus) {
         this.submissionStatus = submissionStatus;
     }
+
+    public User getUser(){
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

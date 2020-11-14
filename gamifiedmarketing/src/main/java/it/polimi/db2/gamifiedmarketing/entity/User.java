@@ -47,7 +47,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
     private List<Product> products;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
     private List<Submission> submissions;
 
     public User() {
@@ -138,4 +138,16 @@ public class User {
         product.setUser(this);
     }
 
+    // Methods for the Bi-directional relationship ( User 1:N Submission )
+    public List<Submission> getSubmissions() {
+        return submissions;
+    }
+
+    public void addSubmissions(Submission submission){
+        getSubmissions().add(submission);
+
+        // Here we must align both sides of the relationship
+        // If @submission is new, then invoking persist() on @user cascades also to @submission
+        submission.setUser(this);
+    }
 }
