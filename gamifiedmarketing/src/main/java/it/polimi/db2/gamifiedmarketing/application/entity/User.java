@@ -34,8 +34,7 @@ public class User {
     @NotNull
     @Enumerated
     private UserRole role;
-
-    @NotNull
+    
     @CreationTimestamp
     @Column(updatable=false)
     private LocalDateTime createdAt;
