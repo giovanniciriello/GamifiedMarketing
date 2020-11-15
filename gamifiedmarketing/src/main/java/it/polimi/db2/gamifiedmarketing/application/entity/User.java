@@ -1,6 +1,7 @@
 package it.polimi.db2.gamifiedmarketing.application.entity;
 
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.UserRole;
+import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -41,8 +42,7 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @NotNull
-    private Boolean banned;
+    private LocalDateTime bannedAt;
 
     @OneToMany(mappedBy = "admin", cascade = {CascadeType.PERSIST})
     private List<Product> productsCreated;
@@ -58,7 +58,6 @@ public class User {
         this.lastName = last;
         this.email = email;
         this.password = password;
-        this.banned = false;
         this.role = UserRole.CUSTOMER;
     }
 
@@ -66,7 +65,6 @@ public class User {
         this.firstName = first;
         this.lastName = last;
         this.email = email;
-        this.banned = false;
         this.password = password;
         this.role = role;
     }
@@ -119,12 +117,12 @@ public class User {
         this.id = id;
     }
 
-    public Boolean getBanned() {
-        return banned;
+    public LocalDateTime getBanned() {
+        return bannedAt;
     }
 
-    public void setBanned(Boolean banned) {
-        this.banned = banned;
+    public void setBanned(LocalDateTime bannedAt) {
+        this.bannedAt = bannedAt;
     }
 
     // Methods for the Bi-directional relationship ( User (admin) 1:N Product )
