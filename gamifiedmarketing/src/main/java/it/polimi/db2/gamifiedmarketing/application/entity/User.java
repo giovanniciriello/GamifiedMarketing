@@ -3,7 +3,6 @@ package it.polimi.db2.gamifiedmarketing.application.entity;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.UserRole;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
