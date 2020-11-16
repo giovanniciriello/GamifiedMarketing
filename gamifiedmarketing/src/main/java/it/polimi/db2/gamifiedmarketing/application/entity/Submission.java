@@ -19,6 +19,8 @@ public class Submission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private Integer points;
+
     private Integer age;
 
     private Sex sex;
@@ -126,5 +128,13 @@ public class Submission {
 
     public void removeResponses(Response response){
         getResponses().remove(responses);
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }
