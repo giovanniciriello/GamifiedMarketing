@@ -1,5 +1,6 @@
 package it.polimi.db2.gamifiedmarketing.application.entity;
 
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +10,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+@Data
+@Builder
+@NoArgsConstructor
 @Entity
 @Table(name = "products")
 public class Product {
@@ -42,68 +46,21 @@ public class Product {
     @JoinColumn(name="admin_id")
     private User admin;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST})
     private List<Question> questions;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST})
     private List<Submission> submissions;
-
-    public Product() {
-    }
 
     public Product(String name, Date date, String description, String imageUrl) {
         this.name = name;
         this.date = date;
         this.description = description;
         this.imageUrl = imageUrl;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public User getAdmin(){
-        return this.admin;
-    }
-
-    public void setAdmin(User user) {
-        this.admin = user;
     }
 
     // Methods for the Bi-directional relationship ( Product 1:N Question )

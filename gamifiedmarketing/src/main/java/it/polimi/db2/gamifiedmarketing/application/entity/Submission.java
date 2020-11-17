@@ -3,6 +3,7 @@ package it.polimi.db2.gamifiedmarketing.application.entity;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.ExpertiseLevel;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,6 +12,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
+@Builder
+@NoArgsConstructor
 @Entity
 @Table(name = "submissions")
 public class Submission {
@@ -44,73 +48,16 @@ public class Submission {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "submission")
     private List<Response> responses;
-
-    public Submission() {
-    }
 
     public Submission(Integer age, Sex sex, ExpertiseLevel expertiseLevel, SubStatus submissionStatus) {
         this.age = age;
         this.sex = sex;
         this.expertiseLevel = expertiseLevel;
         this.submissionStatus = submissionStatus;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
-    public ExpertiseLevel getExpertiseLevel() {
-        return expertiseLevel;
-    }
-
-    public void setExpertiseLevel(ExpertiseLevel expertiseLevel) {
-        this.expertiseLevel = expertiseLevel;
-    }
-
-    public SubStatus getSubmissionStatus() {
-        return submissionStatus;
-    }
-
-    public void setSubmissionStatus(SubStatus submissionStatus) {
-        this.submissionStatus = submissionStatus;
-    }
-
-    public User getUser(){
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     // Methods for the Bi-directional relationship ( Submission 1:N Response )

@@ -1,5 +1,6 @@
 package it.polimi.db2.gamifiedmarketing.application;
 
+import it.polimi.db2.gamifiedmarketing.application.entity.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
