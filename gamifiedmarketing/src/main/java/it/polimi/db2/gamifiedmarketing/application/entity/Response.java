@@ -6,9 +6,9 @@ import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
 @Data
 @Builder
-@NoArgsConstructor
 @Entity
 @Table(name = "responses")
 public class Response {

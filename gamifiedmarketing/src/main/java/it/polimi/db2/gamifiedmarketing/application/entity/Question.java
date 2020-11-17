@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@NoArgsConstructor
 @Data
 @Builder
-@NoArgsConstructor
 @Entity
 @Table(name = "questions")
 public class Question {

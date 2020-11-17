@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+@NoArgsConstructor
 @Data
 @Builder
-@NoArgsConstructor
 @Entity
 @Table(name = "products")
 public class Product {
