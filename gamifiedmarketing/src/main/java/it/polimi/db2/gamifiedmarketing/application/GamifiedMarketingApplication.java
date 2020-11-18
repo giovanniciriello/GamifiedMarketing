@@ -62,5 +62,4 @@ public class GamifiedMarketingApplication {
         // --- Questions --- \\
         Question question1 = Question.builder().title("Do you like it?").build();
     }
-
 }
