@@ -10,5 +10,5 @@ public class GamifiedMarketingApplication {
     public static void main(String[] args) {
         SpringApplication.run(GamifiedMarketingApplication.class, args);
     }
-
+    
 }
