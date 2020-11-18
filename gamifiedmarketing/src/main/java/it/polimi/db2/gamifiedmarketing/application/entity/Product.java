@@ -41,7 +41,8 @@ public class Product {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    // Any product is instantiated by only one administrator
+    /* Any product is instantiated by only one administrator
+     */
     @ManyToOne
     @JoinColumn(name="admin_id")
     private User admin;

@@ -37,7 +37,7 @@ public class User {
     private Boolean isAdmin;
 
     @CreationTimestamp
-    @Column(updatable=false)
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
@@ -45,9 +45,17 @@ public class User {
 
     private LocalDateTime bannedAt;
 
+    /*
+     * CascadeType Policies:
+     *  --> PERSIST     If Admin is persisted, then also the products he created
+     *  --> REMOVE      If Admin is removed, then also the products he created
+     *  --> MERGE       If Admin is merged (saved but yet exists), then also the products he created
+     *  --> REFRESH     Not needed
+     *  --> DETACH      Not needed
+     */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "admin", cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "admin", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Product> productsCreated;
 
     @Getter(AccessLevel.NONE)
