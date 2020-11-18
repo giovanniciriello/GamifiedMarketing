@@ -11,9 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@NoArgsConstructor
-@Data
-@Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
 @Table(name = "users")
 public class User {
@@ -58,22 +56,6 @@ public class User {
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
     private List<Submission> submissions;
-
-    public User(String first, String last, String email, String password) {
-        this.firstName = first;
-        this.lastName = last;
-        this.email = email;
-        this.password = password;
-        this.role = UserRole.CUSTOMER;
-    }
-
-    public User(String first, String last, String email, String password, UserRole role) {
-        this.firstName = first;
-        this.lastName = last;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
 
     // Methods for the Bi-directional relationship ( User (admin) 1:N Product )
     public List<Product> getProducts() {

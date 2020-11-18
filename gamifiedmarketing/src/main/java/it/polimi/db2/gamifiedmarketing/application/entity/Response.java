@@ -6,9 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
-@Data
-@Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
 @Table(name = "responses")
 public class Response {
@@ -28,5 +26,4 @@ public class Response {
     @ManyToOne
     @JoinColumn(name = "submission_id")
     private Submission submission;
-
 }

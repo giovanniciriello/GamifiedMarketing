@@ -12,9 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@NoArgsConstructor
-@Data
-@Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
 @Table(name = "submissions")
 public class Submission {
@@ -53,13 +51,6 @@ public class Submission {
     @OneToMany(mappedBy = "submission")
     private List<Response> responses;
 
-    public Submission(Integer age, Sex sex, ExpertiseLevel expertiseLevel, SubStatus submissionStatus) {
-        this.age = age;
-        this.sex = sex;
-        this.expertiseLevel = expertiseLevel;
-        this.submissionStatus = submissionStatus;
-    }
-
     // Methods for the Bi-directional relationship ( Submission 1:N Response )
     public List<Response> getResponses() {
         return responses;
@@ -75,13 +66,5 @@ public class Submission {
 
     public void removeResponses(Response response){
         getResponses().remove(responses);
-    }
-
-    public Integer getPoints() {
-        return points;
-    }
-
-    public void setPoints(Integer points) {
-        this.points = points;
     }
 }

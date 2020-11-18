@@ -10,9 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-@NoArgsConstructor
-@Data
-@Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
 @Table(name = "products")
 public class Product {
@@ -55,13 +53,6 @@ public class Product {
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST})
     private List<Submission> submissions;
-
-    public Product(String name, Date date, String description, String imageUrl) {
-        this.name = name;
-        this.date = date;
-        this.description = description;
-        this.imageUrl = imageUrl;
-    }
 
     // Methods for the Bi-directional relationship ( Product 1:N Question )
     public List<Question> getQuestions() {

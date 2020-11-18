@@ -9,9 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@NoArgsConstructor
-@Data
-@Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
 @Table(name = "questions")
 public class Question {
@@ -41,11 +39,6 @@ public class Question {
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "question")
     private List<Response> responses;
-
-    public Question(String title, String subtitle) {
-        this.title = title;
-        this.subtitle = subtitle;
-    }
 
     // Methods for the Bi-directional relationship ( Question 1:N Response )
     public List<Response> getResponses() {
