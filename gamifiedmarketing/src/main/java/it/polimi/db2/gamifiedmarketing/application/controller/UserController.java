@@ -13,10 +13,14 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/test")
-    public String index(Model model) {
-        model.addAttribute("greeting", "Giovanni");
+    @GetMapping("/home")
+    public String getHomePage() {
         return "home";
+    }
+
+    @GetMapping("/questionnaire")
+    public String getQuestionnairePage() {
+        return "questionnaire";
     }
 
     @PostMapping("/add")
