@@ -12,10 +12,12 @@ public class UserService {
     @Autowired
     public UserRepository userRepository;
 
+    /*
     public void addUser(String firstName, String lastName, String email, String password) {
         User user = new User(firstName, lastName, email, password);
         userRepository.save(user);
     }
+     */
 
     public void updateUser(User user){
         userRepository.save(user);
