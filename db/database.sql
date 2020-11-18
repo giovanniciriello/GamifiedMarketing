@@ -4,12 +4,13 @@ create table users
 		primary key,
 	first_name varchar(255) not null,
 	last_name varchar(255) not null,
-	email varchar(255) not null,
+	email varchar(128) not null,
 	password varchar(255) not null,
 	created_at timestamp default CURRENT_TIMESTAMP not null,
 	updated_at timestamp default CURRENT_TIMESTAMP null,
 	role enum('ADMIN', 'CUSTOMER') default 'CUSTOMER' not null,
-	deleted_at timestamp null,
+	-- deleted_at timestamp null,
+	banned_at timestamp null,
 	constraint users_email_uindex
 		unique (email)
 );
@@ -55,7 +56,7 @@ create table submissions
 	age int null,
 	sex enum('M', 'F') null,
 	expertise_level enum('LOW', 'MEDIUM', 'HIGH') null,
-	deleted_at timestamp null,
+	-- deleted_at timestamp null,
 	status enum('CREATED', 'CANCELED', 'CONFIRMED') default 'CREATED' null,
 	constraint submissions_products_id_fk
 		foreign key (product_id) references products (id),

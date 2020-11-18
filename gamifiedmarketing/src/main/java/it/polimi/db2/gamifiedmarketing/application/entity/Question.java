@@ -1,5 +1,6 @@
 package it.polimi.db2.gamifiedmarketing.application.entity;
 
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
 @Table(name = "questions")
 public class Question {
@@ -23,7 +25,7 @@ public class Question {
     private String subtitle;
 
     @CreationTimestamp
-    @NotNull
+    @Column(updatable=false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
@@ -33,48 +35,10 @@ public class Question {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "question")
     private List<Response> responses;
-
-    public Question() {
-    }
-
-    public Question(String title, String subtitle) {
-        this.title = title;
-        this.subtitle = subtitle;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getSubtitle() {
-        return subtitle;
-    }
-
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     // Methods for the Bi-directional relationship ( Question 1:N Response )
     public List<Response> getResponses() {
