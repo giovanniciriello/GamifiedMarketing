@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments :: head"></div>
+
+<!-- .sidebar-mini -->
+<body class="hold-transition layout-top-nav">
+
+<div class="wrapper">
+
+
+    <div th:replace="fragments :: navbar"></div>
+
+    <!--/*
+    <div th:replace="fragments :: sidebar"></div>
+    */-->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Questionnaire</h1>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container">
+
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            💡 <span class="ml-2">Questionnaire form</span>
+                        </h3>
+                    </div>
+                    <div id="general-questions-body" class="card-body">
+
+                        <div class="d-flex align-items-center">
+                            <img src="dist/img/product-placeholder.jpg" class="img-fluid" style="height: 40px;">
+                            <h4 class="text-center ml-4">Apple AirPods con custodia di ricarica wireless</h4>
+                        </div>
+                        <hr>
+
+                        <div class="callout callout-info">
+                            <h5><span class="badge badge-info">1</span> What do you think about this product?</h5>
+                            <textarea class="form-control" cols="30" rows="4" placeholder="Write your answer here..."></textarea>
+                        </div>
+
+                        <div class="callout callout-info">
+                            <h5><span class="badge badge-info">2</span> Did you eat your product?</h5>
+                            <textarea class="form-control" cols="30" rows="4" placeholder="Write your answer here..."></textarea>
+                        </div>
+
+                        <div class="callout callout-info">
+                            <h5><span class="badge badge-info">3</span> Are u sure sure sure sure about it?</h5>
+                            <textarea class="form-control" cols="30" rows="4" placeholder="Write your answer here..."></textarea>
+                        </div>
+
+                        <div class="callout callout-info">
+                            <h5><span class="badge badge-info">4</span> I think you are lying. I give you last possibility. Are u sure?</h5>
+                            <textarea class="form-control" cols="30" rows="4" placeholder="Write your answer here..."></textarea>
+                        </div>
+
+                        <div class="callout callout-info">
+                            <h5><span class="badge badge-info">5</span> Hey what's up?</h5>
+                            <textarea class="form-control" cols="30" rows="4" placeholder="Write your answer here..."></textarea>
+                        </div>
+
+
+                    </div>
+
+                    <div id="marketing-questions-body" style="display: none;" class="card-body">
+                        <form class="form-horizontal">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label for="age" class="col-sm-2 col-form-label">Your age *</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="age" placeholder="Your age">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Your sex *</label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="sex-male" name="sex">
+                                                <label class="form-check-label" for="sex-male">Male</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="sex-female" name="sex" checked="">
+                                                <label class="form-check-label" for="sex-female">Female</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Your expertise level *</label>
+                                    <div class="col-sm-10">
+                                        <select id="expertise-level" class="form-control">
+                                            <option value="LOW">Low</option>
+                                            <option value="MEDIUM" selected>Medium</option>
+                                            <option value="EXPERTISE">Expertise Level</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <p class="mt-5 text-right text-muted">* The field is required</p>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card-footer text-right">
+                        <a href="/cancel" class="btn btn-danger">Cancel</a>
+                        <a href="javascript:void(0);" class="btn btn-primary" onclick="nextFormStep()">Next Step 👉</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="fragments :: footer"></div>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<div th:replace="fragments :: js"></div>
+
+<script type="text/javascript">
+
+    let step = 1;
+
+    function nextFormStep(){
+        if(step === 1){
+            step = 2;
+            $('#general-questions-body').fadeOut(400, function (){
+                $('#marketing-questions-body').fadeIn(400);
+            })
+        }else if(step === 2){
+            // post request
+        }
+    }
+
+</script>
+
+</body>
+</html>

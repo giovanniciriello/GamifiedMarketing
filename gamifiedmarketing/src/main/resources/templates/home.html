@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments :: head"></div>
+
+<!-- .sidebar-mini -->
+<body class="hold-transition layout-top-nav">
+
+    <div class="wrapper">
+
+
+        <div th:replace="fragments :: navbar"></div>
+
+        <!--/*
+        <div th:replace="fragments :: sidebar"></div>
+        */-->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Home</h1>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container">
+
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                💡 <span class="ml-2">Product of the day</span>
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 p-5">
+                                    <img src="dist/img/product-placeholder.jpg" class="img-fluid">
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div>
+                                        <h2 class="text-center">Apple AirPods con custodia di ricarica wireless</h2>
+
+                                        <p class="my-5">
+                                            Si accendono automaticamente e si collegano all’istante
+                                            Si configurano facilmente con tutti i tuoi dispositivi Apple
+                                            Siri si attiva in un attimo, basta dire “Ehi Siri”
+                                            Ti basta un doppio tap per far partire un brano o passare a quello successivo
+                                            Il nuovo chip Apple H1 garantisce connessioni wireless più rapide ai tuoi dispositivi
+                                        </p>
+
+                                        <div class="text-right">
+                                            <a href="/questionnaire" class="btn btn-primary">Make the questionnaire</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <div th:replace="fragments :: footer"></div>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <div th:replace="fragments :: js"></div>
+</body>
+</html>
