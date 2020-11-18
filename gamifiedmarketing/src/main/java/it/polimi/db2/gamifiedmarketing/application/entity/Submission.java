@@ -32,7 +32,7 @@ public class Submission {
     private SubStatus submissionStatus;
 
     @CreationTimestamp
-    @NotNull
+    @Column(updatable=false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

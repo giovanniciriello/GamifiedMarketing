@@ -25,7 +25,7 @@ public class Question {
     private String subtitle;
 
     @CreationTimestamp
-    @NotNull
+    @Column(updatable=false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
