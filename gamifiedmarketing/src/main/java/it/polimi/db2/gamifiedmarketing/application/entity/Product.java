@@ -26,7 +26,6 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     @Column(unique=true)
     @NotNull
@@ -36,7 +35,7 @@ public class Product {
     private String imageUrl;
 
     @CreationTimestamp
-    @NotNull
+    @Column(updatable=false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
