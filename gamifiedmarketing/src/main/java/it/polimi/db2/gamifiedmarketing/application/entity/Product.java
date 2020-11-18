@@ -1,14 +1,17 @@
 package it.polimi.db2.gamifiedmarketing.application.entity;
 
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
 @Table(name = "products")
 public class Product {
@@ -23,88 +26,36 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     @Column(unique=true)
-    private Date date;
+    @NotNull
+    private LocalDate date;
 
     @Column(length=1024)
     private String imageUrl;
 
     @CreationTimestamp
-    @NotNull
+    @Column(updatable=false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    // Any product is instantiated by only one administrator
+    /* Any product is instantiated by only one administrator
+     */
     @ManyToOne
     @JoinColumn(name="admin_id")
     private User admin;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST})
     private List<Question> questions;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST})
     private List<Submission> submissions;
-
-    public Product() {
-    }
-
-    public Product(String name, Date date, String description, String imageUrl) {
-        this.name = name;
-        this.date = date;
-        this.description = description;
-        this.imageUrl = imageUrl;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public User getAdmin(){
-        return this.admin;
-    }
-
-    public void setAdmin(User user) {
-        this.admin = user;
-    }
 
     // Methods for the Bi-directional relationship ( Product 1:N Question )
     public List<Question> getQuestions() {
