@@ -39,7 +39,7 @@
                             💡 <span class="ml-2">Questionnaire form</span>
                         </h3>
                     </div>
-                    <div class="card-body d-none">
+                    <div id="general-questions-body" class="card-body">
 
                         <div class="d-flex align-items-center">
                             <img src="dist/img/product-placeholder.jpg" class="img-fluid" style="height: 40px;">
@@ -75,7 +75,7 @@
 
                     </div>
 
-                    <div class="card-body">
+                    <div id="marketing-questions-body" style="display: none;" class="card-body">
                         <form class="form-horizontal">
                             <div class="card-body">
                                 <div class="form-group row">
@@ -117,9 +117,10 @@
 
                     <div class="card-footer text-right">
                         <a href="/cancel" class="btn btn-danger">Cancel</a>
-                        <a href="javascript:void(0);" class="btn btn-primary">Next Step 👉</a>
+                        <a href="javascript:void(0);" class="btn btn-primary" onclick="nextFormStep()">Next Step 👉</a>
                     </div>
                 </div>
+
             </div>
         </section>
         <!-- /.content -->
@@ -137,5 +138,23 @@
 <!-- ./wrapper -->
 
 <div th:replace="fragments :: js"></div>
+
+<script type="text/javascript">
+
+    let step = 1;
+
+    function nextFormStep(){
+        if(step === 1){
+            step = 2;
+            $('#general-questions-body').fadeOut(400, function (){
+                $('#marketing-questions-body').fadeIn(400);
+            })
+        }else if(step === 2){
+            // post request
+        }
+    }
+
+</script>
+
 </body>
 </html>
