@@ -3,11 +3,12 @@ package it.polimi.db2.gamifiedmarketing.application.entity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
@@ -26,9 +27,10 @@ public class Product {
     private String description;
 
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     @Column(unique=true)
     @NotNull
-    private Date date;
+    private LocalDate date;
 
     @Column(length=1024)
     private String imageUrl;
