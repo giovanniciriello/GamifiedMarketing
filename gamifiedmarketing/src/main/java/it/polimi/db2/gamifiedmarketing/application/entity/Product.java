@@ -27,6 +27,7 @@ public class Product {
 
     @Temporal(TemporalType.DATE)
     @Column(unique=true)
+    @NotNull
     private Date date;
 
     @Column(length=1024)
