@@ -47,9 +47,17 @@ public class Product {
     @JoinColumn(name="admin_id")
     private User admin;
 
+    /*
+     * CascadeType Policies:
+     *  --> PERSIST     If Product is persisted, then also the related questions
+     *  --> REMOVE      If Product is removed, then also the related questions
+     *  --> MERGE       If Product is merged (saved but yet exists), then also the related questions
+     *  --> REFRESH     Not needed
+     *  --> DETACH      Not needed
+     */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Question> questions;
 
     @Getter(AccessLevel.NONE)
