@@ -46,9 +46,17 @@ public class Submission {
     @JoinColumn(name = "user_id")
     private User user;
 
+    /*
+     * CascadeType Policies:
+     *  --> PERSIST     If Submission is persisted, then also the related responses
+     *  --> REMOVE      If Submission is removed, then also the related responses
+     *  --> MERGE       Similar reason to persist
+     *  --> REFRESH     Not needed
+     *  --> DETACH      Not needed
+     */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "submission")
+    @OneToMany(mappedBy = "submission", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Response> responses;
 
     // Methods for the Bi-directional relationship ( Submission 1:N Response )

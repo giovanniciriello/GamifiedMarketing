@@ -58,9 +58,17 @@ public class User {
     @OneToMany(mappedBy = "admin", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Product> productsCreated;
 
+    /*
+     * CascadeType Policies:
+     *  --> PERSIST     If User is persisted, then also the related submissions
+     *  --> REMOVE      If User is removed, then also the related submissions
+     *  --> MERGE       If User is merged, then also the related submissions
+     *  --> REFRESH     Not needed
+     *  --> DETACH      Not needed
+     */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Submission> submissions;
 
     // Methods for the Bi-directional relationship ( User (admin) 1:N Product )

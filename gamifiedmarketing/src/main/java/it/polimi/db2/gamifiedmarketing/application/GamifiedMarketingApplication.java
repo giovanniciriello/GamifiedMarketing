@@ -1,8 +1,9 @@
 package it.polimi.db2.gamifiedmarketing.application;
 
-import it.polimi.db2.gamifiedmarketing.application.entity.Product;
-import it.polimi.db2.gamifiedmarketing.application.entity.Question;
-import it.polimi.db2.gamifiedmarketing.application.entity.User;
+import it.polimi.db2.gamifiedmarketing.application.entity.*;
+import it.polimi.db2.gamifiedmarketing.application.entity.enums.ExpertiseLevel;
+import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
+import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
 import it.polimi.db2.gamifiedmarketing.application.repository.ProductRepository;
 import it.polimi.db2.gamifiedmarketing.application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,23 +58,49 @@ public class GamifiedMarketingApplication {
         admin2.addProduct(product3);
 
         // --- Questions --- \\
-        Question question1_1 = Question.builder().title("Do you like it?").subtitle("Subtitle 1").build();
-        Question question2_1 = Question.builder().title("Would you buy it?").subtitle("Subtitle 2").build();
+        Question question1_1 = Question.builder().title("Do you like it?").subtitle("Subtitle 1").responses(new ArrayList<>()).build();
+        Question question2_1 = Question.builder().title("Would you buy it?").subtitle("Subtitle 2").responses(new ArrayList<>()).build();
         product1.addQuestion(question1_1);
         product1.addQuestion(question2_1);
 
-        Question question1_2 = Question.builder().title("Do you like it?").subtitle("Subtitle 1").build();
-        Question question2_2 = Question.builder().title("Would you buy it?").subtitle("Subtitle 2").build();
+        Question question1_2 = Question.builder().title("Do you like it?").subtitle("Subtitle 1").responses(new ArrayList<>()).build();
+        Question question2_2 = Question.builder().title("Would you buy it?").subtitle("Subtitle 2").responses(new ArrayList<>()).build();
         product2.addQuestion(question1_2);
         product2.addQuestion(question2_2);
 
-        Question question1_3 = Question.builder().title("Do you like it?").subtitle("Subtitle 1").build();
-        Question question2_3 = Question.builder().title("Would you buy it?").subtitle("Subtitle 2").build();
+        Question question1_3 = Question.builder().title("Do you like it?").subtitle("Subtitle 1").responses(new ArrayList<>()).build();
+        Question question2_3 = Question.builder().title("Would you buy it?").subtitle("Subtitle 2").responses(new ArrayList<>()).build();
         product3.addQuestion(question1_3);
         product3.addQuestion(question2_3);
 
+        // Here (persisting the admin) is exampled the use case of the admin that create a new product with related questions.
         userRepository.save(admin1);
         userRepository.save(admin2);
-        // Here is exampled the use case of the admin that create a new product with related questions.
+
+        // --- Responses --- \\
+        Response response1_1 = Response.builder().body("No").build();
+        Response response2_1 = Response.builder().body("Yes").build();
+        question1_1.addResponse(response1_1);
+        question2_1.addResponse(response2_1);
+
+//        Response response1_2 = Response.builder().body("No").build();
+//        Response response2_2 = Response.builder().body("Yes").build();
+//        question1_2.addResponse(response1_2);
+//        question2_2.addResponse(response2_2);
+
+        // --- Submissions --- \\
+        Submission sub_user1 = Submission.builder().age(12).expertiseLevel(ExpertiseLevel.LOW).sex(Sex.MALE).submissionStatus(SubStatus.CONFIRMED).responses(new ArrayList<>()).build();
+        user1.addSubmission(sub_user1);
+        sub_user1.setProduct(product1);
+        sub_user1.addResponse(response1_1);
+        sub_user1.addResponse(response2_1);
+
+        Submission sub_user2 = Submission.builder().age(24).expertiseLevel(ExpertiseLevel.HIGH).sex(Sex.FEMALE).submissionStatus(SubStatus.CANCELED).responses(new ArrayList<>()).build();
+        user2.addSubmission(sub_user2);
+        sub_user2.setProduct(product2);
+
+        // Here (persisting the user) is exampled the use case of the user that submit/cancel a new submission with related answers.
+        userRepository.save(user1);
+        userRepository.save(user2);
     }
 }
