@@ -42,6 +42,7 @@ public class UserController {
 
     @GetMapping("/submission/create")
     public String getQuestionnairePage(Model model) {
+        // TODO From session (Spring Security) get the User and see if banned. If yes go to ban page, if not do the following
         Submission submission = submissionService.createSubmission();
         // Possible need for the Submission ID
         model.addAttribute("submission", submission);
