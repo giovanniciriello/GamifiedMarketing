@@ -2,6 +2,9 @@ package it.polimi.db2.gamifiedmarketing.application.controller;
 
 import it.polimi.db2.gamifiedmarketing.application.entity.Product;
 import it.polimi.db2.gamifiedmarketing.application.entity.Submission;
+import it.polimi.db2.gamifiedmarketing.application.entity.User;
+import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
+import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
 import it.polimi.db2.gamifiedmarketing.application.service.ProductService;
 import it.polimi.db2.gamifiedmarketing.application.service.SubmissionService;
 import it.polimi.db2.gamifiedmarketing.application.service.UserService;
@@ -10,14 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 public class UserController {
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private ProductService productService;
@@ -32,16 +33,24 @@ public class UserController {
         return "home";
     }
 
-    @GetMapping("/questionnaire")
-    public String getQuestionnairePage() {
-        return "questionnaire";
-    }
-
-
     @GetMapping("/leaderboard")
     public String getLeaderBoardPage(Model model){
         List<Submission> subs = submissionService.getAllSubmissionOfTheDay();
         model.addAttribute("submissions", subs);
         return "leaderboard";
+    }
+
+    @GetMapping("/submission/create")
+    public String getQuestionnairePage(Model model) {
+        Submission submission = submissionService.createSubmission();
+        // Possible need for the Submission ID
+        model.addAttribute("submission", submission);
+        return "questionnaire";
+    }
+
+    @DeleteMapping("/submission/{id}/cancel")
+    @ResponseBody
+    public ViewResponse deleteSubmission(@PathVariable Integer id) {
+        return submissionService.deleteSubmission(id);
     }
 }
