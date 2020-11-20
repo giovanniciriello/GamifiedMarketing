@@ -39,11 +39,8 @@ public class UserController {
 
 
     @GetMapping("/leaderboard")
-    public String goToLeaderBoard(Model model){
+    public String getLeaderBoardPage(Model model){
         List<Submission> subs = submissionService.getAllSubmissionOfTheDay();
-
-        // Result can be accessed in Thymeleaf pages with ${submissions}
-        // TODO In this way we do not have the email of the users but only their IDs
         model.addAttribute("submissions", subs);
         return "leaderboard";
     }
