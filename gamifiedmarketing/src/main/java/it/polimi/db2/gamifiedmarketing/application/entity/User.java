@@ -3,7 +3,6 @@ package it.polimi.db2.gamifiedmarketing.application.entity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

@@ -53,4 +53,14 @@ public class UserController {
     public ViewResponse deleteSubmission(@PathVariable Integer id) {
         return submissionService.deleteSubmission(id);
     }
+
+    @PutMapping("/submission/{id}/submit")
+    @ResponseBody
+    public ViewResponse submitSubmission(@PathVariable Integer id, @RequestBody Submission submission) {
+      /*   TODO Check if RequestBody properly map the Put HTTP request body to submission. If yes
+       *    then fix the relationships and save(submission). If no, manually find the submission from the id
+       *    and manally add all the new fields and then save(submission)
+       */
+        return submissionService.submitSubmission(id, submission);
+    }
 }

@@ -53,4 +53,15 @@ public class SubmissionService {
             return new ViewResponse(false, errors);
         }
     }
+
+    public ViewResponse submitSubmission(Integer id, Submission submission) {
+        try {
+            // TODO Here the body of the previous TODO
+            return new ViewResponse(true, submission, null);
+        } catch (Exception e) {
+            var errors = new ArrayList<String>();
+            errors.add(e.getMessage());
+            return new ViewResponse(false, errors);
+        }
+    }
 }
