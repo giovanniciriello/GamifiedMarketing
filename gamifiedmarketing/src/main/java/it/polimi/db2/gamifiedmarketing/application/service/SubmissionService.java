@@ -56,6 +56,8 @@ public class SubmissionService {
 
     public ViewResponse submitSubmission(Integer id, Submission submission) {
         try {
+            // TODO Check on offensive words !!
+
             // TODO Here the body of the previous TODO
             return new ViewResponse(true, submission, null);
         } catch (Exception e) {
