@@ -53,10 +53,15 @@ public class Submission {
      *  --> MERGE       Similar reason to persist
      *  --> REFRESH     Not needed
      *  --> DETACH      Not needed
+     *
+     *
+     * Fetch Policies:
+     *  ---> FetchType.EAGER        1. When getting to /home we need submissions and relative responses too
+     *                              3. When Admin goes to the inspection page and choose a product, we must show the responses of each user
      */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "submission", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "submission", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private List<Response> responses;
 
     // Methods for the Bi-directional relationship ( Submission 1:N Response )

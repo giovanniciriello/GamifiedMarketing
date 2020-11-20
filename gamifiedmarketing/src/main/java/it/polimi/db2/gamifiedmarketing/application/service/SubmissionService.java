@@ -7,7 +7,7 @@ import it.polimi.db2.gamifiedmarketing.application.repository.SubmissionReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -21,7 +21,7 @@ public class SubmissionService {
 
     public List<Submission> getAllSubmissionOfTheDay() {
 //        return submissionRepository.getAllSubmissionOfTheDay();
-        Product productOfTheDay = productRepository.findByDate(new Date());
+        Product productOfTheDay = productRepository.findByDate(LocalDate.now());
         List<Submission> subs = submissionRepository.findByProductId(productOfTheDay.getId());
         return subs;
     }
