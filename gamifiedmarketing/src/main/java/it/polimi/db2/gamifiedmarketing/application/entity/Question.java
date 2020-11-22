@@ -35,9 +35,17 @@ public class Question {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    /*
+     * CascadeType Policies:
+     *  --> PERSIST     Not needed, responses come after the question creation!
+     *  --> REMOVE      If Question is removed, then also the related responses
+     *  --> MERGE       Not needed
+     *  --> REFRESH     Not needed
+     *  --> DETACH      Not needed
+     */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Response> responses;
 
     // Methods for the Bi-directional relationship ( Question 1:N Response )
