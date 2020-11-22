@@ -15,9 +15,9 @@ public interface SubmissionRepository extends CrudRepository<Submission, Integer
 
     //public List<Submission> findAllByCreatedAt_Date(LocalDate localDate);
     @Query("SELECT S\n"
-            + "FROM Submission AS S JOIN Product as P ON S.user.id = P.id\n"
+            + "FROM Submission AS S JOIN Product as P ON S.product.id = P.id\n"
             + "WHERE P.date = :date")
-    public List<Submission> getAllSubmissionOfTheDay(@Param("date") Date date);
+    public List<Submission> getAllSubmissionOfTheDay(@Param("date") LocalDate date);
 
   
 //    @Query("SELECT S.id, S.age, S.created_at, S.expertise_level, S.sex, S.submission_status, S.updated_at, S.product_id, S.user_id\n" +

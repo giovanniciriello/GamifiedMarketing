@@ -1,8 +1,10 @@
 package it.polimi.db2.gamifiedmarketing.application.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.ExpertiseLevel;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
+import it.polimi.db2.gamifiedmarketing.application.entity.helpers.SubmissionCustomSerializer;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -15,6 +17,7 @@ import java.util.List;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
 @Table(name = "submissions")
+@JsonSerialize(using = SubmissionCustomSerializer.class)
 public class Submission {
 
     @Id

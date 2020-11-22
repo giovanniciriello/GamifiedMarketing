@@ -78,15 +78,16 @@ public class GamifiedMarketingApplication {
         userRepository.save(admin2);
 
         // --- Responses --- \\
-        Response response1_1 = Response.builder().body("No").build();
-        Response response2_1 = Response.builder().body("Yes").build();
+        Response response1_1 = Response.builder().body("yes1").build();
+        Response response2_1 = Response.builder().body("no1").build();
         question1_1.addResponse(response1_1);
         question2_1.addResponse(response2_1);
 
-//        Response response1_2 = Response.builder().body("No").build();
-//        Response response2_2 = Response.builder().body("Yes").build();
-//        question1_2.addResponse(response1_2);
-//        question2_2.addResponse(response2_2);
+
+        Response response1_2 = Response.builder().body("yes2").build();
+        Response response2_2 = Response.builder().body("no2").build();
+        question1_1.addResponse(response1_2);
+        question2_1.addResponse(response2_2);
 
         // --- Submissions --- \\
         Submission sub_user1 = Submission.builder().age(12).expertiseLevel(ExpertiseLevel.LOW).sex(Sex.MALE).submissionStatus(SubStatus.CONFIRMED).responses(new ArrayList<>()).build();
@@ -97,7 +98,10 @@ public class GamifiedMarketingApplication {
 
         Submission sub_user2 = Submission.builder().age(24).expertiseLevel(ExpertiseLevel.HIGH).sex(Sex.FEMALE).submissionStatus(SubStatus.CANCELED).responses(new ArrayList<>()).build();
         user2.addSubmission(sub_user2);
-        sub_user2.setProduct(product2);
+        sub_user2.setProduct(product1);
+        sub_user2.addResponse(response1_2);
+        sub_user2.addResponse(response2_2);
+
 
         // Here (persisting the user) is exampled the use case of the user that submit/cancel a new submission with related answers.
         userRepository.save(user1);
