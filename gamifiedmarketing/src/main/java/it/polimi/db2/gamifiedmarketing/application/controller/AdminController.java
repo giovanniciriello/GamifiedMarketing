@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -21,17 +21,17 @@ public class AdminController {
     @PostMapping
     @RequestMapping(value = "product")
     public ViewResponse<Product> addProduct(@RequestBody Product product) {
-       return adminService.addProduct(product);
+        return adminService.addProduct(product);
     }
 
     @GetMapping
     @RequestMapping(value = "submission/{date}")
-    public ViewResponse<List<Submission>> getVisualQuestionnaire(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
+    public ViewResponse<List<Submission>> getVisualQuestionnaire(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return adminService.getVisualQuestionnaire(date);
     }
 
     @RequestMapping(value = "product/{date}", method = RequestMethod.DELETE)
-    public ViewResponse deleteProductByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
+    public ViewResponse deleteProductByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return adminService.deleteProductByDate(date);
     }
 }
