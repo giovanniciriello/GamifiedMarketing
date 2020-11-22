@@ -28,15 +28,6 @@ public class SubmissionService {
         return submissionRepository.getAllSubmissionOfTheDay(LocalDate.now(), Sort.by(Sort.Direction.DESC, "points"));
     }
 
-    public Submission createSubmission() {
-        Product productOfTheDay = productRepository.findByDate(LocalDate.now());
-        //TODO Obtain (Spring Security) the User from the session and add to the submission
-        Submission submission = Submission.builder().submissionStatus(SubStatus.CREATED).product(productOfTheDay).build();
-        submissionRepository.save(submission);
-        return submission;
-    }
-
-
     public ViewResponse deleteSubmission(Integer id) {
         try {
             Optional<Submission> submission = submissionRepository.findById(id);
