@@ -14,12 +14,12 @@ import java.util.List;
 public interface SubmissionRepository extends CrudRepository<Submission, Integer> {
 
     @Query("SELECT S\n"
-            + "FROM Submission AS S JOIN Product as P ON S.user.id = P.id\n"
+            + "FROM Submission AS S JOIN Product as P ON S.product.id = P.id\n"
             + "WHERE P.date = :date")
     List<Submission> getAllSubmissionOfTheDay(@Param("date") LocalDate date);
 
     @Query("SELECT S\n"
-            + "FROM Submission AS S JOIN Product as P ON S.user.id = P.id\n"
+            + "FROM Submission AS S JOIN Product as P ON S.product.id = P.id\n"
             + "WHERE P.date = :date")
     List<Submission> getAllSubmissionOfTheDay(@Param("date") LocalDate date, Sort sort);
 

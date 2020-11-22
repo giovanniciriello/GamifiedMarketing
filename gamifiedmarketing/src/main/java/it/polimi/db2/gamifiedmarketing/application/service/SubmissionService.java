@@ -25,7 +25,7 @@ public class SubmissionService {
     private ProductRepository productRepository;
 
     public List<Submission> getAllSubmissionOfTheDay() {
-        return submissionRepository.getAllSubmissionOfTheDay(LocalDate.now(), Sort.by(Sort.Direction.ASC, "points"));
+        return submissionRepository.getAllSubmissionOfTheDay(LocalDate.now(), Sort.by(Sort.Direction.DESC, "points"));
     }
 
     public Submission createSubmission() {

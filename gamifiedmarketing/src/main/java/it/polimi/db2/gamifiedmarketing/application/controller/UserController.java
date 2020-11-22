@@ -2,18 +2,14 @@ package it.polimi.db2.gamifiedmarketing.application.controller;
 
 import it.polimi.db2.gamifiedmarketing.application.entity.Product;
 import it.polimi.db2.gamifiedmarketing.application.entity.Submission;
-import it.polimi.db2.gamifiedmarketing.application.entity.User;
-import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
 import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
 import it.polimi.db2.gamifiedmarketing.application.service.ProductService;
 import it.polimi.db2.gamifiedmarketing.application.service.SubmissionService;
-import it.polimi.db2.gamifiedmarketing.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
 
