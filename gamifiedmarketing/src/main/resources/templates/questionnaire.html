@@ -42,36 +42,18 @@
                     <div id="body-questions-1" class="card-body">
 
                         <div class="d-flex align-items-center">
-                            <img src="dist/img/product-placeholder.jpg" class="img-fluid" style="height: 40px;">
-                            <h4 class="text-center ml-4">Apple AirPods con custodia di ricarica wireless</h4>
+                            <img th:attr="src=${submission.product.imageUrl}" class="img-fluid" style="height: 40px;">
+                            <h4 class="text-center ml-4" th:text="${submission.product.name}"></h4>
                         </div>
                         <hr>
 
-                        <div class="callout callout-info">
-                            <h5><span class="badge badge-info">1</span> What do you think about this product?</h5>
-                            <textarea class="form-control" cols="30" rows="4" placeholder="Write your answer here..."></textarea>
+                        <div th:each="question, i : ${submission.product.questions}">
+                            <div class="callout callout-info">
+                                <h5><span class="badge badge-info" th:text="${i.index + 1}"></span> <span th:text="${question.title}"></span></h5>
+                                <p class="text-muted" th:text="${question.subtitle}"></p>
+                                <textarea class="form-control response" cols="30" rows="4" placeholder="Write your answer here..." th:attr="data-question-id=${question.id}"></textarea>
+                            </div>
                         </div>
-
-                        <div class="callout callout-info">
-                            <h5><span class="badge badge-info">2</span> Did you eat your product?</h5>
-                            <textarea class="form-control" cols="30" rows="4" placeholder="Write your answer here..."></textarea>
-                        </div>
-
-                        <div class="callout callout-info">
-                            <h5><span class="badge badge-info">3</span> Are u sure sure sure sure about it?</h5>
-                            <textarea class="form-control" cols="30" rows="4" placeholder="Write your answer here..."></textarea>
-                        </div>
-
-                        <div class="callout callout-info">
-                            <h5><span class="badge badge-info">4</span> I think you are lying. I give you last possibility. Are u sure?</h5>
-                            <textarea class="form-control" cols="30" rows="4" placeholder="Write your answer here..."></textarea>
-                        </div>
-
-                        <div class="callout callout-info">
-                            <h5><span class="badge badge-info">5</span> Hey what's up?</h5>
-                            <textarea class="form-control" cols="30" rows="4" placeholder="Write your answer here..."></textarea>
-                        </div>
-
 
                     </div>
 
@@ -89,11 +71,11 @@
                                     <div class="col-sm-10">
                                         <div class="form-group">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" id="sex-male" name="sex">
+                                                <input class="form-check-input" type="radio" name="sex" value="0" id="sex-male">
                                                 <label class="form-check-label" for="sex-male">Male</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" id="sex-female" name="sex" checked="">
+                                                <input class="form-check-input" type="radio" name="sex" checked="" value="1" id="sex-female">
                                                 <label class="form-check-label" for="sex-female">Female</label>
                                             </div>
                                         </div>
@@ -119,7 +101,7 @@
                         <a href="/cancel" class="btn btn-danger">Cancel</a>
                         <button id="prev_btn" class="btn btn-primary" onclick="goToFormStep(1)">👈 <span class="ml-1">Prev Step</span></button>
                         <button id="next_btn" class="btn btn-primary" onclick="goToFormStep(2)">Next Step 👉</button>
-                        <button id="submit_btn" class="btn btn-success">Submit</button>
+                        <button id="submit_btn" onclick="submitResponses()" class="btn btn-success">Submit</button>
                     </div>
                 </div>
 
@@ -152,6 +134,28 @@
         $('#body-questions-'+fromStep).fadeOut(400, function (){
             $('#body-questions-'+toStep).fadeIn(400);
         });
+    }
+
+    function submitResponses(){
+
+        var requestBody = {
+            sex: $('input[name="sex"]:checked').val(),
+            age: $('#age').val(),
+            expertise_level: $('#expertise-level').val(),
+        }
+
+        var responses = [];
+        $('.response').each(function(i, el){
+            responses.push({
+                question_id: $(el).data('question-id'),
+                body: $(el).val()
+            })
+        })
+
+        requestBody.responses = responses;
+
+        console.log(requestBody);
+
     }
 
 </script>

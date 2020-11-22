@@ -48,13 +48,13 @@ public class GamifiedMarketingApplication {
         User admin2 = User.builder().firstName("Admin").lastName("2").email("admin2@email.com").password("pwd").isAdmin(true).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
 
         // --- Products --- \\
-        Product product1 = Product.builder().name("First").description("The first product").imageUrl("Url1").date(LocalDate.of(2020, Month.NOVEMBER, 17)).questions(new ArrayList<>()).submissions(new ArrayList<>()).build();
+        Product product1 = Product.builder().name("First").description("Ciao ragazzi").imageUrl("http://via.placeholder.com/500").date(LocalDate.now()).questions(new ArrayList<>()).submissions(new ArrayList<>()).build();
         admin1.addProduct(product1);
 
-        Product product2 = Product.builder().name("Second").description("The second product").imageUrl("Url2").date(LocalDate.of(2020, Month.NOVEMBER, 18)).questions(new ArrayList<>()).submissions(new ArrayList<>()).build();
+        Product product2 = Product.builder().name("Second").description("The second product").imageUrl("http://via.placeholder.com/300").date(LocalDate.of(2020, Month.NOVEMBER, 18)).questions(new ArrayList<>()).submissions(new ArrayList<>()).build();
         admin2.addProduct(product2);
 
-        Product product3 = Product.builder().name("Third").description("The third product").imageUrl("Url3").date(LocalDate.of(2021, Month.JANUARY, 1)).questions(new ArrayList<>()).submissions(new ArrayList<>()).build();
+        Product product3 = Product.builder().name("Third").description("The third product").imageUrl("http://via.placeholder.com/500").date(LocalDate.of(2021, Month.JANUARY, 1)).questions(new ArrayList<>()).submissions(new ArrayList<>()).build();
         admin2.addProduct(product3);
 
         // --- Questions --- \\

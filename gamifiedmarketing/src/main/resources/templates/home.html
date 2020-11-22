@@ -43,22 +43,16 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 p-5">
-                                    <img src="dist/img/product-placeholder.jpg" class="img-fluid">
+                                    <img th:attr="src=${product.imageUrl}" class="img-fluid">
                                 </div>
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div>
-                                        <h2 class="text-center">Apple AirPods con custodia di ricarica wireless</h2>
+                                        <h2 class="text-center" th:text="${product.name}"></h2>
 
-                                        <p class="my-5">
-                                            Si accendono automaticamente e si collegano all’istante
-                                            Si configurano facilmente con tutti i tuoi dispositivi Apple
-                                            Siri si attiva in un attimo, basta dire “Ehi Siri”
-                                            Ti basta un doppio tap per far partire un brano o passare a quello successivo
-                                            Il nuovo chip Apple H1 garantisce connessioni wireless più rapide ai tuoi dispositivi
-                                        </p>
+                                        <p class="my-5" th:text="${product.description}"></p>
 
                                         <div class="text-right">
-                                            <a href="/questionnaire" class="btn btn-primary">Make the questionnaire</a>
+                                            <a href="/submission/create/" class="btn btn-primary">Make the questionnaire</a>
                                         </div>
 
                                     </div>
