@@ -39,7 +39,7 @@
                             💡 <span class="ml-2">Questionnaire form</span>
                         </h3>
                     </div>
-                    <div id="general-questions-body" class="card-body">
+                    <div id="body-questions-1" class="card-body">
 
                         <div class="d-flex align-items-center">
                             <img src="dist/img/product-placeholder.jpg" class="img-fluid" style="height: 40px;">
@@ -75,7 +75,7 @@
 
                     </div>
 
-                    <div id="marketing-questions-body" style="display: none;" class="card-body">
+                    <div id="body-questions-2" style="display: none;" class="card-body">
                         <form class="form-horizontal">
                             <div class="card-body">
                                 <div class="form-group row">
@@ -105,7 +105,7 @@
                                         <select id="expertise-level" class="form-control">
                                             <option value="LOW">Low</option>
                                             <option value="MEDIUM" selected>Medium</option>
-                                            <option value="EXPERTISE">Expertise Level</option>
+                                            <option value="EXPERTISE">High</option>
                                         </select>
                                     </div>
                                 </div>
@@ -117,7 +117,9 @@
 
                     <div class="card-footer text-right">
                         <a href="/cancel" class="btn btn-danger">Cancel</a>
-                        <a href="javascript:void(0);" class="btn btn-primary" onclick="nextFormStep()">Next Step 👉</a>
+                        <button id="prev_btn" class="btn btn-primary" onclick="goToFormStep(1)">👈 <span class="ml-1">Prev Step</span></button>
+                        <button id="next_btn" class="btn btn-primary" onclick="goToFormStep(2)">Next Step 👉</button>
+                        <button id="submit_btn" class="btn btn-success">Submit</button>
                     </div>
                 </div>
 
@@ -143,15 +145,13 @@
 
     let step = 1;
 
-    function nextFormStep(){
-        if(step === 1){
-            step = 2;
-            $('#general-questions-body').fadeOut(400, function (){
-                $('#marketing-questions-body').fadeIn(400);
-            })
-        }else if(step === 2){
-            // post request
-        }
+    function goToFormStep(stepNumber){
+        toStep = stepNumber;
+        fromStep = toStep === 1 ? 2: 1;
+
+        $('#body-questions-'+fromStep).fadeOut(400, function (){
+            $('#body-questions-'+toStep).fadeIn(400);
+        });
     }
 
 </script>
