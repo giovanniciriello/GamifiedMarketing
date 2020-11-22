@@ -12,7 +12,9 @@ public class SessionInfo {
 
     public User getCurrentUser() {
         if (user == null) {
-            user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            // Uncomment this line (and delete the following) when Spring Security is implemented in this project
+            // user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            user = User.builder().build();
         }
         return user;
     }

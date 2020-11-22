@@ -2,6 +2,7 @@ package it.polimi.db2.gamifiedmarketing.application.controller;
 
 import it.polimi.db2.gamifiedmarketing.application.entity.Product;
 import it.polimi.db2.gamifiedmarketing.application.entity.Submission;
+import it.polimi.db2.gamifiedmarketing.application.entity.helpers.SubmissionJSON;
 import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
 import it.polimi.db2.gamifiedmarketing.application.service.ProductService;
 import it.polimi.db2.gamifiedmarketing.application.service.SubmissionService;
@@ -50,13 +51,9 @@ public class UserController {
         return submissionService.logUserCancel(product_id);
     }
 
-    @PutMapping("/submission/{id}/submit")
+    @PostMapping("/submission/{product_id}/submit")
     @ResponseBody
-    public ViewResponse submitSubmission(@PathVariable Integer id, @RequestBody Submission submission) {
-      /*   TODO Check if RequestBody properly map the Put HTTP request body to submission. If yes
-       *    then fix the relationships and save(submission). If no, manually find the submission from the id
-       *    and manally add all the new fields and then save(submission)
-       */
-        return submissionService.submitSubmission(id, submission);
+    public ViewResponse submitSubmission(@PathVariable Integer product_id, @RequestBody SubmissionJSON submission) {
+        return submissionService.submitSubmission(product_id, submission);
     }
 }
