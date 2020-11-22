@@ -44,10 +44,10 @@ public class UserController {
         return "questionnaire";
     }
 
-    @DeleteMapping("/submission/{id}/cancel")
+    @DeleteMapping("/submission/{product_id}/cancel")
     @ResponseBody
-    public ViewResponse deleteSubmission(@PathVariable Integer id) {
-        return submissionService.deleteSubmission(id);
+    public ViewResponse logUserCancel(@PathVariable Integer product_id) {
+        return submissionService.logUserCancel(product_id);
     }
 
     @PutMapping("/submission/{id}/submit")

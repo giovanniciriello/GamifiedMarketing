@@ -1,6 +1,8 @@
 package it.polimi.db2.gamifiedmarketing.application.repository;
 
+import it.polimi.db2.gamifiedmarketing.application.entity.Product;
 import it.polimi.db2.gamifiedmarketing.application.entity.Submission;
+import it.polimi.db2.gamifiedmarketing.application.entity.User;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -24,4 +26,6 @@ public interface SubmissionRepository extends CrudRepository<Submission, Integer
     List<Submission> getAllSubmissionOfTheDay(@Param("date") LocalDate date, Sort sort);
 
     List<Submission> findByProductId(Integer id);
+
+    Submission findByUserAndProduct(User user, Product product);
 }
