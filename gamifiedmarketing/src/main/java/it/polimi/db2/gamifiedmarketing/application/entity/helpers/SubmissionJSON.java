@@ -5,6 +5,7 @@ import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -20,5 +21,11 @@ public class SubmissionJSON {
     /*  Question Id     ---> Integer
      *  Response body   ---> String
      */
-    private Map<Integer, String> responses;
+    private List<Response> responses;
+
+}
+
+class Response{
+    private Number question_id;
+    private String body;
 }

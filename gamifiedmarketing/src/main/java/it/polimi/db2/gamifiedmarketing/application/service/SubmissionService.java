@@ -134,7 +134,8 @@ public class SubmissionService {
             sessionUser.addSubmission(submit);
             submit.setProduct(product);
 
-            for (Map.Entry<Integer, String> entry : json.getResponses().entrySet()) {
+            /*
+            for (List<Response> entry : json.getResponses().entrySet()) {
                 Integer questionId = entry.getKey();
                 String responseBody = entry.getValue();
 
@@ -160,7 +161,7 @@ public class SubmissionService {
                 submit.addResponse(tmp);
                 question.addResponse(tmp);
             }
-
+            */
             userRepository.save(sessionUser);
 
             return new ViewResponse(true, submit, null);

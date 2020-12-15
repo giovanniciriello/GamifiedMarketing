@@ -101,7 +101,7 @@
                         <a href="/cancel" class="btn btn-danger">Cancel</a>
                         <button x-show="step == 1" class="btn btn-primary" @click="step = 2">Next Step 👉</button>
                         <button x-show="step == 2" id="prev_btn" class="btn btn-primary" @click="step = 1">👈 <span class="ml-1">Prev Step</span></button>
-                        <button x-show="step == 2" id="submit_btn" onclick="submitResponses()" class="btn btn-success" >Submit</button>
+                        <button x-show="step == 2" id="submit_btn" @click="submitResponses()" class="btn btn-success" >Submit</button>
                     </div>
                 </div>
 
@@ -128,8 +128,11 @@
 
     function questionnaireForm(){
         return {
+            productId: [[${product.id}]],
             step: 1,
             submitResponses(){
+
+                console.log('sono richiamato');
 
                 const requestBody = {
                     sex: $('input[name="sex"]:checked').val(),
@@ -147,9 +150,16 @@
 
                 requestBody.responses = responses;
 
-                $.put('/submission/'+submission.id+'/submit', requestBody, function(res){
-                    console.log('submission aggiornato!')
-                    console.log(res);
+                $.ajax({
+                    url: '/submission/'+this.productId+'/submit',
+                    method: 'POST',
+                    dataType: "xml/html/script/json", // expected format for response
+                    contentType: "application/json",
+                    data: JSON.stringify(requestBody),
+                    success: function(res){
+                        console.log('submission aggiornato!')
+                        console.log(res);
+                    }
                 });
 
             }
