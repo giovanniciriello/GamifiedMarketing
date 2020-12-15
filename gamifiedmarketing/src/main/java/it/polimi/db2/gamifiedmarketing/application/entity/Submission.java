@@ -64,10 +64,11 @@ public class Submission {
      */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "submission", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "submission", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Response> responses;
 
     // Methods for the Bi-directional relationship ( Submission 1:N Response )
+
     public List<Response> getResponses() {
         return responses;
     }

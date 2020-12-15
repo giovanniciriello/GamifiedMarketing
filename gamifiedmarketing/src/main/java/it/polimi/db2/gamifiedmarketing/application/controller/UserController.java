@@ -62,6 +62,7 @@ public class UserController {
        *    then fix the relationships and save(submission). If no, manually find the submission from the id
        *    and manally add all the new fields and then save(submission)
        */
+        System.out.println(submission.getAge());
         return submissionService.submitSubmission(id, submission);
     }
 }

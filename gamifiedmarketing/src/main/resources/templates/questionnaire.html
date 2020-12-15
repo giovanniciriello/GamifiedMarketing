@@ -33,13 +33,13 @@
         <section class="content">
             <div class="container">
 
-                <div class="card card-primary">
+                <div class="card card-primary" x-data="questionnaireForm()" x-cloak>
                     <div class="card-header">
                         <h3 class="card-title">
                             💡 <span class="ml-2">Questionnaire form</span>
                         </h3>
                     </div>
-                    <div id="body-questions-1" class="card-body">
+                    <div id="body-questions-1" x-show.transition="step == 1" class="card-body">
 
                         <div class="d-flex align-items-center">
                             <img th:attr="src=${submission.product.imageUrl}" class="img-fluid" style="height: 40px;">
@@ -57,7 +57,7 @@
 
                     </div>
 
-                    <div id="body-questions-2" style="display: none;" class="card-body">
+                    <div id="body-questions-2" x-show.transition="step == 2" class="card-body">
                         <form class="form-horizontal">
                             <div class="card-body">
                                 <div class="form-group row">
@@ -99,9 +99,9 @@
 
                     <div class="card-footer text-right">
                         <a href="/cancel" class="btn btn-danger">Cancel</a>
-                        <button id="prev_btn" class="btn btn-primary" onclick="goToFormStep(1)">👈 <span class="ml-1">Prev Step</span></button>
-                        <button id="next_btn" class="btn btn-primary" onclick="goToFormStep(2)">Next Step 👉</button>
-                        <button id="submit_btn" onclick="submitResponses()" class="btn btn-success">Submit</button>
+                        <button x-show="step == 1" class="btn btn-primary" @click="step = 2">Next Step 👉</button>
+                        <button x-show="step == 2" id="prev_btn" class="btn btn-primary" @click="step = 1">👈 <span class="ml-1">Prev Step</span></button>
+                        <button x-show="step == 2" id="submit_btn" onclick="submitResponses()" class="btn btn-success" >Submit</button>
                     </div>
                 </div>
 
@@ -125,37 +125,35 @@
 
 <script type="text/javascript">
 
-    let step = 1;
 
-    function goToFormStep(stepNumber){
-        toStep = stepNumber;
-        fromStep = toStep === 1 ? 2: 1;
+    function questionnaireForm(){
+        return {
+            step: 1,
+            submitResponses(){
 
-        $('#body-questions-'+fromStep).fadeOut(400, function (){
-            $('#body-questions-'+toStep).fadeIn(400);
-        });
-    }
+                const requestBody = {
+                    sex: $('input[name="sex"]:checked').val(),
+                    age: $('#age').val(),
+                    expertise_level: $('#expertise-level').val(),
+                }
 
-    function submitResponses(){
+                let responses = [];
+                $('.response').each(function(i, el){
+                    responses.push({
+                        question_id: $(el).data('question-id'),
+                        body: $(el).val()
+                    })
+                });
 
-        var requestBody = {
-            sex: $('input[name="sex"]:checked').val(),
-            age: $('#age').val(),
-            expertise_level: $('#expertise-level').val(),
+                requestBody.responses = responses;
+
+                $.put('/submission/'+submission.id+'/submit', requestBody, function(res){
+                    console.log('submission aggiornato!')
+                    console.log(res);
+                });
+
+            }
         }
-
-        var responses = [];
-        $('.response').each(function(i, el){
-            responses.push({
-                question_id: $(el).data('question-id'),
-                body: $(el).val()
-            })
-        })
-
-        requestBody.responses = responses;
-
-        console.log(requestBody);
-
     }
 
 </script>
