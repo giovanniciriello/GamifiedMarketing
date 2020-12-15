@@ -42,12 +42,12 @@
                     <div id="body-questions-1" x-show.transition="step == 1" class="card-body">
 
                         <div class="d-flex align-items-center">
-                            <img th:attr="src=${submission.product.imageUrl}" class="img-fluid" style="height: 40px;">
-                            <h4 class="text-center ml-4" th:text="${submission.product.name}"></h4>
+                            <img th:attr="src=${product.imageUrl}" class="img-fluid" style="height: 40px;">
+                            <h4 class="text-center ml-4" th:text="${product.name}"></h4>
                         </div>
                         <hr>
 
-                        <div th:each="question, i : ${submission.product.questions}">
+                        <div th:each="question, i : ${product.questions}">
                             <div class="callout callout-info">
                                 <h5><span class="badge badge-info" th:text="${i.index + 1}"></span> <span th:text="${question.title}"></span></h5>
                                 <p class="text-muted" th:text="${question.subtitle}"></p>

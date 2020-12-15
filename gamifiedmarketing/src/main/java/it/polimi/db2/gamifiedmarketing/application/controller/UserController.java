@@ -2,18 +2,15 @@ package it.polimi.db2.gamifiedmarketing.application.controller;
 
 import it.polimi.db2.gamifiedmarketing.application.entity.Product;
 import it.polimi.db2.gamifiedmarketing.application.entity.Submission;
-import it.polimi.db2.gamifiedmarketing.application.entity.User;
-import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
+import it.polimi.db2.gamifiedmarketing.application.entity.helpers.SubmissionJSON;
 import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
 import it.polimi.db2.gamifiedmarketing.application.service.ProductService;
 import it.polimi.db2.gamifiedmarketing.application.service.SubmissionService;
-import it.polimi.db2.gamifiedmarketing.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -40,29 +37,23 @@ public class UserController {
         return "leaderboard";
     }
 
-    @GetMapping("/submission/create")
+    @GetMapping("/submission/start")
     public String getQuestionnairePage(Model model) {
         // TODO From session (Spring Security) get the User and see if banned. If yes go to ban page, if not do the following
-        Submission submission = submissionService.createSubmission();
-        // Possible need for the Submission ID
-        model.addAttribute("submission", submission);
+        Product product = productService.findProductOfTheDay(LocalDate.now());
+        model.addAttribute("product", product);
         return "questionnaire";
     }
 
-    @DeleteMapping("/submission/{id}/cancel")
+    @DeleteMapping("/submission/{product_id}/cancel")
     @ResponseBody
-    public ViewResponse deleteSubmission(@PathVariable Integer id) {
-        return submissionService.deleteSubmission(id);
+    public ViewResponse logUserCancel(@PathVariable Integer product_id) {
+        return submissionService.logUserCancel(product_id);
     }
 
-    @PutMapping("/submission/{id}/submit")
+    @PostMapping("/submission/{product_id}/submit")
     @ResponseBody
-    public ViewResponse submitSubmission(@PathVariable Integer id, @RequestBody Submission submission) {
-      /*   TODO Check if RequestBody properly map the Put HTTP request body to submission. If yes
-       *    then fix the relationships and save(submission). If no, manually find the submission from the id
-       *    and manally add all the new fields and then save(submission)
-       */
-        System.out.println(submission.getAge());
-        return submissionService.submitSubmission(id, submission);
+    public ViewResponse submitSubmission(@PathVariable Integer product_id, @RequestBody SubmissionJSON submission) {
+        return submissionService.submitSubmission(product_id, submission);
     }
 }

@@ -67,7 +67,7 @@ public class Product {
      */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private List<Submission> submissions;
 
     // Methods for the Bi-directional relationship ( Product 1:N Question )
