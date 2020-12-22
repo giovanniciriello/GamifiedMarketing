@@ -1,5 +1,6 @@
 package it.polimi.db2.gamifiedmarketing.application.entity;
 
+import it.polimi.db2.gamifiedmarketing.application.entity.enums.UserRole;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -34,7 +35,8 @@ public class User {
     private String password;
 
     @NotNull
-    private Boolean isAdmin;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @CreationTimestamp
     @Column(updatable = false)

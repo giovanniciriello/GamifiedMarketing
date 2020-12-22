@@ -4,6 +4,7 @@ import it.polimi.db2.gamifiedmarketing.application.entity.*;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.ExpertiseLevel;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
+import it.polimi.db2.gamifiedmarketing.application.entity.enums.UserRole;
 import it.polimi.db2.gamifiedmarketing.application.repository.ProductRepository;
 import it.polimi.db2.gamifiedmarketing.application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +37,16 @@ public class GamifiedMarketingApplication {
          */
 
         // --- Users --- \\
-        User user1 = User.builder().firstName("Matteo").lastName("Giordano").email("matteo@email.com").password("pwd").isAdmin(false).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
-        User user2 = User.builder().firstName("Andrea").lastName("Bovo").email("andrea@email.com").password("pwd").isAdmin(false).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
-        User user3 = User.builder().firstName("Giovanni").lastName("Ciriello").email("giovanni@email.com").password("pwd").isAdmin(false).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
+        User user1 = User.builder().firstName("Matteo").lastName("Giordano").email("matteo@email.com").password("pwd").role(UserRole.USER).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
+        User user2 = User.builder().firstName("Andrea").lastName("Bovo").email("andrea@email.com").password("pwd").role(UserRole.USER).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
+        User user3 = User.builder().firstName("Giovanni").lastName("Ciriello").email("giovanni@email.com").password("pwd").role(UserRole.USER).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
 
         // --- Admins --- \\
-        User admin1 = User.builder().firstName("Admin").lastName("1").email("admin1@email.com").password("pwd").isAdmin(true).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
-        User admin2 = User.builder().firstName("Admin").lastName("2").email("admin2@email.com").password("pwd").isAdmin(true).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
+        User admin1 = User.builder().firstName("Admin").lastName("1").email("admin1@email.com").password("pwd").role(UserRole.ADMIN).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
+        User admin2 = User.builder().firstName("Admin").lastName("2").email("admin2@email.com").password("pwd").role(UserRole.ADMIN).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
 
         // --- Products --- \\
         Product product1 = Product.builder().name("First").description("Ciao ragazzi").imageUrl("http://via.placeholder.com/500").date(LocalDate.now()).questions(new ArrayList<>()).submissions(new ArrayList<>()).build();
