@@ -49,15 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/**", "/css/**", "/images/**", "/js/**", "/vendor/**", "/dist/**", "/plugins/**");
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .passwordEncoder(passwordEncoder())
-                .dataSource(dataSource)
-                .usersByUsernameQuery(usersQuery)
-                .authoritiesByUsernameQuery(rolesQuery);
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
