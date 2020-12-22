@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
@@ -16,16 +17,20 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final String usersQuery = "SELECT email, password, 1 FROM users WHERE email = ?";
+    private final String rolesQuery = "SELECT email, role FROM users WHERE email = ?";
+
     @Autowired
     private DataSource dataSource;
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("SELECT email, password, 1 FROM users WHERE email = ?")
-                .authoritiesByUsernameQuery("SELECT email, role FROM users WHERE email = ?");
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery);
     }
 
     @Override
@@ -34,7 +39,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/leaderboard").hasRole("ADMIN")
                 .antMatchers("/home").hasRole("USER")
                 .antMatchers("/").permitAll()
-                .and().formLogin().loginPage("/login.html");
+                .and().formLogin()
+                .loginPage("/login.html");
+
+//        http.logout().logoutUrl("/my/logout")
+//                .logoutSuccessUrl("/my/index")
+//                .logoutSuccessHandler(logoutSuccessHandler)
+//                .invalidateHttpSession(true)
+//                .addLogoutHandler(logoutHandler)
+//                .deleteCookies(cookieNamesToClear)
+//                .and()
     }
 
     @Bean
