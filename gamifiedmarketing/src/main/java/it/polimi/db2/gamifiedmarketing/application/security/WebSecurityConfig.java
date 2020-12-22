@@ -26,10 +26,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // Add JDBC authentication
         auth.jdbcAuthentication()
+
+                //Allows specifying the PasswordEncoder to use
                 .passwordEncoder(passwordEncoder())
+
+                // Populates the DataSource to be used.
                 .dataSource(dataSource)
+
+                // Sets the query to be used for finding a user by their username.
                 .usersByUsernameQuery(usersQuery)
+
+                // Sets the query to be used for finding a user's authorities by their username.
                 .authoritiesByUsernameQuery(rolesQuery);
     }
 
