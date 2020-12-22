@@ -26,7 +26,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery);
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery(usersQuery)
@@ -35,20 +42,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/leaderboard").hasRole("ADMIN")
-                .antMatchers("/home").hasRole("USER")
-                .antMatchers("/").permitAll()
-                .and().formLogin()
-                .loginPage("/login.html");
+        http
+                //.csrf().disable()
+                .authorizeRequests()
+                    .antMatchers("/login").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                .formLogin()
 
-//        http.logout().logoutUrl("/my/logout")
-//                .logoutSuccessUrl("/my/index")
-//                .logoutSuccessHandler(logoutSuccessHandler)
-//                .invalidateHttpSession(true)
-//                .addLogoutHandler(logoutHandler)
-//                .deleteCookies(cookieNamesToClear)
-//                .and()
+                    // The HTTP parameter to look for the username when performing authentication.
+                    .usernameParameter("email")
+
+                    // The HTTP parameter to look for the password when performing authentication.
+                    .passwordParameter("password")
+
+                    // The URL to send users if authentication fails
+                    .failureUrl("/login?error")
+
+                    // Specifies where users will go after authenticating successfully if they have not visited a secured page prior to authenticating.
+                    .defaultSuccessUrl("/home")
+
+                    // Specifies the URL to send users to if login is required.
+                    .loginPage("/login.html")
+                    .permitAll()
+                    .and()
+
+                .logout() // The default URL that triggers log out to occur is "/logout".
+
+                    // The URL to redirect to after logout has occurred.
+                    .logoutSuccessUrl("/login")
+
+                    // Configures SecurityContextLogoutHandler to invalidate the HttpSession at the time of logout.
+                    .invalidateHttpSession(true)
+
+                    // Specifies if SecurityContextLogoutHandler should clear the Authentication at the time of logout.
+                    .clearAuthentication(true);
     }
 
     @Bean
