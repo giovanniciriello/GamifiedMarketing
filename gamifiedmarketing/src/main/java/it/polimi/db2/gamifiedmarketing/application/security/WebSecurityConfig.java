@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 import javax.sql.DataSource;
 
@@ -23,6 +24,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private CustomAccessDeniedHandler accessDeniedHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -86,6 +90,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                     // Specifies if SecurityContextLogoutHandler should clear the Authentication at the time of logout.
                     .clearAuthentication(true);
+//                    .and()
+//                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
 
     @Bean
