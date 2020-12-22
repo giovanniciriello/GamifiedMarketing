@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
-                .passwordEncoder(new BCryptPasswordEncoder())
+                .passwordEncoder(passwordEncoder())
                 .dataSource(dataSource)
                 .usersByUsernameQuery(usersQuery)
                 .authoritiesByUsernameQuery(rolesQuery);
@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
-                .passwordEncoder(new BCryptPasswordEncoder())
+                .passwordEncoder(passwordEncoder())
                 .dataSource(dataSource)
                 .usersByUsernameQuery(usersQuery)
                 .authoritiesByUsernameQuery(rolesQuery);
@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                //.csrf().disable()
+                .csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/login").permitAll()
                     .anyRequest().authenticated()
@@ -79,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout() // The default URL that triggers log out to occur is "/logout".
 
                     // The URL to redirect to after logout has occurred.
-                    .logoutSuccessUrl("/login")
+                    .logoutSuccessUrl("/login.html")
 
                     // Configures SecurityContextLogoutHandler to invalidate the HttpSession at the time of logout.
                     .invalidateHttpSession(true)
