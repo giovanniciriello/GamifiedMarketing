@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -21,11 +20,6 @@ public class SubmissionJSON {
     /*  Question Id     ---> Integer
      *  Response body   ---> String
      */
-    private List<Response> responses;
+    private List<ResponseJSON> responses;
 
-}
-
-class Response{
-    private Number question_id;
-    private String body;
 }

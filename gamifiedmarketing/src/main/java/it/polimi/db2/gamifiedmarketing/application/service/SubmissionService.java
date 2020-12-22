@@ -5,6 +5,7 @@ import it.polimi.db2.gamifiedmarketing.application.entity.*;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.ExpertiseLevel;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
+import it.polimi.db2.gamifiedmarketing.application.entity.helpers.ResponseJSON;
 import it.polimi.db2.gamifiedmarketing.application.entity.helpers.SubmissionJSON;
 import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
 import it.polimi.db2.gamifiedmarketing.application.repository.ProductRepository;
@@ -134,10 +135,9 @@ public class SubmissionService {
             sessionUser.addSubmission(submit);
             submit.setProduct(product);
 
-            /*
-            for (List<Response> entry : json.getResponses().entrySet()) {
-                Integer questionId = entry.getKey();
-                String responseBody = entry.getValue();
+            for (ResponseJSON response : json.getResponses()) {
+                Integer questionId = response.getQuestion_id();
+                String responseBody = response.getBody();
 
                 Optional<Question> questionMaybe = questionRepository.findById(questionId);
                 try {
@@ -161,7 +161,7 @@ public class SubmissionService {
                 submit.addResponse(tmp);
                 question.addResponse(tmp);
             }
-            */
+
             userRepository.save(sessionUser);
 
             return new ViewResponse(true, submit, null);
