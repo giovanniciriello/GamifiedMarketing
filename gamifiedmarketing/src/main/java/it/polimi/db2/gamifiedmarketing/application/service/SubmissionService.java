@@ -15,6 +15,7 @@ import it.polimi.db2.gamifiedmarketing.application.repository.UserRepository;
 import it.polimi.db2.gamifiedmarketing.application.session.SessionInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
@@ -95,6 +96,8 @@ public class SubmissionService {
          */
         try {
             // TODO Check on offensive words !!
+
+            // System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
 
             // Check if user is logged in
             if (sessionInfo.getCurrentUser() == null) {

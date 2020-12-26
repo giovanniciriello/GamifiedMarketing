@@ -76,14 +76,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .defaultSuccessUrl("/home")
 
                     // Specifies the URL to send users to if login is required.
-                    .loginPage("/login.html")
+                    .loginPage("/login")
                     .permitAll()
                     .and()
 
                 .logout() // The default URL that triggers log out to occur is "/logout".
 
                     // The URL to redirect to after logout has occurred.
-                    .logoutSuccessUrl("/login.html")
+                    .logoutSuccessUrl("/login")
 
                     // Configures SecurityContextLogoutHandler to invalidate the HttpSession at the time of logout.
                     .invalidateHttpSession(true)

@@ -23,6 +23,11 @@ public class UserController {
     @Autowired
     private SubmissionService submissionService;
 
+    @GetMapping("/login")
+    public String getLoginPage() {
+        return "../static/login";
+    }
+
     @GetMapping("/home")
     public String getHomePage(Model model) {
         Product productOfTheDay = productService.findProductOfTheDay(LocalDate.now());
