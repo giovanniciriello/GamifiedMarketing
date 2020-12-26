@@ -96,9 +96,6 @@ public class SubmissionService {
          */
         try {
             // TODO Check on offensive words !!
-
-            // System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
-
             // Check if user is logged in
             if (sessionInfo.getCurrentUser() == null) {
                 throw new Exception("You seems to not be logged in!");

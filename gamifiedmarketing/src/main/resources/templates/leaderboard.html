@@ -61,47 +61,14 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>1</td>
+
+
+              <tr th:each="submission: ${submissions}">
+                <td th:text="${submission.id}"></td>
                 <td><span class="badge badge-success">150</span></td>
-                <td>🏆 <span class="ml-2">Giovanni Ciriello</span></td>
+                <td>🏆 <span class="ml-2" th:text="${submission.user.getLastName()+' '+submission.user.getFirstName()}"></span></td>
                 <td>3/3</td>
-                <td>12/12/2020 21:40</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td><span class="badge badge-success">150</span></td>
-                <td>Matteo Giordano</td>
-                <td>3/3</td>
-                <td>12/12/2020 21:40</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td><span class="badge badge-success">150</span></td>
-                <td>Andrea Bovo</td>
-                <td>3/3</td>
-                <td>12/12/2020 21:40</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td><span class="badge badge-danger">70</span></td>
-                <td>Filippo Andreotti</td>
-                <td>2/3</td>
-                <td>12/12/2020 21:40</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td><span class="badge badge-danger">60</span></td>
-                <td>Luca Mastella</td>
-                <td>2/3</td>
-                <td>12/12/2020 21:40</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td><span class="badge badge-danger">30</span></td>
-                <td>Pippo baudo</td>
-                <td>1/3</td>
-                <td>12/12/2020 21:40</td>
+                <td th:text="${submission.user.getCreatedAt()}"></td>
               </tr>
 
               </tbody>
