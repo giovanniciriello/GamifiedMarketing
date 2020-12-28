@@ -6,6 +6,8 @@ import it.polimi.db2.gamifiedmarketing.application.entity.helpers.SubmissionJSON
 import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
 import it.polimi.db2.gamifiedmarketing.application.service.ProductService;
 import it.polimi.db2.gamifiedmarketing.application.service.SubmissionService;
+import it.polimi.db2.gamifiedmarketing.application.session.SessionInfo;
+import it.polimi.db2.gamifiedmarketing.application.utility.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,9 @@ public class UserController {
     @Autowired
     private SubmissionService submissionService;
 
+    @Autowired
+    private SessionInfo sessionInfo;
+
     @GetMapping("/login")
     public String getLoginPage() {
         return "../static/login";
@@ -32,6 +37,11 @@ public class UserController {
     public String getHomePage(Model model) {
         Product productOfTheDay = productService.findProductOfTheDay(LocalDate.now());
         model.addAttribute("product", productOfTheDay);
+
+        // Boolean needed to avoid making clickable the button to initiate a new questionnaire if user banned or yet submitted
+        if (Utils.hasUserSubmittedOnProduct(sessionInfo.getCurrentUser(), productOfTheDay) || Utils.isUserBanned(sessionInfo.getCurrentUser()))
+            model.addAttribute("token");
+
         return "home";
     }
 
@@ -44,10 +54,13 @@ public class UserController {
 
     @GetMapping("/submission/start")
     public String getQuestionnairePage(Model model) {
-        // TODO From session (Spring Security) get the User and see if banned. If yes go to ban page, if not do the following
-        Product product = productService.findProductOfTheDay(LocalDate.now());
-        model.addAttribute("product", product);
-        return "questionnaire";
+        if (Utils.isUserBanned(sessionInfo.getCurrentUser())) {
+            return "ban";
+        } else {
+            Product product = productService.findProductOfTheDay(LocalDate.now());
+            model.addAttribute("product", product);
+            return "questionnaire";
+        }
     }
 
     @DeleteMapping("/submission/{product_id}/cancel")

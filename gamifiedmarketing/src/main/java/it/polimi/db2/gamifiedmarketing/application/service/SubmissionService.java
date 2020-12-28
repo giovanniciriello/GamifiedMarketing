@@ -13,6 +13,7 @@ import it.polimi.db2.gamifiedmarketing.application.repository.QuestionRepository
 import it.polimi.db2.gamifiedmarketing.application.repository.SubmissionRepository;
 import it.polimi.db2.gamifiedmarketing.application.repository.UserRepository;
 import it.polimi.db2.gamifiedmarketing.application.session.SessionInfo;
+import it.polimi.db2.gamifiedmarketing.application.utility.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,6 +48,7 @@ public class SubmissionService {
     public ViewResponse logUserCancel(Integer product_id) {
         /*  Guards:
          *      --> If a user is not logged in --> return error "You seems to not be logged in!"
+         *      --> If user is banned --> return error "You cannot answer questionnaires anymore"
          *      --> If the product_id is not valid --> return error "The product seems to not exists!"
          *      --> If the product is not of today --> return error "You cannot operate on product different from the one of today!"
          *      --> If user has yet submitted on that product --> return error "You have yet a submission on that product!"
@@ -57,6 +59,11 @@ public class SubmissionService {
                 throw new Exception("You seems to not be logged in!");
             }
             User sessionUser = sessionInfo.getCurrentUser();
+
+            // Check if user is banned
+            if (Utils.isUserBanned(sessionUser)) {
+                throw new Exception("You cannot answer questionnaires anymore");
+            }
 
             // Check if the product exists
             Optional<Product> productMaybe = productRepository.findById(product_id);
@@ -71,8 +78,7 @@ public class SubmissionService {
             }
 
             // Check if user has yet submitted on that product
-            Submission submission = submissionRepository.findByUserAndProduct(sessionUser, product);
-            if (submission != null) {
+            if (Utils.hasUserSubmittedOnProduct(sessionUser, product)) {
                 throw new Exception("You have yet a submission on that product!");
             }
 
@@ -89,6 +95,7 @@ public class SubmissionService {
     public ViewResponse submitSubmission(Integer product_id, SubmissionJSON json) {
         /*  Guards:
          *      --> If a user is not logged in --> return error "You seems to not be logged in!"
+         *      --> If user is banned --> return error "You cannot answer questionnaires anymore"
          *      --> If the product_id is not valid --> return error "The product seems to not exists!"
          *      --> If the product is not of today --> return error "You cannot operate on product different from the one of today!"
          *      --> If user has yet submitted on that product --> return error "You have yet a submission on that product!"
@@ -101,6 +108,11 @@ public class SubmissionService {
                 throw new Exception("You seems to not be logged in!");
             }
             User sessionUser = sessionInfo.getCurrentUser();
+
+            // Check if user is banned
+            if (Utils.isUserBanned(sessionUser)) {
+                throw new Exception("You cannot answer questionnaires anymore");
+            }
 
             // Check if the product exists
             Optional<Product> productMaybe = productRepository.findById(product_id);
@@ -115,8 +127,7 @@ public class SubmissionService {
             }
 
             // Check if user has yet submitted on that product
-            Submission submission = submissionRepository.findByUserAndProduct(sessionUser, product);
-            if (submission != null) {
+            if (Utils.hasUserSubmittedOnProduct(sessionUser, product)) {
                 throw new Exception("You have yet a submission on that product!");
             }
 
