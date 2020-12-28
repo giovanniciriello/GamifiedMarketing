@@ -75,6 +75,14 @@ public class UserController {
         return submissionService.logUserCancel(product_id);
     }
 
+    // ADMIN ZONE
+    @GetMapping("/product/create")
+    public String getCreationPage(Model model){
+        return "create-product";
+    }
+
+
+
     @PostMapping("/submission/{product_id}/submit")
     @ResponseBody
     public ViewResponse submitSubmission(@PathVariable Integer product_id, @RequestBody SubmissionJSON submission) {
