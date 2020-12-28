@@ -61,10 +61,57 @@
                             </div>
                         </div>
 
+                        <hr class="my-4">
+
+                        <label>Add questions for questionnaire</label>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-5">
+                                <input x-model="new_question_title" type="text" class="form-control" id="new_question_title" placeholder="Enter a title">
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <input x-model="new_question_subtitle" type="text" class="form-control" id="new_question_subtitle" placeholder="Enter subtitle">
+                            </div>
+
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-primary" @click="addQuestion()">Add question</button>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <template x-if="questions.length > 0">
+                                <table class="table table-sm table-bordered mt-3">
+                                    <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Subtitle</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <template x-for="(question, index) in questions" :key="index">
+                                        <tr>
+                                            <td x-text="question.title"></td>
+                                            <td x-text="question.subtitle"></td>
+                                            <td class="text-right">
+                                                <button @click="deleteQuestion(index)" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                    </tbody>
+                                </table>
+                            </template>
+
+                        </div>
+
                     </div>
                     <!-- /.card-body -->
 
-                    <div class="card-footer text-right">
+                    <div class="card-footer text-center">
                         <button class="btn btn-success" @click="createProduct()">Create product</button>
                     </div>
                 </div>
@@ -94,9 +141,32 @@
             name: '',
             description: '',
             image_url: null,
+            questions: [],
+
+            new_question_title: '',
+            new_question_subtitle: '',
 
             show_success_msg: false,
             show_error_msg: false,
+
+            addQuestion(){
+
+                if(this.new_question_title === ''){
+                    return;
+                }
+
+                this.questions.push({
+                    title: this.new_question_title,
+                    subtitle: this.new_question_subtitle
+                });
+
+                this.new_question_title = '';
+                this.new_question_subtitle = '';
+            },
+
+            deleteQuestion(questionIndex){
+                this.questions.splice(questionIndex, 1)
+            },
 
             createProduct(){
 
@@ -110,6 +180,7 @@
                     name : this.name,
                     description : this.description,
                     image_url : this.image_url,
+                    questions: this.questions
                 }, function(){
                 });
             }
