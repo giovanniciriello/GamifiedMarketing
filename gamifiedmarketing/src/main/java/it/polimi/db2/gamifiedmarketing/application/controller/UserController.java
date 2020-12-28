@@ -4,6 +4,7 @@ import it.polimi.db2.gamifiedmarketing.application.entity.Product;
 import it.polimi.db2.gamifiedmarketing.application.entity.Submission;
 import it.polimi.db2.gamifiedmarketing.application.entity.helpers.SubmissionJSON;
 import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
+import it.polimi.db2.gamifiedmarketing.application.repository.SubmissionRepository;
 import it.polimi.db2.gamifiedmarketing.application.service.ProductService;
 import it.polimi.db2.gamifiedmarketing.application.service.SubmissionService;
 import it.polimi.db2.gamifiedmarketing.application.session.SessionInfo;
@@ -26,7 +27,12 @@ public class UserController {
     private SubmissionService submissionService;
 
     @Autowired
+    private SubmissionRepository submissionRepository;
+
+    @Autowired
     private SessionInfo sessionInfo;
+
+    private final Utils utils = new Utils();
 
     @GetMapping("/login")
     public String getLoginPage() {
@@ -39,7 +45,7 @@ public class UserController {
         model.addAttribute("product", productOfTheDay);
 
         // Boolean needed to avoid making clickable the button to initiate a new questionnaire if user banned or yet submitted
-        if (Utils.hasUserSubmittedOnProduct(sessionInfo.getCurrentUser(), productOfTheDay) || Utils.isUserBanned(sessionInfo.getCurrentUser()))
+        if ((submissionRepository.findByUserAndProduct(sessionInfo.getCurrentUser(), productOfTheDay) != null) || utils.isUserBanned(sessionInfo.getCurrentUser()))
             model.addAttribute("token");
 
         return "home";
@@ -54,7 +60,7 @@ public class UserController {
 
     @GetMapping("/submission/start")
     public String getQuestionnairePage(Model model) {
-        if (Utils.isUserBanned(sessionInfo.getCurrentUser())) {
+        if (utils.isUserBanned(sessionInfo.getCurrentUser())) {
             return "ban";
         } else {
             Product product = productService.findProductOfTheDay(LocalDate.now());

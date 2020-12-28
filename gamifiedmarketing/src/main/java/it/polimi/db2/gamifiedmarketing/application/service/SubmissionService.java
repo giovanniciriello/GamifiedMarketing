@@ -1,9 +1,6 @@
 package it.polimi.db2.gamifiedmarketing.application.service;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import it.polimi.db2.gamifiedmarketing.application.entity.*;
-import it.polimi.db2.gamifiedmarketing.application.entity.enums.ExpertiseLevel;
-import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
 import it.polimi.db2.gamifiedmarketing.application.entity.helpers.ResponseJSON;
 import it.polimi.db2.gamifiedmarketing.application.entity.helpers.SubmissionJSON;
@@ -16,10 +13,9 @@ import it.polimi.db2.gamifiedmarketing.application.session.SessionInfo;
 import it.polimi.db2.gamifiedmarketing.application.utility.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -41,6 +37,8 @@ public class SubmissionService {
     @Autowired
     private SessionInfo sessionInfo;
 
+    private final Utils utils = new Utils();
+
     public List<Submission> getAllSubmissionOfTheDay() {
         return submissionRepository.getAllSubmissionOfTheDay(LocalDate.now(), Sort.by(Sort.Direction.DESC, "points"));
     }
@@ -61,7 +59,7 @@ public class SubmissionService {
             User sessionUser = sessionInfo.getCurrentUser();
 
             // Check if user is banned
-            if (Utils.isUserBanned(sessionUser)) {
+            if (utils.isUserBanned(sessionUser)) {
                 throw new Exception("You cannot answer questionnaires anymore");
             }
 
@@ -78,7 +76,7 @@ public class SubmissionService {
             }
 
             // Check if user has yet submitted on that product
-            if (Utils.hasUserSubmittedOnProduct(sessionUser, product)) {
+            if (submissionRepository.findByUserAndProduct(sessionUser, product) != null) {
                 throw new Exception("You have yet a submission on that product!");
             }
 
@@ -110,7 +108,7 @@ public class SubmissionService {
             User sessionUser = sessionInfo.getCurrentUser();
 
             // Check if user is banned
-            if (Utils.isUserBanned(sessionUser)) {
+            if (utils.isUserBanned(sessionUser)) {
                 throw new Exception("You cannot answer questionnaires anymore");
             }
 
@@ -127,14 +125,15 @@ public class SubmissionService {
             }
 
             // Check if user has yet submitted on that product
-            if (Utils.hasUserSubmittedOnProduct(sessionUser, product)) {
+            if (submissionRepository.findByUserAndProduct(sessionUser, product) != null) {
                 throw new Exception("You have yet a submission on that product!");
             }
 
             // Check if user answered to all mandatory questions
-            if (json.getResponses().size() == product.getQuestions().size()) {
+            if (json.getResponses().size() != product.getQuestions().size()) {
                 throw new Exception("All marketing questions are mandatory!");
             }
+
 
             Submission submit = Submission.builder()
                     .age(json.getAge())
@@ -143,6 +142,7 @@ public class SubmissionService {
                     .submissionStatus(SubStatus.CONFIRMED)
                     .responses(new ArrayList<>())
                     .build();
+            System.out.println(sessionUser.getEmail());
             sessionUser.addSubmission(submit);
             submit.setProduct(product);
 
