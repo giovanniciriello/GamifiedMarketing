@@ -52,6 +52,51 @@
                         <button class="btn btn-success" @click="searchProduct()">Search product</button>
                     </div>
                 </div>
+
+                <div class="card card-primary mt-4">
+
+                    <div class="card-header">
+                        <h3 class="card-title">Product of the day <b th:text="${product.date}"></b></h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <div class="d-flex align-items-center">
+                            <img th:attr="src=${product.imageUrl}" class="img-fluid" style="height: 70px;">
+                            <div class="pt-3">
+                                <h4 class="ml-4"><span th:text="${product.name}"></span></h4>
+                                <p class="text-muted ml-4" th:text="${product.description}"></p>
+                            </div>
+                        </div>
+
+                        <h4 class="my-3">Confirmed related submissions:</h4>
+
+                        <div id="accordion" th:each="submission: ${product.submissions}">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title w-100">
+                                        <a class="d-block w-100" data-toggle="collapse" th:href="${'#collapse-submission-'+submission.id}" aria-expanded="true">
+                                            Submission by <b th:text="${submission.user.getFullName()}"></b>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div th:id="${'collapse-submission-'+submission.id}" class="collapse" data-parent="#accordion" style="">
+                                    <div class="card-body">
+                                        <ol>
+                                            <li th:each="response: ${submission.responses}">
+                                                <b th:text="${response.question.title}"></b> <span th:text="${response.body}"></span>
+                                            </li>
+                                        </ol>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
         </section>
         <!-- /.content -->

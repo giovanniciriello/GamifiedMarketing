@@ -106,4 +106,8 @@ public class User {
     public void removeSubmission(Submission submission){
         getSubmissions().remove(submission);
     }
+
+    public String getFullName(){
+        return this.getLastName()+" "+this.getFirstName();
+    }
 }

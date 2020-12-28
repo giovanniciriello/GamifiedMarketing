@@ -83,6 +83,8 @@ public class UserController {
 
     @GetMapping("/product/search")
     public String getSearchPage(Model model){
+        Product product = productService.findProductOfTheDay(LocalDate.now());
+        model.addAttribute("product", product);
         return "search-product";
     }
 
