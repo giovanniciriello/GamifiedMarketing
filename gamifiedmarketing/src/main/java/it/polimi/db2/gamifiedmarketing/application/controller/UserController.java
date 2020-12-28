@@ -81,6 +81,11 @@ public class UserController {
         return "create-product";
     }
 
+    @GetMapping("/product/search")
+    public String getSearchPage(Model model){
+        return "search-product";
+    }
+
 
 
     @PostMapping("/submission/{product_id}/submit")

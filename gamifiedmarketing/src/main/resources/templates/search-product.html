@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments :: head"></div>
+
+<!-- .sidebar-mini -->
+<body class="hold-transition layout-top-nav">
+
+<div class="wrapper">
+
+
+    <div th:replace="fragments :: navbar(active_link = 'add-product')"></div>
+
+    <!--/*
+    <div th:replace="fragments :: sidebar"></div>
+    */-->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Search a past product of the day</h1>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container">
+                <div class="card card-primary" x-data="searchProductForm()">
+                    <div class="card-header">
+                        <h3 class="card-title">Search form</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label for="date">Date of product</label>
+                            <input x-model="date" type="date" class="form-control" id="date" placeholder="Pick a date">
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer text-right">
+                        <button class="btn btn-success" @click="searchProduct()">Search product</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="fragments :: footer"></div>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<div th:replace="fragments :: js"></div>
+
+<script type="text/javascript">
+
+    function searchProductForm(){
+        return {
+
+            date: '',
+
+            searchProduct(){
+                console.log(this.date);
+            }
+        }
+    }
+
+</script>
+
+</body>
+</html>
