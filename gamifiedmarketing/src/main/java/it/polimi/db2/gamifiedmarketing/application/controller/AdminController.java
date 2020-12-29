@@ -2,6 +2,7 @@ package it.polimi.db2.gamifiedmarketing.application.controller;
 
 import it.polimi.db2.gamifiedmarketing.application.entity.Product;
 import it.polimi.db2.gamifiedmarketing.application.entity.Submission;
+import it.polimi.db2.gamifiedmarketing.application.entity.views.AddProductRequest;
 import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
 import it.polimi.db2.gamifiedmarketing.application.service.AdminService;
 import it.polimi.db2.gamifiedmarketing.application.service.ProductService;
@@ -45,8 +46,8 @@ public class AdminController {
 
     @PostMapping
     @RequestMapping(value = "product")
-    public ViewResponse<Product> addProduct(@RequestBody Product product) {
-        return adminService.addProduct(product);
+    public ViewResponse<Product> addProduct(@RequestBody AddProductRequest addProductRequest) {
+        return adminService.addProduct(addProductRequest);
     }
 
     @GetMapping

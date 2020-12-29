@@ -134,6 +134,8 @@ public class SubmissionService {
                 throw new Exception("All marketing questions are mandatory!");
             }
 
+            sessionUser = userRepository.findByEmail(sessionUser.getEmail());
+
 
             Submission submit = Submission.builder()
                     .age(json.getAge())
