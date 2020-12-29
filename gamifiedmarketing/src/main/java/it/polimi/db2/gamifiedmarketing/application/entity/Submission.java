@@ -16,7 +16,7 @@ import java.util.List;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
 @Table(name = "submissions")
-@JsonSerialize(using = SubmissionCustomSerializer.class)
+//@JsonSerialize(using = SubmissionCustomSerializer.class)
 public class Submission {
 
     @Id
