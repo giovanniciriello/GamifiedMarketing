@@ -31,8 +31,13 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="container">
-                <div class="card card-primary" x-data="createProductForm()">
+            <div class="container" x-data="createProductForm()">
+
+                <div class="alert alert-success" x-show="show_success_msg">
+                    <i class="fa fa-check"></i> Successfull inserted product!
+                </div>
+
+                <div class="card card-primary" >
                     <div class="card-header">
                         <h3 class="card-title">Creation form</h3>
                     </div>
@@ -57,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 d-flex justify-content-center">
-                                <img x-show="image_url !== null" :src="image_url" alt="" class="img-fluid">
+                                <img x-show="image_url !== null" style="max-height: 400px" :src="image_url" alt="" class="img-fluid">
                             </div>
                         </div>
 
@@ -138,13 +143,13 @@
     function createProductForm(){
         return {
 
-            name: '',
-            description: '',
-            image_url: null,
+            name: 'Ciccio pasticcio',
+            description: 'ciccio pasticcio is back in town',
+            image_url: 'https://images-na.ssl-images-amazon.com/images/I/71zW%2BKDCbVL._AC_SL1500_.jpg',
             questions: [],
 
-            new_question_title: '',
-            new_question_subtitle: '',
+            new_question_title: 'questione',
+            new_question_subtitle: 'risposta',
 
             show_success_msg: false,
             show_error_msg: false,
@@ -176,12 +181,13 @@
                     image_url : this.image_url,
                 });
 
-                $.post('/product/create', {
+                $.post('/product/create', JSON.stringify({
                     name : this.name,
                     description : this.description,
                     image_url : this.image_url,
                     questions: this.questions
-                }, function(){
+                }), function(){
+                    this.show_success_msg = true;
                 });
             }
         }

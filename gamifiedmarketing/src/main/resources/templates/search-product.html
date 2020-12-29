@@ -56,7 +56,7 @@
                 <div class="card card-primary mt-4" th:if="${product != null}">
 
                     <div class="card-header">
-                        <h3 class="card-title">Product of the day <b th:text="${product.date}"></b></h3>
+                        <h3 class="card-title">Product of the day <b th:text="${product.getFormattedDate()}"></b></h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

@@ -56,13 +56,6 @@ public class AdminService {
 
     public ViewResponse<Product> addProduct(AddProductRequest addProductRequest) {
         try{
-            if (sessionInfo.getCurrentUser() == null) {
-                throw new Exception("You seems to not be logged in!");
-            }
-
-            if (!sessionInfo.getCurrentUser().getRole().equals(UserRole.ADMIN)) {
-                throw new Exception("You cannot add a product if you are not admin");
-            }
 
             Optional<User> user = userRepository.findById(sessionInfo.getCurrentUser().getId());
             List<Question> questions = new ArrayList<Question>();
@@ -82,22 +75,14 @@ public class AdminService {
         }
     }
 
-    public ViewResponse<List<Submission>> getVisualQuestionnaire(LocalDate date) {
-        try{
-            if (sessionInfo.getCurrentUser() == null) {
-                throw new Exception("You seems to not be logged in!");
-            }
+    public Product getProductByDate(String date) {
 
-            if (!sessionInfo.getCurrentUser().getRole().equals(UserRole.ADMIN)) {
-                throw new Exception("You cannot see all questionnaires if you are not admin");
-            }
-
-            List<Submission>  _return = submissionRepository.getAllSubmissionOfTheDay(date);
-            return new ViewResponse(true, _return, null);
-        }catch(Exception e){
-            var errors = new ArrayList<String>();
-            errors.add(e.getMessage());
-            return new ViewResponse(false, errors);
+        if(date == null){
+            return null;
         }
+
+        LocalDate localDate = LocalDate.parse(date);
+
+        return productRepository.findByDate(localDate);
     }
 }

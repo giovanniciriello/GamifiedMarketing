@@ -24,37 +24,33 @@ public class AdminController {
     @Autowired
     private ProductService productService;
 
-    // ADMIN ZONE
+
+    @PostMapping("/product/create")
+    public ViewResponse<Product> addProduct(@RequestBody AddProductRequest addProductRequest) {
+        return adminService.addProduct(addProductRequest);
+    }
+
     @GetMapping("/product/create")
     public String getCreationPage(Model model){
         return "create-product";
     }
 
+
     @GetMapping(value = {"/product/search", "/product/search/{date}"})
     public String getSearchPage(Model model, @PathVariable(required = false) String date){
-        if (date != null) {
-            Product product = productService.findProductOfTheDay(LocalDate.now());
-            model.addAttribute("product", product);
-            return "search-product";
-        } else {
-            Product product = null;
-            model.addAttribute("product", product);
-            return "search-product";
-        }
-
+        model.addAttribute("product", adminService.getProductByDate(date));
+        return "search-product";
     }
 
-    @PostMapping
-    @RequestMapping(value = "product")
-    public ViewResponse<Product> addProduct(@RequestBody AddProductRequest addProductRequest) {
-        return adminService.addProduct(addProductRequest);
-    }
 
+
+    /*
     @GetMapping
     @RequestMapping(value = "submission/{date}")
     public ViewResponse<List<Submission>> getVisualQuestionnaire(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return adminService.getVisualQuestionnaire(date);
     }
+    */
 
     @RequestMapping(value = "product/{date}", method = RequestMethod.DELETE)
     public ViewResponse deleteProductByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {

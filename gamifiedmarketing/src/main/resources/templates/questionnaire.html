@@ -151,7 +151,6 @@
                 $.ajax({
                     url: '/submission/'+this.productId+'/submit',
                     method: 'POST',
-                    contentType: "application/json",
                     data: JSON.stringify(requestBody),
                     success: function(res){
                         console.log('submission aggiornato!')
