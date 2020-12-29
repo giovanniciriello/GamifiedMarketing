@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                <div class="card card-primary mt-4">
+                <div class="card card-primary mt-4" th:if="${product != null}">
 
                     <div class="card-header">
                         <h3 class="card-title">Product of the day <b th:text="${product.date}"></b></h3>
@@ -84,7 +84,7 @@
                                     <div class="card-body">
                                         <ul class="list-unstyled">
                                             <li th:each="response: ${submission.responses}">
-                                                ✅ <b th:text="${response.question.title}"></b> <span th:text="${response.body}"></span>
+                                                ✅ &nbsp;<b th:text="${response.question.title}"></b> <span th:text="${response.body}"></span>
                                             </li>
                                         </ul>
 
@@ -99,6 +99,7 @@
 
             </div>
         </section>
+
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -123,7 +124,7 @@
             date: '',
 
             searchProduct(){
-                console.log(this.date);
+                window.location.replace("/product/search/"+this.date);
             }
         }
     }

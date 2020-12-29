@@ -75,19 +75,6 @@ public class UserController {
         return submissionService.logUserCancel(product_id);
     }
 
-    // ADMIN ZONE
-    @GetMapping("/product/create")
-    public String getCreationPage(Model model){
-        return "create-product";
-    }
-
-    @GetMapping("/product/search")
-    public String getSearchPage(Model model){
-        Product product = productService.findProductOfTheDay(LocalDate.now());
-        model.addAttribute("product", product);
-        return "search-product";
-    }
-
 
 
     @PostMapping("/submission/{product_id}/submit")
