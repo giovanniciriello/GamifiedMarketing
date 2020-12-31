@@ -53,6 +53,8 @@
                     </div>
                 </div>
 
+                <div class="alert alert-warning" th:if="${product == null}">No product found for this date</div>
+
                 <div class="card card-primary mt-4" th:if="${product != null}">
 
                     <div class="card-header">
