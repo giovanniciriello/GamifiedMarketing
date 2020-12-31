@@ -60,7 +60,10 @@ public class AdminService {
             Optional<User> user = userRepository.findById(sessionInfo.getCurrentUser().getId());
             List<Question> questions = new ArrayList<Question>();
             for(int i=0; i<addProductRequest.questions.size(); i++) {
-                Question question = Question.builder().title(addProductRequest.questions.get(i).new_question_title).subtitle(addProductRequest.questions.get(i).new_question_subtitle).build();
+                Question question = Question.builder()
+                        .title(addProductRequest.questions.get(i).title)
+                        .subtitle(addProductRequest.questions.get(i).subtitle)
+                        .build();
                 questions.add(question);
             }
 

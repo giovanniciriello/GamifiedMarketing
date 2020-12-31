@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class QuestionRequest{
-    public String new_question_title;
-    public String new_question_subtitle;
+    public String title;
+    public String subtitle;
 }

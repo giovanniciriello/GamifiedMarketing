@@ -26,6 +26,7 @@ public class AdminController {
 
 
     @PostMapping("/product/create")
+    @ResponseBody
     public ViewResponse<Product> addProduct(@RequestBody AddProductRequest addProductRequest) {
         return adminService.addProduct(addProductRequest);
     }
