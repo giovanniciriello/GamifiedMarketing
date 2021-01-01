@@ -67,7 +67,7 @@ public class AdminService {
                 questions.add(question);
             }
 
-            Product product = Product.builder().name(addProductRequest.name).description(addProductRequest.description).imageUrl(addProductRequest.image_url).questions(questions).build();
+            Product product = Product.builder().name(addProductRequest.name).description(addProductRequest.description).imageUrl(addProductRequest.image_url).date(addProductRequest.date).questions(questions).build();
             product.setAdmin(user.get());
             Product _return = productRepository.save(product);
             return new ViewResponse(true, _return, null);

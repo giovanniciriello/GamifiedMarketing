@@ -56,7 +56,7 @@ public class GamifiedMarketingApplication {
         Product product2 = Product.builder().name("Apple iPhone 12").description("Display Super Retina XDR da 6,1. Ceramic Shield, più duro di qualsiasi vetro per smartphone. 5G per download velocissimi e streaming ad alta qualità. A14 Bionic, il chip più veloce mai visto su uno smartphone").imageUrl("https://images-na.ssl-images-amazon.com/images/I/71MtcgbTdXL._AC_SL1500_.jpg").date(LocalDate.of(2020, Month.NOVEMBER, 18)).questions(new ArrayList<>()).submissions(new ArrayList<>()).build();
         admin2.addProduct(product2);
 
-        Product product3 = Product.builder().name("Apple Magic Keyboard").description("Tasti di dimensioni standard retroilluminati, con meccanismo a forbice ed escursione di 1 mm, per scrivere in modo preciso e silenzioso. Il trackpad è progettato per i gesti Multi-Touch, e ti permette di controllare il nuovo cursore in iPadOS.").imageUrl("https://images-na.ssl-images-amazon.com/images/I/71fYV0JMoYL._AC_SL1500_.jpg").date(LocalDate.of(2021, Month.JANUARY, 1)).questions(new ArrayList<>()).submissions(new ArrayList<>()).build();
+        Product product3 = Product.builder().name("Apple Magic Keyboard").description("Tasti di dimensioni standard retroilluminati, con meccanismo a forbice ed escursione di 1 mm, per scrivere in modo preciso e silenzioso. Il trackpad è progettato per i gesti Multi-Touch, e ti permette di controllare il nuovo cursore in iPadOS.").imageUrl("https://images-na.ssl-images-amazon.com/images/I/71fYV0JMoYL._AC_SL1500_.jpg").date(LocalDate.of(2021, Month.JANUARY, 15)).questions(new ArrayList<>()).submissions(new ArrayList<>()).build();
         admin2.addProduct(product3);
 
         // --- Questions --- \\

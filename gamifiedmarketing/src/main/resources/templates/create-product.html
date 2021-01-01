@@ -60,6 +60,11 @@
                                     <label for="image_url">Image URL</label>
                                     <input x-model="image_url" type="url" class="form-control" id="image_url" placeholder="Enter product image url">
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="date">Date of the new product</label>
+                                    <input x-model="date" type="date" class="form-control" id="date" placeholder="Pick a date">
+                                </div>
                             </div>
                             <div class="col-md-6 d-flex justify-content-center">
                                 <img x-show="image_url !== null" style="max-height: 400px" :src="image_url" alt="" class="img-fluid">
@@ -146,6 +151,7 @@
             name: 'Ciccio pasticcio',
             description: 'ciccio pasticcio is back in town',
             image_url: 'https://images-na.ssl-images-amazon.com/images/I/71zW%2BKDCbVL._AC_SL1500_.jpg',
+            date:'',
             questions: [],
 
             new_question_title: 'questione',
@@ -179,12 +185,14 @@
                     name : this.name,
                     description : this.description,
                     image_url : this.image_url,
+                    date: this.date,
                 });
 
                 $.post('/product/create', JSON.stringify({
                     name : this.name,
                     description : this.description,
                     image_url : this.image_url,
+                    date:this.date,
                     questions: this.questions
                 }), function(){
                     this.show_success_msg = true;
