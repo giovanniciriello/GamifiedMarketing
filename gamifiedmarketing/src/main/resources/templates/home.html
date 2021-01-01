@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 
 <div th:replace="fragments :: head"></div>
 
@@ -52,7 +52,7 @@
 
                                         <p class="my-5" th:text="${product.description}"></p>
 
-                                        <div class="text-right">
+                                        <div class="text-right" sec:authorize="hasAuthority('USER')">
                                             <a href="/submission/start/" class="btn btn-primary">Make the questionnaire</a>
                                         </div>
 

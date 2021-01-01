@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 
     <head th:fragment="head">
         <meta charset="utf-8">
@@ -55,10 +55,10 @@
                         <li th:class="'nav-item '+${active_link == 'leaderboard' ? 'active' : ''}" class="nav-item">
                             <a href="/leaderboard" class="nav-link">🏆 <span class="ml-2">LeaderBoard</span></a>
                         </li>
-                        <li sec:authorize="hasRole('ADMIN')" th:class="'nav-item '+${active_link == 'add-product' ? 'active' : ''}" class="nav-item">
+                        <li sec:authorize="hasAuthority('ADMIN')" th:class="'nav-item '+${active_link == 'add-product' ? 'active' : ''}" class="nav-item">
                             <a href="/product/create" class="nav-link">➕ <span class="ml-2">Add product</span></a>
                         </li>
-                        <li th:class="'nav-item '+${active_link == 'search-product' ? 'active' : ''}" class="nav-item">
+                        <li sec:authorize="hasAuthority('ADMIN')" th:class="'nav-item '+${active_link == 'search-product' ? 'active' : ''}" class="nav-item">
                             <a href="/product/search" class="nav-link">🔍 <span class="ml-2">Search a product</span></a>
                         </li>
                     </ul>

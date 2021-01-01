@@ -59,6 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/login").permitAll()
+                    .antMatchers("/submission/create").hasAuthority("USER") // non funziona
+                    .antMatchers("/product/search", "/product/create").hasAuthority("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -89,9 +91,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .invalidateHttpSession(true)
 
                     // Specifies if SecurityContextLogoutHandler should clear the Authentication at the time of logout.
-                    .clearAuthentication(true);
-//                    .and()
-//                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                    .clearAuthentication(true)
+
+                    .and()
+                    .exceptionHandling().accessDeniedPage("/errors/403.html");
     }
 
     @Bean
