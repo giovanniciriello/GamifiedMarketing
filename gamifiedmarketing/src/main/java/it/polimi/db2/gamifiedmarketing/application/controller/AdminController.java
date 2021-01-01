@@ -53,7 +53,8 @@ public class AdminController {
     }
     */
 
-    @RequestMapping(value = "product/{date}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "product/{date}")
+    @ResponseBody
     public ViewResponse deleteProductByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return adminService.deleteProductByDate(date);
     }

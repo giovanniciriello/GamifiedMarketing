@@ -55,7 +55,7 @@
                         <li th:class="'nav-item '+${active_link == 'leaderboard' ? 'active' : ''}" class="nav-item">
                             <a href="/leaderboard" class="nav-link">🏆 <span class="ml-2">LeaderBoard</span></a>
                         </li>
-                        <li th:class="'nav-item '+${active_link == 'add-product' ? 'active' : ''}" class="nav-item">
+                        <li sec:authorize="hasRole('ADMIN')" th:class="'nav-item '+${active_link == 'add-product' ? 'active' : ''}" class="nav-item">
                             <a href="/product/create" class="nav-link">➕ <span class="ml-2">Add product</span></a>
                         </li>
                         <li th:class="'nav-item '+${active_link == 'search-product' ? 'active' : ''}" class="nav-item">

@@ -37,6 +37,10 @@
                     <i class="fa fa-check"></i> Successfull inserted product!
                 </div>
 
+                <div class="alert alert-danger" x-show="show_validation_error_msg">
+                    <i class="fa fa-exclamation-triangle"></i> Please fill the required inputs.
+                </div>
+
                 <div class="card card-primary" >
                     <div class="card-header">
                         <h3 class="card-title">Creation form</h3>
@@ -47,7 +51,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
+                                    <label for="name">Name *</label>
                                     <input x-model="name" type="text" class="form-control" id="name" placeholder="Enter product name">
                                 </div>
 
@@ -57,12 +61,12 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="image_url">Image URL</label>
+                                    <label for="image_url">Image URL *</label>
                                     <input x-model="image_url" type="url" class="form-control" id="image_url" placeholder="Enter product image url">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="date">Date of the new product</label>
+                                    <label for="date">Date of the questionnaire *</label>
                                     <input x-model="date" type="date" class="form-control" id="date" placeholder="Pick a date">
                                 </div>
                             </div>
@@ -151,18 +155,20 @@
             name: 'Ciccio pasticcio',
             description: 'ciccio pasticcio is back in town',
             image_url: 'https://images-na.ssl-images-amazon.com/images/I/71zW%2BKDCbVL._AC_SL1500_.jpg',
-            date:'',
+            date: '',
             questions: [],
 
             new_question_title: 'questione',
             new_question_subtitle: 'risposta',
 
             show_success_msg: false,
+            show_validation_error_msg: false,
             show_error_msg: false,
 
             addQuestion(){
 
                 if(this.new_question_title === ''){
+                    this.show_validation_error_msg = true;
                     return;
                 }
 
@@ -171,6 +177,7 @@
                     subtitle: this.new_question_subtitle
                 });
 
+                this.show_validation_error_msg = false;
                 this.new_question_title = '';
                 this.new_question_subtitle = '';
             },
@@ -181,12 +188,13 @@
 
             createProduct(){
 
-                console.log({
-                    name : this.name,
-                    description : this.description,
-                    image_url : this.image_url,
-                    date: this.date,
-                });
+                this.show_validation_error_msg = false;
+                this.show_success_msg = false;
+
+                if(this.name === '' || this.image_url === ''|| this.date === '' || this.questions.length === 0){
+                    this.show_validation_error_msg = true;
+                    return;
+                }
 
                 $.post('/product/create', JSON.stringify({
                     name : this.name,
@@ -194,7 +202,7 @@
                     image_url : this.image_url,
                     date:this.date,
                     questions: this.questions
-                }), function(){
+                }), () => {
                     this.show_success_msg = true;
                 });
             }

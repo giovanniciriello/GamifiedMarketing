@@ -31,8 +31,8 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="container">
-                <div class="card card-primary" x-data="searchProductForm()">
+            <div class="container" x-data="searchProductForm()">
+                <div class="card card-primary">
 
                     <div class="card-header">
                         <h3 class="card-title">Search form</h3>
@@ -53,9 +53,11 @@
                     </div>
                 </div>
 
-                <div class="alert alert-warning" th:if="${product == null}">No product found for this date</div>
+                <div class="alert alert-warning" th:if="${product == null}">🙃 &nbsp;No product found for this date</div>
 
-                <div class="card card-primary mt-4" th:if="${product != null}">
+                <div class="alert alert-success" x-show.transition.in="show_deleted_msg"><i class="fa fa-check"></i> Successfull deleted product!</div>
+
+                <div class="card card-primary mt-4" th:if="${product != null}" x-show.transition.out="!show_deleted_msg">
 
                     <div class="card-header">
                         <h3 class="card-title">Product of the day <b th:text="${product.getFormattedDate()}"></b></h3>
@@ -97,6 +99,9 @@
 
                     </div>
 
+                    <div class="card-footer text-right">
+                        <button class="btn btn-danger btn-sm" @click="deleteProduct()"><i class="fa fa-trash"></i> Delete</button>
+                    </div>
                 </div>
 
             </div>
@@ -124,9 +129,21 @@
         return {
 
             date: '',
+            productDate: '[[${product == null ? "" : product.date}]]',
+            show_deleted_msg: false,
 
             searchProduct(){
                 window.location.replace("/product/search/"+this.date);
+            },
+
+            deleteProduct(){
+                $.ajax({
+                    url: '/product/'+this.productDate,
+                    method: 'DELETE',
+                    success: () => {
+                        this.show_deleted_msg = true;
+                    }
+                })
             }
         }
     }
