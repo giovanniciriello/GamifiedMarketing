@@ -141,12 +141,11 @@ public class SubmissionService {
                     .age(json.getAge())
                     .expertiseLevel(json.getExpertiseLevel())
                     .sex(json.getSex())
+                    .points(0)
                     .submissionStatus(SubStatus.CONFIRMED)
                     .responses(new ArrayList<>())
                     .build();
             System.out.println(sessionUser.getEmail());
-            sessionUser.addSubmission(submit);
-            submit.setProduct(product);
 
             for (ResponseJSON response : json.getResponses()) {
                 Integer questionId = response.getQuestion_id();
@@ -154,7 +153,7 @@ public class SubmissionService {
 
                 Optional<Question> questionMaybe = questionRepository.findById(questionId);
                 try {
-                    // Check if question is existing (array tampered with)
+                    // Check if question is existing (ar raytampered with)
                     if (questionMaybe.isEmpty()) {
                         throw new Exception("You hacker!");
                     }
@@ -174,10 +173,11 @@ public class SubmissionService {
                 submit.addResponse(tmp);
                 question.addResponse(tmp);
             }
-
+            submit.setProduct(product);
+            sessionUser.addSubmission(submit);
             userRepository.save(sessionUser);
 
-            return new ViewResponse(true, submit, null);
+            return new ViewResponse(true, submit.getId(), null);
         } catch (Exception e) {
             var errors = new ArrayList<String>();
             errors.add(e.getMessage());

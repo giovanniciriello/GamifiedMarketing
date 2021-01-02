@@ -5,6 +5,7 @@ import it.polimi.db2.gamifiedmarketing.application.entity.enums.ExpertiseLevel;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.UserRole;
+import it.polimi.db2.gamifiedmarketing.application.repository.BadWordRepository;
 import it.polimi.db2.gamifiedmarketing.application.repository.ProductRepository;
 import it.polimi.db2.gamifiedmarketing.application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,14 @@ import java.time.Month;
 import java.util.ArrayList;
 
 @SpringBootApplication
+
 public class GamifiedMarketingApplication {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BadWordRepository badWordRepository;
 
     @Autowired
     private ProductRepository productRepository;
@@ -108,5 +113,12 @@ public class GamifiedMarketingApplication {
         // Here (persisting the user) is exampled the use case of the user that submit/cancel a new submission with related answers.
         userRepository.save(user1);
         userRepository.save(user2);
+
+        BadWord badWord1 = BadWord.builder().text("fuck").build();
+        BadWord badWord2 = BadWord.builder().text("asshole").build();
+
+        badWordRepository.save(badWord1);
+        badWordRepository.save(badWord2);
+        //badWordRepository.runTriggers();
     }
 }

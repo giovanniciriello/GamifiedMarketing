@@ -77,3 +77,10 @@ create table responses
 		foreign key (submission_id) references submissions (id)
 );
 
+create table bad_words
+(
+    text varchar(50) null
+);
+
+
+
