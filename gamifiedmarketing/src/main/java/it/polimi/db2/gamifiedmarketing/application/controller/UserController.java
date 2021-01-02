@@ -39,14 +39,18 @@ public class UserController {
         return "../static/login";
     }
 
-    @GetMapping("/home")
+    @GetMapping(value = {"/", "/home"})
     public String getHomePage(Model model) {
         Product productOfTheDay = productService.findProductOfTheDay(LocalDate.now());
         model.addAttribute("product", productOfTheDay);
+        Boolean questionnaireSubmittable = true;
 
         // Boolean needed to avoid making clickable the button to initiate a new questionnaire if user banned or yet submitted
-        if ((submissionRepository.findByUserAndProduct(sessionInfo.getCurrentUser(), productOfTheDay) != null) || utils.isUserBanned(sessionInfo.getCurrentUser()))
-            model.addAttribute("token");
+        if ((submissionRepository.findByUserAndProduct(sessionInfo.getCurrentUser(), productOfTheDay) != null) || utils.isUserBanned(sessionInfo.getCurrentUser())){
+            questionnaireSubmittable = false;
+        }
+
+        model.addAttribute("questionnaireSubmittable", questionnaireSubmittable);
 
         return "home";
     }

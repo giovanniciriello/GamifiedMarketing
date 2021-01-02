@@ -32,7 +32,7 @@
             <section class="content">
                 <div class="container">
 
-                    <div class="card card-primary">
+                    <div class="card card-primary" th:if="${product != null}">
                         <div class="card-header">
                             <h3 class="card-title">
                                 💡 <span class="ml-2">Product of the day</span>
@@ -53,7 +53,8 @@
                                         <p class="my-5" th:text="${product.description}"></p>
 
                                         <div class="text-right" sec:authorize="hasAuthority('USER')">
-                                            <a href="/submission/start/" class="btn btn-primary">Make the questionnaire</a>
+                                            <a href="/submission/start/" th:class="'btn btn-primary '+${questionnaireSubmittable ? '' : 'disabled'}">Make the questionnaire</a>
+                                            <!--<br><small class="text-danger"><i class="fa fa-exclamation-triangle"></i> You're banned</small>-->
                                         </div>
 
                                     </div>
@@ -63,6 +64,10 @@
 
                         </div>
                         <!-- /.card-body -->
+                    </div>
+
+                    <div class="alert alert-warning" th:if="${product == null}">
+                        😞 &nbsp;No product questionnaire for today
                     </div>
                 </div>
             </section>
