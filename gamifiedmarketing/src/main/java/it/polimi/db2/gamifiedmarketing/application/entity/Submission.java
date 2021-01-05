@@ -11,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
@@ -82,5 +83,10 @@ public class Submission {
 
     public void removeResponses(Response response){
         getResponses().remove(responses);
+    }
+
+    public String getFormattedCreatedAt(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.createdAt.format(formatter);
     }
 }

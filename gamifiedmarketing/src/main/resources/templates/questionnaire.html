@@ -75,7 +75,7 @@
                                                 <label class="form-check-label" for="sex-male">Male</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="sex" checked="" value="1" id="sex-female">
+                                                <input class="form-check-input" type="radio" name="sex" value="1" id="sex-female">
                                                 <label class="form-check-label" for="sex-female">Female</label>
                                             </div>
                                         </div>
@@ -85,8 +85,9 @@
                                     <label class="col-sm-2 col-form-label">Your expertise level *</label>
                                     <div class="col-sm-10">
                                         <select id="expertise-level" class="form-control">
+                                            <option value="">Choose one</option>
                                             <option value="LOW">Low</option>
-                                            <option value="MEDIUM" selected>Medium</option>
+                                            <option value="MEDIUM">Medium</option>
                                             <option value="EXPERTISE">High</option>
                                         </select>
                                     </div>
@@ -135,7 +136,7 @@
                 const requestBody = {
                     sex: $('input[name="sex"]:checked').val(),
                     age: $('#age').val(),
-                    expertise_level: $('#expertise-level').val(),
+                    expertiseLevel: $('#expertise-level').val(),
                 }
 
                 let responses = [];
@@ -153,7 +154,6 @@
                     method: 'POST',
                     data: JSON.stringify(requestBody),
                     success: function(res){
-                        console.log('submission aggiornato!')
                         console.log(res);
                     }
                 });

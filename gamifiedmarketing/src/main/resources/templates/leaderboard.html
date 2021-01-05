@@ -56,19 +56,23 @@
                 <th style="width: 10px">Pos.</th>
                 <th>Points</th>
                 <th>Username</th>
-                <th>N. Answered optional questions</th>
+                <th>Answered optional questions</th>
                 <th>Submission Date & Time</th>
               </tr>
               </thead>
               <tbody>
 
 
-              <tr th:each="submission: ${submissions}">
-                <td th:text="${submission.id}"></td>
-                <td><span class="badge badge-success">150</span></td>
+              <tr th:each="submission, pos: ${submissions}">
+                <td th:text="${pos.count}"></td>
+                <td><span class="badge badge-success" th:text="${submission.points}"></span></td>
                 <td>🏆 <span class="ml-2" th:text="${submission.user.getLastName()+' '+submission.user.getFirstName()}"></span></td>
-                <td>3/3</td>
-                <td th:text="${submission.user.getCreatedAt()}"></td>
+                <td>
+                  <span class="badge badge-warning" th:if="${submission.getAge()}">Age</span>
+                  <span class="badge badge-info" th:if="${submission.getExpertiseLevel()}">Expertise Level</span>
+                  <span class="badge badge-danger" th:if="${submission.getSex()}">Sex</span>
+                </td>
+                <td th:text="${submission.getFormattedCreatedAt()}"></td>
               </tr>
 
               </tbody>

@@ -73,22 +73,30 @@
                             </div>
                         </div>
 
-                        <h4 class="my-3">Confirmed related submissions:</h4>
+                        <h4 class="my-3">Submissions</h4>
 
                         <div id="accordion" th:each="submission: ${product.submissions}">
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title w-100">
-                                        <a class="d-block w-100" data-toggle="collapse" th:href="${'#collapse-submission-'+submission.id}" aria-expanded="true">
-                                            Submission by <b th:text="${submission.user.getFullName()}"></b>
+                                        <a class="d-block w-100 d-flex justify-content-between" data-toggle="collapse" th:href="${'#collapse-submission-'+submission.id}" aria-expanded="true">
+                                            <span><b th:text="${submission.user.getFullName()}"></b></span>
+                                            <span th:class="'badge '+${submission.submissionStatus.toString() == 'CANCELED' ? 'badge-danger' : 'badge-success'}" th:text="${submission.submissionStatus}"></span>
                                         </a>
                                     </h4>
                                 </div>
                                 <div th:id="${'collapse-submission-'+submission.id}" class="collapse" data-parent="#accordion" style="">
                                     <div class="card-body">
-                                        <ul class="list-unstyled">
+                                        <div class="w-100 mb-4">
+                                            <span class="badge badge-warning" th:if="${submission.getAge()}" th:text="${submission.getAge()}+' years'"></span>
+                                            <span class="badge badge-info" th:if="${submission.getExpertiseLevel()}" th:text="'Expertise '+${submission.getExpertiseLevel()}"></span>
+                                            <span class="badge badge-danger" th:if="${submission.getSex()}" th:text="${submission.getSex()}"></span>
+                                        </div>
+
+
+                                        <ul>
                                             <li th:each="response: ${submission.responses}">
-                                                ✅ &nbsp;<b th:text="${response.question.title}"></b> <span th:text="${response.body}"></span>
+                                                <b th:text="${response.question.title}"></b> <span th:text="${response.body}"></span>
                                             </li>
                                         </ul>
 

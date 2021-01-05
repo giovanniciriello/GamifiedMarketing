@@ -46,9 +46,11 @@ public class GamifiedMarketingApplication {
         User user1 = User.builder().firstName("Matteo").lastName("Giordano").email("matteo@email.com").password(new BCryptPasswordEncoder().encode("pwd")).role(UserRole.USER).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
         User user2 = User.builder().firstName("Andrea").lastName("Bovo").email("andrea@email.com").password(new BCryptPasswordEncoder().encode("pwd")).role(UserRole.USER).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
         User user3 = User.builder().firstName("Giovanni").lastName("Ciriello").email("giovanni@email.com").password(new BCryptPasswordEncoder().encode("pwd")).role(UserRole.USER).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
+        User user4 = User.builder().firstName("Ciccio").lastName("Pasticcio").email("ciccio@email.com").password(new BCryptPasswordEncoder().encode("pwd")).role(UserRole.USER).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
+        userRepository.save(user4);
 
         // --- Admins --- \\
         User admin1 = User.builder().firstName("Admin").lastName("1").email("admin1@email.com").password(new BCryptPasswordEncoder().encode("pwd")).role(UserRole.ADMIN).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
@@ -97,13 +99,13 @@ public class GamifiedMarketingApplication {
         question2_1.addResponse(response2_2);
 
         // --- Submissions --- \\
-        Submission sub_user1 = Submission.builder().age(12).expertiseLevel(ExpertiseLevel.LOW).sex(Sex.MALE).submissionStatus(SubStatus.CONFIRMED).responses(new ArrayList<>()).build();
+        Submission sub_user1 = Submission.builder().age(12).points(25).expertiseLevel(ExpertiseLevel.LOW).sex(Sex.MALE).submissionStatus(SubStatus.CONFIRMED).responses(new ArrayList<>()).build();
         user1.addSubmission(sub_user1);
         sub_user1.setProduct(product1);
         sub_user1.addResponse(response1_1);
         sub_user1.addResponse(response2_1);
 
-        Submission sub_user2 = Submission.builder().age(24).expertiseLevel(ExpertiseLevel.HIGH).sex(Sex.FEMALE).submissionStatus(SubStatus.CANCELED).responses(new ArrayList<>()).build();
+        Submission sub_user2 = Submission.builder().age(24).points(25).expertiseLevel(ExpertiseLevel.HIGH).sex(Sex.FEMALE).submissionStatus(SubStatus.CANCELED).responses(new ArrayList<>()).build();
         user2.addSubmission(sub_user2);
         sub_user2.setProduct(product1);
         sub_user2.addResponse(response1_2);
@@ -116,6 +118,7 @@ public class GamifiedMarketingApplication {
 
         BadWord badWord1 = BadWord.builder().text("fuck").build();
         BadWord badWord2 = BadWord.builder().text("asshole").build();
+        // https://data.world/natereed/banned-words-list/workspace/file?filename=swearWords.csv
 
         badWordRepository.save(badWord1);
         badWordRepository.save(badWord2);
