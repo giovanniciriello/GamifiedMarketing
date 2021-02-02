@@ -27,3 +27,4 @@ public class Response {
     @JoinColumn(name = "submission_id")
     private Submission submission;
 }
+

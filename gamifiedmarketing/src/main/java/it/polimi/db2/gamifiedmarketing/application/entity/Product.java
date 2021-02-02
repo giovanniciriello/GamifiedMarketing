@@ -47,6 +47,11 @@ public class Product {
     @JoinColumn(name="admin_id")
     private User admin;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    private List<Review> reviews;
+
     /*
      * CascadeType Policies:
      *  --> PERSIST     If Product is persisted, then also the related questions
@@ -70,6 +75,15 @@ public class Product {
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private List<Submission> submissions;
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview(Review review){
+        getReviews().add(review);
+        review.setProduct(this);
+    }
 
     // Methods for the Bi-directional relationship ( Product 1:N Question )
     public List<Question> getQuestions() {

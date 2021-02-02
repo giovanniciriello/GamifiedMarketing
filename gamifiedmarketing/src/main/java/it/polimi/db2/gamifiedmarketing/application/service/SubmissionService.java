@@ -5,10 +5,7 @@ import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
 import it.polimi.db2.gamifiedmarketing.application.entity.helpers.ResponseJSON;
 import it.polimi.db2.gamifiedmarketing.application.entity.helpers.SubmissionJSON;
 import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
-import it.polimi.db2.gamifiedmarketing.application.repository.ProductRepository;
-import it.polimi.db2.gamifiedmarketing.application.repository.QuestionRepository;
-import it.polimi.db2.gamifiedmarketing.application.repository.SubmissionRepository;
-import it.polimi.db2.gamifiedmarketing.application.repository.UserRepository;
+import it.polimi.db2.gamifiedmarketing.application.repository.*;
 import it.polimi.db2.gamifiedmarketing.application.session.SessionInfo;
 import it.polimi.db2.gamifiedmarketing.application.utility.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -33,6 +32,10 @@ public class SubmissionService {
 
     @Autowired
     private QuestionRepository questionRepository;
+
+    @Autowired
+    private BadWordRepository badWordRepository;
+
 
     @Autowired
     private SessionInfo sessionInfo;
@@ -100,7 +103,7 @@ public class SubmissionService {
          *      --> If use has not answered to all mandatory questions --> return error "All marketing questions are mandatory!"
          */
         try {
-            // TODO Check on offensive words !!
+
             // Check if user is logged in
             if (sessionInfo.getCurrentUser() == null) {
                 throw new Exception("You seems to not be logged in!");
@@ -137,6 +140,7 @@ public class SubmissionService {
             sessionUser = userRepository.findByEmail(sessionUser.getEmail());
 
 
+
             Submission submit = Submission.builder()
                     .age(json.getAge())
                     .expertiseLevel(json.getExpertiseLevel())
@@ -145,11 +149,24 @@ public class SubmissionService {
                     .submissionStatus(SubStatus.CONFIRMED)
                     .responses(new ArrayList<>())
                     .build();
-            System.out.println(sessionUser.getEmail());
+
+            Iterable<BadWord> badWords = badWordRepository.findAll();
 
             for (ResponseJSON response : json.getResponses()) {
+
                 Integer questionId = response.getQuestion_id();
                 String responseBody = response.getBody();
+
+                List<String> words = Arrays.asList(responseBody.replaceAll("[^a-zA-Z0-9]", " ").toLowerCase().split(" "));;
+
+                for (BadWord badWord: badWords) {
+                    if(words.contains(badWord.getText())){
+                        sessionUser.setBannedAt(LocalDateTime.now());
+                        userRepository.save(sessionUser);
+                        throw new Exception("You wrote a bad word, banned!");
+                    }
+
+                }
 
                 Optional<Question> questionMaybe = questionRepository.findById(questionId);
                 try {
@@ -173,8 +190,10 @@ public class SubmissionService {
                 submit.addResponse(tmp);
                 question.addResponse(tmp);
             }
+
             submit.setProduct(product);
             sessionUser.addSubmission(submit);
+
             userRepository.save(sessionUser);
 
             return new ViewResponse(true, submit.getId(), null);

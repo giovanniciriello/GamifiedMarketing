@@ -79,8 +79,6 @@ public class UserController {
         return submissionService.logUserCancel(product_id);
     }
 
-
-
     @PostMapping("/submission/{product_id}/submit")
     @ResponseBody
     public ViewResponse submitSubmission(@PathVariable Integer product_id, @RequestBody SubmissionJSON submission) {
