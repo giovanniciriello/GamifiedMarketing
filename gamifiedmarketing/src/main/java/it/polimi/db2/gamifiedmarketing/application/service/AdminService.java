@@ -43,7 +43,7 @@ public class AdminService {
             if (!sessionInfo.getCurrentUser().getRole().equals(UserRole.ADMIN)) {
                 throw new Exception("You cannot delete a product if you are not admin");
             }
-            if (date.getDayOfYear() > LocalDate.now().getDayOfYear() && date.getYear() >= LocalDate.now().getYear()) {
+            if (date.getDayOfYear() > LocalDate.now().getDayOfYear() && date.getYear() < LocalDate.now().getYear()) {
                 throw new Exception("You cannot delete a product that has to be review in the future");
             }
 
@@ -64,7 +64,7 @@ public class AdminService {
             if (!sessionInfo.getCurrentUser().getRole().equals(UserRole.ADMIN)) {
                 throw new Exception("You cannot delete a product if you are not admin");
             }
-            if (addProductRequest.date.getYear() <= LocalDate.now().getYear() && addProductRequest.date.getDayOfYear() > LocalDate.now().getDayOfYear()) {
+            if (addProductRequest.date.getYear() <= LocalDate.now().getYear() && addProductRequest.date.getDayOfYear() < LocalDate.now().getDayOfYear()) {
                 throw new Exception("You cannot add a product with a past date");
             }
             if (addProductRequest.questions.isEmpty() || addProductRequest.questions == null) {

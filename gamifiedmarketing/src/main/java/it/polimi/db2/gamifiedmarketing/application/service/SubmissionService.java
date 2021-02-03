@@ -85,7 +85,7 @@ public class SubmissionService {
 
             Submission log = Submission.builder().user(sessionUser).product(product).submissionStatus(SubStatus.CANCELED).build();
             submissionRepository.save(log);
-            return new ViewResponse(true, log, null);
+            return new ViewResponse(true, log.getId(), null);
         } catch (Exception e) {
             var errors = new ArrayList<String>();
             errors.add(e.getMessage());

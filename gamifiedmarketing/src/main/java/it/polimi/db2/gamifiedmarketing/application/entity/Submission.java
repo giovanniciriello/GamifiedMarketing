@@ -89,4 +89,12 @@ public class Submission {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.createdAt.format(formatter);
     }
+
+    public boolean getIsCompleted(){
+        return this.submissionStatus == SubStatus.CONFIRMED;
+    }
+
+    public boolean getIsCanceled(){
+        return this.submissionStatus == SubStatus.CANCELED;
+    }
 }

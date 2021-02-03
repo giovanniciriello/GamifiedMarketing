@@ -105,10 +105,11 @@
                             </div>
                         </div>
 
+                        <p th:if="${product.submissions.size() == 0 }" class="text-muted">No submissions</p>
                     </div>
 
                     <div class="card-footer text-right">
-                        <button class="btn btn-danger btn-sm" @click="deleteProduct()"><i class="fa fa-trash"></i> Delete</button>
+                        <button class="btn btn-danger btn-sm" @click="deleteProduct()" :disabled="isFutureProduct()"><i class="fa fa-trash"></i> Delete</button>
                     </div>
                 </div>
 
@@ -142,6 +143,10 @@
 
             searchProduct(){
                 window.location.replace("/product/search/"+this.date);
+            },
+
+            isFutureProduct(){
+                return (new Date).toISOString().split("T")[0] < this.productDate;
             },
 
             deleteProduct(){

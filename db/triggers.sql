@@ -2,7 +2,7 @@ DELIMITER $$
 
 CREATE TRIGGER NO_BAD_WORDS
 AFTER INSERT ON responses
-FOR EACH ROW
+FOR EACH STATEMENT
 BEGIN
 	DECLARE badWordsCount INT;
   DECLARE userId INT;
@@ -14,8 +14,6 @@ BEGIN
 		LIKE + concat('%', UPPER(BW.text),'%');
 
 	IF badWordsCount > 0 THEN
-
-    ROLLBACK();
 
 		SELECT U.id
         INTO userId

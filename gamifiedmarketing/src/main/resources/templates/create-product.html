@@ -66,8 +66,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="date">Date of the questionnaire *</label>
-                                    <input x-model="date" type="date" class="form-control" id="date" placeholder="Pick a date">
+                                    <label for="date">Date of the questionnaire * <small class="text-muted">(Select today or a future day)</small></label>
+                                    <input x-model="date" type="date" class="form-control" id="date" placeholder="Pick a date" :min="today">
                                 </div>
                             </div>
                             <div class="col-md-6 d-flex justify-content-center">
@@ -98,7 +98,7 @@
                         <div class="row">
 
                             <template x-if="questions.length > 0">
-                                <table class="table table-sm table-bordered mt-3">
+                                <table class="table table-sm mt-3">
                                     <thead>
                                     <tr>
                                         <th>Title</th>
@@ -111,8 +111,8 @@
                                         <tr>
                                             <td x-text="question.title"></td>
                                             <td x-text="question.subtitle"></td>
-                                            <td class="text-right">
-                                                <button @click="deleteQuestion(index)" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                                            <td class="text-center">
+                                                <button @click="deleteQuestion(index)" class="btn btn-xs btn-danger" ><i class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     </template>
@@ -151,6 +151,8 @@
 
     function createProductForm(){
         return {
+
+            today: (new Date).toISOString().split("T")[0],
 
             name: '',
             description: '',

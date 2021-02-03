@@ -19,9 +19,6 @@ public class SessionInfo {
     private UserRepository userRepository;
 
     public User getCurrentUser() {
-        if (user == null) {
-            user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        }
-        return user;
+        return userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }

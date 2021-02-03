@@ -74,6 +74,7 @@ public class Product {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OrderBy("submission_status DESC")
     private List<Submission> submissions;
 
     public List<Review> getReviews() {

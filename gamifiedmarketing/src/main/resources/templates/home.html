@@ -48,17 +48,27 @@
                                 </div>
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div>
-                                        <h2 class="text-center" th:text="${product.name}"></h2>
+                                        <h1 class="text-center" th:text="${product.name}"></h1>
 
-                                        <p class="my-5" th:text="${product.description}"></p>
+                                        <p class="mt-5" th:text="${product.description}"></p>
 
-                                        <div class="text-right" sec:authorize="hasAuthority('USER')">
-                                            <a href="/submission/start/" th:class="'btn btn-primary '+${questionnaireSubmittable ? '' : 'disabled'}">Make the questionnaire</a>
-                                            <!--<br><small class="text-danger"><i class="fa fa-exclamation-triangle"></i> You're banned</small>-->
+                                        <div class="text-center my-5" sec:authorize="hasAuthority('USER')">
+                                            <a href="/submission/start/" th:class="'btn btn-primary '+${submission != null || bannedUser ? 'disabled' : ''}">Make the questionnaire</a>
+                                            <small th:if="${bannedUser}" class="text-danger"><br><i class="fa fa-exclamation-triangle"></i> You're banned</small>
+                                            <span th:if="${submission != null}">
+                                                <small th:if="${submission.getIsCompleted()}" class="text-success"><br><i class="fa fa-check"></i> You already completed this questionnaire</small>
+                                                <small th:if="${submission.getIsCanceled()}" class="text-warning"><br><i class="fa fa-times"></i> You canceled the submission of this questionnaire</small>
+                                            </span>
                                         </div>
-
+                                        <h3>Latest reviews</h3>
+                                        <div class="callout callout-warning" th:each="review: ${product.reviews}">
+                                            <small th:text="${review.text}"></small>
+                                        </div>
                                     </div>
+
                                 </div>
+
+
                             </div>
 
 
