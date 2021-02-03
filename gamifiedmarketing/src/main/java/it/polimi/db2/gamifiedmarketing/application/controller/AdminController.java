@@ -22,10 +22,6 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @Autowired
-    private ProductService productService;
-
-
     @PostMapping("/product/create")
     @ResponseBody
     public ResponseEntity<ViewResponse<Product>> addProduct(@RequestBody AddProductRequest addProductRequest) {
