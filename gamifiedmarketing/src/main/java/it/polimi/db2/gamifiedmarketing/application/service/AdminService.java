@@ -40,9 +40,11 @@ public class AdminService {
             if (sessionInfo.getCurrentUser() == null) {
                 throw new Exception("You seems to not be logged in!");
             }
-
             if (!sessionInfo.getCurrentUser().getRole().equals(UserRole.ADMIN)) {
                 throw new Exception("You cannot delete a product if you are not admin");
+            }
+            if (date.getDayOfYear() > LocalDate.now().getDayOfYear() && date.getYear() >= LocalDate.now().getYear()) {
+                throw new Exception("You cannot delete a product that has to be review in the future");
             }
 
             productRepository.deleteByDate(date);
@@ -56,6 +58,18 @@ public class AdminService {
 
     public ViewResponse<Product> addProduct(AddProductRequest addProductRequest) {
         try{
+            if (sessionInfo.getCurrentUser() == null) {
+                throw new Exception("You seems to not be logged in!");
+            }
+            if (!sessionInfo.getCurrentUser().getRole().equals(UserRole.ADMIN)) {
+                throw new Exception("You cannot delete a product if you are not admin");
+            }
+            if (addProductRequest.date.getYear() <= LocalDate.now().getYear() && addProductRequest.date.getDayOfYear() > LocalDate.now().getDayOfYear()) {
+                throw new Exception("You cannot add a product with a past date");
+            }
+            if (addProductRequest.questions.isEmpty() || addProductRequest.questions == null) {
+                throw new Exception("You cannot add a product without any questions");
+            }
 
             Optional<User> user = userRepository.findById(sessionInfo.getCurrentUser().getId());
             List<Question> questions = new ArrayList<Question>();

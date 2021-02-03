@@ -10,6 +10,7 @@ import it.polimi.db2.gamifiedmarketing.application.service.SubmissionService;
 import it.polimi.db2.gamifiedmarketing.application.session.SessionInfo;
 import it.polimi.db2.gamifiedmarketing.application.utility.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -75,13 +76,23 @@ public class UserController {
 
     @DeleteMapping("/submission/{product_id}/cancel")
     @ResponseBody
-    public ViewResponse logUserCancel(@PathVariable Integer product_id) {
-        return submissionService.logUserCancel(product_id);
+    public ResponseEntity<ViewResponse> logUserCancel(@PathVariable Integer product_id) {
+        ViewResponse response = submissionService.logUserCancel(product_id);
+        if(response.isValid){
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
     @PostMapping("/submission/{product_id}/submit")
     @ResponseBody
-    public ViewResponse submitSubmission(@PathVariable Integer product_id, @RequestBody SubmissionJSON submission) {
-        return submissionService.submitSubmission(product_id, submission);
+    public ResponseEntity<ViewResponse> submitSubmission(@PathVariable Integer product_id, @RequestBody SubmissionJSON submission) {
+        ViewResponse response = submissionService.submitSubmission(product_id, submission);
+        if(response.isValid){
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 }

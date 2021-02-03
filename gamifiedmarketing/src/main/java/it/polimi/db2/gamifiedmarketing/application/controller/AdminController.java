@@ -9,6 +9,7 @@ import it.polimi.db2.gamifiedmarketing.application.service.ProductService;
 import it.polimi.db2.gamifiedmarketing.application.service.SubmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,13 @@ public class AdminController {
 
     @PostMapping("/product/create")
     @ResponseBody
-    public ViewResponse<Product> addProduct(@RequestBody AddProductRequest addProductRequest) {
-        return adminService.addProduct(addProductRequest);
+    public ResponseEntity<ViewResponse<Product>> addProduct(@RequestBody AddProductRequest addProductRequest) {
+        ViewResponse response = adminService.addProduct(addProductRequest);
+        if(response.isValid){
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
     @GetMapping("/product/create")
@@ -55,7 +61,12 @@ public class AdminController {
 
     @DeleteMapping(value = "product/{date}")
     @ResponseBody
-    public ViewResponse deleteProductByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        return adminService.deleteProductByDate(date);
+    public ResponseEntity<ViewResponse> deleteProductByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        ViewResponse response = adminService.deleteProductByDate(date);
+        if(response.isValid){
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 }
