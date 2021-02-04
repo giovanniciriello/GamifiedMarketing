@@ -1,7 +1,7 @@
 package it.polimi.db2.gamifiedmarketing.application.entity.enums;
 
 public enum ExpertiseLevel {
-    LOW(0), MEDIUM(1), HIGH(2);
+    LOW(0), MEDIUM(1), HIGH(2), NONE(3);;
 
     private final int value;
 
@@ -17,11 +17,17 @@ public enum ExpertiseLevel {
                 return ExpertiseLevel.MEDIUM;
             case 2:
                 return ExpertiseLevel.HIGH;
+            default:
+                return null;
         }
-        return null;
+
     }
 
-    public int getValue() {
+    public ExpertiseLevel getExpertiseLevel() {
+        return getExpertiseLevelFromInt(value);
+    }
+
+    public Integer getValue() {
         return value;
     }
 }

@@ -143,7 +143,7 @@ public class SubmissionService {
 
             Submission submit = Submission.builder()
                     .age(json.getAge())
-                    .expertiseLevel(json.getExpertiseLevel())
+                    .expertiseLevel(json.getExpertiseLevel().getExpertiseLevel())
                     .sex(json.getSex())
                     .points(0)
                     .submissionStatus(SubStatus.CONFIRMED)
