@@ -6,8 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,17 +20,26 @@ public class User {
     private Integer id;
 
     @NotNull
+    @NotEmpty
     private String firstName;
 
     @NotNull
+    @NotEmpty
     private String lastName;
 
     @NotNull
     @Column(unique = true, length = 128)
     @Email
+    /* https://stackoverflow.com/questions/4459474/hibernate-validator-email-accepts-askstackoverflow-as-valid
+       We know about intranet addresses, but we leave it in that way because we considered it not relevant.
+       The alternative would have been to create a new Custom Annotation for Email validation and then a custom
+       Email Validator.
+     */
+    @NotEmpty
     private String email;
 
     @NotNull
+    @NotEmpty
     private String password;
 
     @NotNull

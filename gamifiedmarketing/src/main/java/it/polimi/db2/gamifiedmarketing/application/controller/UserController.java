@@ -7,6 +7,7 @@ import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
 import it.polimi.db2.gamifiedmarketing.application.repository.SubmissionRepository;
 import it.polimi.db2.gamifiedmarketing.application.service.ProductService;
 import it.polimi.db2.gamifiedmarketing.application.service.SubmissionService;
+import it.polimi.db2.gamifiedmarketing.application.service.UserService;
 import it.polimi.db2.gamifiedmarketing.application.session.SessionInfo;
 import it.polimi.db2.gamifiedmarketing.application.utility.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class UserController {
     private SubmissionService submissionService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private SubmissionRepository submissionRepository;
 
     @Autowired
@@ -38,6 +42,17 @@ public class UserController {
     @GetMapping("/login")
     public String getLoginPage() {
         return "../static/login";
+    }
+
+    @PostMapping("/signup")
+    @ResponseBody
+    public ResponseEntity<ViewResponse> registerUser(Model model, String firstName, String lastName, String email, String pwd, String reinsertedPwd) {
+        ViewResponse response = userService.registerUser(firstName, lastName, email, pwd, reinsertedPwd);
+        if(response.isValid){
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
     @GetMapping(value = {"/", "/home"})
