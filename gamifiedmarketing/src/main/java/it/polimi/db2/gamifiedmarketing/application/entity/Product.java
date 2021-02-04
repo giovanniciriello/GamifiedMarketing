@@ -70,10 +70,12 @@ public class Product {
      *  ---> FetchType.EAGER        1. When getting to /home we need submissions to show reviews of all users
      *                              2. When getting to /leaderboard we need all submissions of the product of the day
      *                              3. When Admin goes to the inspection page and choose a product, we must show the responses of each user
+     * CascadeType Policies:
+     *  --> REMOVE      If Product is removed, then also the related submissions
      */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
     @OrderBy("submission_status DESC")
     private List<Submission> submissions;
 

@@ -25,8 +25,7 @@ import java.util.Optional;
 
 @Service
 public class AdminService {
-    @Autowired
-    private SubmissionRepository submissionRepository;
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -43,8 +42,8 @@ public class AdminService {
             if (!sessionInfo.getCurrentUser().getRole().equals(UserRole.ADMIN)) {
                 throw new Exception("You cannot delete a product if you are not admin");
             }
-            if (date.getDayOfYear() > LocalDate.now().getDayOfYear() && date.getYear() < LocalDate.now().getYear()) {
-                throw new Exception("You cannot delete a product that has to be review in the future");
+            if (date.isEqual(LocalDate.now()) || date.isAfter(LocalDate.now())) {
+                throw new Exception("You cannot delete a product of the future");
             }
 
             productRepository.deleteByDate(date);
@@ -64,7 +63,7 @@ public class AdminService {
             if (!sessionInfo.getCurrentUser().getRole().equals(UserRole.ADMIN)) {
                 throw new Exception("You cannot delete a product if you are not admin");
             }
-            if (addProductRequest.date.getYear() <= LocalDate.now().getYear() && addProductRequest.date.getDayOfYear() < LocalDate.now().getDayOfYear()) {
+            if (addProductRequest.date.isBefore(LocalDate.now())) {
                 throw new Exception("You cannot add a product with a past date");
             }
             if (addProductRequest.questions.isEmpty() || addProductRequest.questions == null) {
@@ -72,7 +71,7 @@ public class AdminService {
             }
 
             Optional<User> user = userRepository.findById(sessionInfo.getCurrentUser().getId());
-            List<Question> questions = new ArrayList<Question>();
+            List<Question> questions = new ArrayList<>();
             for(int i=0; i<addProductRequest.questions.size(); i++) {
                 Question question = Question.builder()
                         .title(addProductRequest.questions.get(i).title)

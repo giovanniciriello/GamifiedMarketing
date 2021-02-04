@@ -146,7 +146,7 @@
             },
 
             isFutureProduct(){
-                return (new Date).toISOString().split("T")[0] < this.productDate;
+                return (new Date).toISOString().split("T")[0] <= this.productDate;
             },
 
             deleteProduct(){

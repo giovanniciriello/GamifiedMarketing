@@ -44,7 +44,7 @@ public class UserController {
         return "../static/login";
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     @ResponseBody
     public ResponseEntity<ViewResponse> registerUser(Model model, String firstName, String lastName, String email, String pwd, String reinsertedPwd) {
         ViewResponse response = userService.registerUser(firstName, lastName, email, pwd, reinsertedPwd);

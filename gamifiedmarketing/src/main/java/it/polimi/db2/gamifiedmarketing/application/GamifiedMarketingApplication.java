@@ -60,7 +60,7 @@ public class GamifiedMarketingApplication {
         Product product1 = Product.builder().name("Apple AirPods con custodia di ricarica con cavo").description("AirPods con custodia di ricarica: più di 24 ore di ascolto, fino a 18 ore di conversazione; AirPods (singola ricarica): Fino a 5 ore di ascolto, fino a 3 ore di conversazione; 15 minuti di ricarica nella custodia equivalgono a 3 ore di ascolto aggiuntive o fino a 2 ore di conversazione.").imageUrl("https://images-na.ssl-images-amazon.com/images/I/71NTi82uBEL._AC_SL1500_.jpg").date(LocalDate.now()).questions(new ArrayList<>()).submissions(new ArrayList<>()).reviews(new ArrayList<>()).build();
         admin1.addProduct(product1);
 
-        Product product2 = Product.builder().name("Apple iPhone 12").description("Display Super Retina XDR da 6,1. Ceramic Shield, più duro di qualsiasi vetro per smartphone. 5G per download velocissimi e streaming ad alta qualità. A14 Bionic, il chip più veloce mai visto su uno smartphone").imageUrl("https://images-na.ssl-images-amazon.com/images/I/71MtcgbTdXL._AC_SL1500_.jpg").date(LocalDate.of(2020, Month.NOVEMBER, 18)).questions(new ArrayList<>()).submissions(new ArrayList<>()).reviews(new ArrayList<>()).build();
+        Product product2 = Product.builder().name("Apple iPhone 12").description("Display Super Retina XDR da 6,1. Ceramic Shield, più duro di qualsiasi vetro per smartphone. 5G per download velocissimi e streaming ad alta qualità. A14 Bionic, il chip più veloce mai visto su uno smartphone").imageUrl("https://images-na.ssl-images-amazon.com/images/I/71MtcgbTdXL._AC_SL1500_.jpg").date(LocalDate.of(2021, Month.NOVEMBER, 18)).questions(new ArrayList<>()).submissions(new ArrayList<>()).reviews(new ArrayList<>()).build();
         admin2.addProduct(product2);
 
         Product product3 = Product.builder().name("Apple Magic Keyboard").description("Tasti di dimensioni standard retroilluminati, con meccanismo a forbice ed escursione di 1 mm, per scrivere in modo preciso e silenzioso. Il trackpad è progettato per i gesti Multi-Touch, e ti permette di controllare il nuovo cursore in iPadOS.").imageUrl("https://images-na.ssl-images-amazon.com/images/I/71fYV0JMoYL._AC_SL1500_.jpg").date(LocalDate.of(2021, Month.JANUARY, 15)).questions(new ArrayList<>()).submissions(new ArrayList<>()).reviews(new ArrayList<>()).build();
@@ -134,7 +134,5 @@ public class GamifiedMarketingApplication {
         for(String badWord: badWords){
             badWordRepository.save(BadWord.builder().text(badWord).build());
         }
-
-
     }
 }
