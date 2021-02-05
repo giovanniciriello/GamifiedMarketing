@@ -138,9 +138,10 @@ public class SubmissionService {
             }
 
             sessionUser = userRepository.findByEmail(sessionUser.getEmail());
-            Integer.parseInt(json.getAge());
+
+
             Submission submit = Submission.builder()
-                    .age(!json.getAge().isEmpty() ? Integer.parseInt(json.getAge()) : null)
+                    .age(json.getAge())
                     .expertiseLevel(json.getExpertiseLevel().getExpertiseLevel())
                     .sex(json.getSex())
                     .points(0)

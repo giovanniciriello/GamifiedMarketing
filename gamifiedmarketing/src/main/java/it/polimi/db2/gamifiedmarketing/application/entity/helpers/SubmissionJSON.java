@@ -13,7 +13,7 @@ public class SubmissionJSON {
 
     private Sex sex;
 
-    private String age;
+    private Integer age;
 
     private ExpertiseLevel expertiseLevel;
 
