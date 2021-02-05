@@ -157,7 +157,7 @@ public class SubmissionService {
                 Integer questionId = response.getQuestion_id();
                 String responseBody = response.getBody();
 
-                List<String> words = Arrays.asList(responseBody.replaceAll("[^a-zA-Z0-9]", " ").toLowerCase().split(" "));;
+                List<String> words = Arrays.asList(responseBody.replaceAll("[^a-zA-Z0-9]", " ").toLowerCase().split(" "));
 
                 for (BadWord badWord: badWords) {
                     if(words.contains(badWord.getText())){
