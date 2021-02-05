@@ -138,11 +138,9 @@ public class SubmissionService {
             }
 
             sessionUser = userRepository.findByEmail(sessionUser.getEmail());
-
-
-
+            Integer.parseInt(json.getAge());
             Submission submit = Submission.builder()
-                    .age(json.getAge())
+                    .age(!json.getAge().isEmpty() ? Integer.parseInt(json.getAge()) : null)
                     .expertiseLevel(json.getExpertiseLevel().getExpertiseLevel())
                     .sex(json.getSex())
                     .points(0)
@@ -159,8 +157,8 @@ public class SubmissionService {
 
                 List<String> words = Arrays.asList(responseBody.replaceAll("[^a-zA-Z0-9]", " ").toLowerCase().split(" "));
 
-                for (BadWord badWord: badWords) {
-                    if(words.contains(badWord.getText())){
+                for (BadWord badWord : badWords) {
+                    if (words.contains(badWord.getText())) {
                         sessionUser.setBannedAt(LocalDateTime.now());
                         userRepository.save(sessionUser);
                         throw new Exception("You wrote a bad word, banned!");
@@ -197,10 +195,17 @@ public class SubmissionService {
             userRepository.save(sessionUser);
 
             return new ViewResponse(true, submit.getId(), null);
-        } catch (Exception e) {
+        }catch (NumberFormatException e)
+        {
+            var errors = new ArrayList<String>();
+            errors.add("The age has to be a number");
+            return new ViewResponse(false, errors);
+        }
+         catch (Exception e) {
             var errors = new ArrayList<String>();
             errors.add(e.getMessage());
             return new ViewResponse(false, errors);
         }
+
     }
 }

@@ -34,7 +34,7 @@
             <div class="container" x-data="questionnaireForm()" x-cloak>
 
                 <div class="alert alert-danger" x-show="show_validation_error_msg">
-                    <i class="fa fa-exclamation-triangle"></i> Please answer to all required questions.
+                    <i class="fa fa-exclamation-triangle"></i> <span x-text="validation_error_msg"></span>
                 </div>
 
                 <div class="card card-primary">
@@ -136,6 +136,7 @@
             productId: [[${product.id}]],
             step: 1,
             show_validation_error_msg: false,
+            validation_error_msg :'',
             submitResponses(){
 
                 let responses = [];
@@ -143,6 +144,7 @@
                 $('.response').each((i, el) => {
 
                     if($(el).val() == "") {
+                        this.validation_error_msg ='Please answer to all required questions.';
                         this.show_validation_error_msg = true;
                         this.step = 1;
                         validData = false;
@@ -175,8 +177,9 @@
                     },
                     statusCode: {
                         // user is banned
-                        400: function(){
-                            window.location.replace("/");
+                        400: (err) => {
+                            this.validation_error_msg = err.responseJSON.errors[0];
+                            this.show_validation_error_msg = true;
                         }
                     }
                 });

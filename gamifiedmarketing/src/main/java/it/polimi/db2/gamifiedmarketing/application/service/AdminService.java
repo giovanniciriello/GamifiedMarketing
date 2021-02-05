@@ -66,6 +66,9 @@ public class AdminService {
             if (addProductRequest.date.isBefore(LocalDate.now())) {
                 throw new Exception("You cannot add a product with a past date");
             }
+            if (productRepository.findByDate(LocalDate.now()) != null) {
+                throw new Exception("A stored product has already the same date. change the date");
+            }
             if (addProductRequest.questions.isEmpty() || addProductRequest.questions == null) {
                 throw new Exception("You cannot add a product without any questions");
             }
@@ -83,7 +86,7 @@ public class AdminService {
             Product product = Product.builder().name(addProductRequest.name).description(addProductRequest.description).imageUrl(addProductRequest.image_url).date(addProductRequest.date).questions(questions).build();
             product.setAdmin(user.get());
             Product _return = productRepository.save(product);
-            return new ViewResponse(true, _return, null);
+            return new ViewResponse(true, _return.getId(), null);
         }catch(Exception e){
             var errors = new ArrayList<String>();
             errors.add(e.getMessage());
