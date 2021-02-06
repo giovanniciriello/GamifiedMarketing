@@ -1,5 +1,3 @@
-DELIMITER $$
-
 CREATE TRIGGER ADD_POINT
 BEFORE UPDATE ON submissions
 FOR EACH ROW
@@ -29,4 +27,4 @@ BEGIN
 
   SET NEW.points = optional_points + required_points;
 
-END$$
+END;

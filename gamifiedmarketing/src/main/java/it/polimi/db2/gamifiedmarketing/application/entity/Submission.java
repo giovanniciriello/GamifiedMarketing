@@ -6,6 +6,7 @@ import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
 import it.polimi.db2.gamifiedmarketing.application.entity.helpers.SubmissionCustomSerializer;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,6 +25,7 @@ public class Submission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ColumnDefault("0")
     private Integer points;
 
     private Integer age;

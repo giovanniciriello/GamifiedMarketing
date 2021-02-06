@@ -12,7 +12,5 @@ import java.time.LocalDate;
 
 @Repository
 public interface BadWordRepository extends CrudRepository<BadWord, Integer> {
-    //@Sql(scripts = { "triggers.sql" })
-    //@Transactional
-    //void runTriggers();
+
 }
