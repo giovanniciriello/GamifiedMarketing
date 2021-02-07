@@ -2,14 +2,13 @@ package it.polimi.db2.gamifiedmarketing.application.controller;
 
 import it.polimi.db2.gamifiedmarketing.application.entity.Product;
 import it.polimi.db2.gamifiedmarketing.application.entity.Submission;
-import it.polimi.db2.gamifiedmarketing.application.entity.helpers.SubmissionJSON;
-import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
+import it.polimi.db2.gamifiedmarketing.application.entity.requestModels.SubmissionRequest;
+import it.polimi.db2.gamifiedmarketing.application.entity.requestModels.ViewResponse;
 import it.polimi.db2.gamifiedmarketing.application.repository.SubmissionRepository;
 import it.polimi.db2.gamifiedmarketing.application.service.ProductService;
 import it.polimi.db2.gamifiedmarketing.application.service.SubmissionService;
 import it.polimi.db2.gamifiedmarketing.application.service.UserService;
 import it.polimi.db2.gamifiedmarketing.application.session.SessionInfo;
-import it.polimi.db2.gamifiedmarketing.application.utility.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -37,8 +36,6 @@ public class UserController {
     @Autowired
     private SessionInfo sessionInfo;
 
-    private final Utils utils = new Utils();
-
     @GetMapping("/login")
     public String getLoginPage() {
         return "../static/login";
@@ -48,9 +45,9 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<ViewResponse> registerUser(Model model, String firstName, String lastName, String email, String pwd, String reinsertedPwd) {
         ViewResponse response = userService.registerUser(firstName, lastName, email, pwd, reinsertedPwd);
-        if(response.isValid){
+        if (response.isValid) {
             return ResponseEntity.ok(response);
-        }else{
+        } else{
             return ResponseEntity.badRequest().body(response);
         }
     }
@@ -59,9 +56,10 @@ public class UserController {
     public String getHomePage(Model model) {
         Product productOfTheDay = productService.findProductOfTheDay(LocalDate.now());
         model.addAttribute("product", productOfTheDay);
-        model.addAttribute("submission", submissionRepository.findByUserAndProduct(sessionInfo.getCurrentUser(), productOfTheDay));
+
         // Boolean needed to avoid making clickable the button to initiate a new questionnaire if user banned or yet submitted
-        model.addAttribute("bannedUser", utils.isUserBanned(sessionInfo.getCurrentUser()));
+        model.addAttribute("submission", submissionRepository.findByUserAndProduct(sessionInfo.getCurrentUser(), productOfTheDay));
+        model.addAttribute("bannedUser", sessionInfo.getCurrentUser().isBanned());
 
         return "home";
     }
@@ -75,8 +73,8 @@ public class UserController {
 
     @GetMapping("/submission/start")
     public String getQuestionnairePage(Model model) {
-        if (utils.isUserBanned(sessionInfo.getCurrentUser())) {
-            return "ban";
+        if (sessionInfo.getCurrentUser().isBanned()) {
+            return "home";
         } else {
             Product product = productService.findProductOfTheDay(LocalDate.now());
             model.addAttribute("product", product);
@@ -88,20 +86,20 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<ViewResponse> logUserCancel(@PathVariable Integer product_id) {
         ViewResponse response = submissionService.logUserCancel(product_id);
-        if(response.isValid){
+        if (response.isValid) {
             return ResponseEntity.ok(response);
-        }else{
+        } else {
             return ResponseEntity.badRequest().body(response);
         }
     }
 
     @PostMapping("/submission/{product_id}/submit")
     @ResponseBody
-    public ResponseEntity<ViewResponse> submitSubmission(@PathVariable Integer product_id, @RequestBody SubmissionJSON submission) {
+    public ResponseEntity<ViewResponse> submitSubmission(@PathVariable Integer product_id, @RequestBody SubmissionRequest submission) {
         ViewResponse response = submissionService.submitSubmission(product_id, submission);
-        if(response.isValid){
+        if (response.isValid) {
             return ResponseEntity.ok(response);
-        }else{
+        } else {
             return ResponseEntity.badRequest().body(response);
         }
     }

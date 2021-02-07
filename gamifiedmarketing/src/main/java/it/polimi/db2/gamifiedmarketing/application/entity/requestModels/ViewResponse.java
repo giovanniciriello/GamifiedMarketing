@@ -1,4 +1,4 @@
-package it.polimi.db2.gamifiedmarketing.application.entity.views;
+package it.polimi.db2.gamifiedmarketing.application.entity.requestModels;
 
 import java.util.List;
 

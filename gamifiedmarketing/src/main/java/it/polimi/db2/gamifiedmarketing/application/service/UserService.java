@@ -2,7 +2,7 @@ package it.polimi.db2.gamifiedmarketing.application.service;
 
 import it.polimi.db2.gamifiedmarketing.application.entity.User;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.UserRole;
-import it.polimi.db2.gamifiedmarketing.application.entity.views.ViewResponse;
+import it.polimi.db2.gamifiedmarketing.application.entity.requestModels.ViewResponse;
 import it.polimi.db2.gamifiedmarketing.application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

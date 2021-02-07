@@ -15,17 +15,10 @@ import java.util.List;
 @Repository
 public interface SubmissionRepository extends CrudRepository<Submission, Integer> {
 
-    /*@Query("SELECT S\n"
-            + "FROM Submission AS S JOIN Product as P ON S.product.id = P.id\n"
-            + "WHERE P.date = :date")
-    List<Submission> getAllSubmissionOfTheDay(@Param("date") LocalDate date);*/
-
     @Query("SELECT S\n"
             + "FROM Submission AS S JOIN Product as P ON S.product.id = P.id\n"
             + "WHERE P.date = :date")
     List<Submission> getAllSubmissionOfTheDay(@Param("date") LocalDate date, Sort sort);
-
-    List<Submission> findByProductId(Integer id);
 
     Submission findByUserAndProduct(User user, Product product);
 }

@@ -34,9 +34,6 @@ public class GamifiedMarketingApplication {
     private BadWordRepository badWordRepository;
 
     @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
     private Environment env;
 
     public static void main(String[] args) {
@@ -163,7 +160,7 @@ public class GamifiedMarketingApplication {
         sub_user1.addResponse(response1_1);
         sub_user1.addResponse(response2_1);
 
-        Submission sub_user2 = Submission.builder().age(24).expertiseLevel(ExpertiseLevel.HIGH).sex(Sex.FEMALE).submissionStatus(SubStatus.CANCELED).points(0).responses(new ArrayList<>()).build();
+        Submission sub_user2 = Submission.builder().expertiseLevel(ExpertiseLevel.HIGH).sex(Sex.FEMALE).submissionStatus(SubStatus.CANCELED).points(0).responses(new ArrayList<>()).build();
         user2.addSubmission(sub_user2);
         sub_user2.setProduct(product1);
         sub_user2.addResponse(response1_2);

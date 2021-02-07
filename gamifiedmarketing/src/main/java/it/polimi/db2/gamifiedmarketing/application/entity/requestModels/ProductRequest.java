@@ -1,4 +1,4 @@
-package it.polimi.db2.gamifiedmarketing.application.entity.views;
+package it.polimi.db2.gamifiedmarketing.application.entity.requestModels;
 
 import lombok.*;
 
@@ -10,7 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddProductRequest {
+public class ProductRequest {
+
     public String name;
     public String description;
     public String image_url;

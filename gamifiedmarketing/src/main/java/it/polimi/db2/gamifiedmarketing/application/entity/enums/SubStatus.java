@@ -1,7 +1,7 @@
 package it.polimi.db2.gamifiedmarketing.application.entity.enums;
 
 public enum SubStatus {
-    CREATED(0), CANCELED(1), CONFIRMED(2);
+    CANCELED(0), CONFIRMED(1);
 
     private final int value;
 
@@ -10,15 +10,11 @@ public enum SubStatus {
     }
 
     public static SubStatus getSubStatusFromInt(int value) {
-        switch (value) {
-            case 0:
-                return SubStatus.CREATED;
-            case 1:
-                return SubStatus.CANCELED;
-            case 2:
-                return SubStatus.CONFIRMED;
-        }
-        return null;
+        return switch (value) {
+            case 0 -> SubStatus.CANCELED;
+            case 1 -> SubStatus.CONFIRMED;
+            default -> null;
+        };
     }
 
     public int getValue() {

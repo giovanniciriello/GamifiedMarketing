@@ -1,4 +1,4 @@
-package it.polimi.db2.gamifiedmarketing.application.entity.helpers;
+package it.polimi.db2.gamifiedmarketing.application.entity.requestModels;
 
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.ExpertiseLevel;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SubmissionJSON {
+public class SubmissionRequest {
 
     private Sex sex;
 
@@ -20,6 +20,6 @@ public class SubmissionJSON {
     /*  Question Id     ---> Integer
      *  Response body   ---> String
      */
-    private List<ResponseJSON> responses;
+    private List<ResponseRequest> responses;
 
 }

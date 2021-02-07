@@ -27,7 +27,7 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(unique=true)
     @NotNull
     private LocalDate date;
@@ -47,12 +47,30 @@ public class Product {
     @JoinColumn(name="admin_id")
     private User admin;
 
+    /*
+     * Relationship needed in order to show reviews of the product of the day in home page.
+     *
+     * Fetch Policy
+     *  --> FetchType.LAZY        default
+     *
+     * CascadeType Policies:
+     *  --> PERSIST     If Product is persisted, then also the related reviews
+     *  --> REMOVE      If Product is removed, then also the related reviews
+     *  --> MERGE       If Product is merged (saved but yet exists), then also the related reviews
+     *  --> REFRESH     Not needed
+     *  --> DETACH      Not needed
+     */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval = true)
     private List<Review> reviews;
 
     /*
+     * Relationship needed in order to create a new submission. Used by admin when creating the questionnaire.
+     *
+     * Fetch Policy
+     *  --> FetchType.LAZY        default
+     *
      * CascadeType Policies:
      *  --> PERSIST     If Product is persisted, then also the related questions
      *  --> REMOVE      If Product is removed, then also the related questions
@@ -66,12 +84,14 @@ public class Product {
     private List<Question> questions;
 
     /*
+     * Relationship needed when showing all the submissions for a related product by admin.
+     *
      * Fetch Policies:
-     *  ---> FetchType.EAGER        1. When getting to /home we need submissions to show reviews of all users
-     *                              2. When getting to /leaderboard we need all submissions of the product of the day
-     *                              3. When Admin goes to the inspection page and choose a product, we must show the responses of each user
+     *  ---> FetchType.EAGER        1. When getting to /leaderboard we need all submissions of the product of the day
+     *                              2. When Admin goes to the inspection page and choose a product, we must show the responses of each user
      * CascadeType Policies:
      *  --> REMOVE      If Product is removed, then also the related submissions
+     *  --> PERSIST     Not needed because when creating Product we do not have submissions yet to be persisted.
      */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
@@ -122,6 +142,7 @@ public class Product {
         getSubmissions().remove(submission);
     }
 
+    // Friendly format for Thymeleaf template
     public String getFormattedDate(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return this.date.format(formatter);

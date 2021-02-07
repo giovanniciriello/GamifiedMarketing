@@ -36,6 +36,11 @@ public class Question {
     private Product product;
 
     /*
+     * Relationship needed when retrieving questions/responses on the inspection page. Used when creating a new submission.
+     *
+     * Fetch Policy
+     *  --> FetchType.LAZY        default
+     *
      * CascadeType Policies:
      *  --> PERSIST     Not needed, responses come after the question creation!
      *  --> REMOVE      If Question is removed, then also the related responses

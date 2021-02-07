@@ -1,11 +1,10 @@
 package it.polimi.db2.gamifiedmarketing.application.entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.ExpertiseLevel;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.Sex;
 import it.polimi.db2.gamifiedmarketing.application.entity.enums.SubStatus;
-import it.polimi.db2.gamifiedmarketing.application.entity.helpers.SubmissionCustomSerializer;
 import lombok.*;
+
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,7 +18,6 @@ import java.util.List;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
 @Table(name = "submissions")
-//@JsonSerialize(using = SubmissionCustomSerializer.class)
 public class Submission {
 
     @Id
@@ -27,7 +25,8 @@ public class Submission {
     private Integer id;
 
     @NotNull
-    private Integer points = 0;
+    @ColumnDefault("0")
+    private Integer points;
 
     private Integer age;
 
@@ -53,6 +52,8 @@ public class Submission {
     private User user;
 
     /*
+     * Relationship needed when showing all responses/questions in the inspection page (admin).
+     *
      * CascadeType Policies:
      *  --> PERSIST     If Submission is persisted, then also the related responses
      *  --> REMOVE      If Submission is removed, then also the related responses
@@ -60,18 +61,16 @@ public class Submission {
      *  --> REFRESH     Not needed
      *  --> DETACH      Not needed
      *
-     *
      * Fetch Policies:
-     *  ---> FetchType.EAGER        1. When getting to /home we need submissions and relative responses too
-     *                              3. When Admin goes to the inspection page and choose a product, we must show the responses of each user
+     *  ---> FetchType.EAGER
+     *                              1. When Admin goes to the inspection page and choose a product, we must show the responses of each user
      */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "submission", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "submission", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Response> responses;
 
     // Methods for the Bi-directional relationship ( Submission 1:N Response )
-
     public List<Response> getResponses() {
         return responses;
     }
@@ -93,6 +92,7 @@ public class Submission {
         return this.createdAt.format(formatter);
     }
 
+    // Utility for templates
     public boolean getIsCompleted(){
         return this.submissionStatus == SubStatus.CONFIRMED;
     }

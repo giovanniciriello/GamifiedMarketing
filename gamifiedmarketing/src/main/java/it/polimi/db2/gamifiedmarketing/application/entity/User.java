@@ -30,11 +30,6 @@ public class User {
     @NotNull
     @Column(unique = true, length = 128)
     @Email
-    /* https://stackoverflow.com/questions/4459474/hibernate-validator-email-accepts-askstackoverflow-as-valid
-       We know about intranet addresses, but we leave it in that way because we considered it not relevant.
-       The alternative would have been to create a new Custom Annotation for Email validation and then a custom
-       Email Validator.
-     */
     @NotEmpty
     private String email;
 
@@ -56,10 +51,15 @@ public class User {
     private LocalDateTime bannedAt;
 
     /*
+     * Relationship not strictly needed - useful for optional extensions
+     *
+     * Fetch Policy
+     *  --> FetchType.LAZY        default
+     *
      * CascadeType Policies:
      *  --> PERSIST     If Admin is persisted, then also the products he created
      *  --> REMOVE      If Admin is removed, then also the products he created
-     *  --> MERGE       If Admin is merged (saved but yet exists), then also the products he created
+     *  --> MERGE       If Admin is merged (saved but yet exists), then also the products (s)he created
      *  --> REFRESH     Not needed
      *  --> DETACH      Not needed
      */
@@ -69,6 +69,11 @@ public class User {
     private List<Product> productsCreated;
 
     /*
+     * Relationship needed in order to check if a User has yet submitted for the product of the day.
+     *
+     * Fetch Policy
+     *  --> FetchType.LAZY        default
+     *
      * CascadeType Policies:
      *  --> PERSIST     If User is persisted, then also the related submissions
      *  --> REMOVE      If User is removed, then also the related submissions
@@ -115,7 +120,12 @@ public class User {
         getSubmissions().remove(submission);
     }
 
+    // Utility to get a full qualification
     public String getFullName(){
         return this.getLastName()+" "+this.getFirstName();
+    }
+
+    public boolean isBanned() {
+        return this.bannedAt != null;
     }
 }
