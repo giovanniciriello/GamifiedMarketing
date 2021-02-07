@@ -11,9 +11,14 @@ import it.polimi.db2.gamifiedmarketing.application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.PostConstruct;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -31,13 +36,15 @@ public class GamifiedMarketingApplication {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private Environment env;
+
     public static void main(String[] args) {
         SpringApplication.run(GamifiedMarketingApplication.class, args);
     }
 
     @PostConstruct
-    public void init() {
-
+    public void init() throws SQLException, ClassNotFoundException {
         /*
          * DB initialization for testing
          */
@@ -49,6 +56,44 @@ public class GamifiedMarketingApplication {
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
+
+        /*
+         * Trigger initializzation for testing
+         */
+        String connectionURL = env.getProperty("spring.datasource.url");
+        Connection con = DriverManager.getConnection(connectionURL, env.getProperty("spring.datasource.username"), env.getProperty("spring.datasource.password"));
+        Statement stmt = con.createStatement();
+        stmt.execute("CREATE TRIGGER ADD_POINT\n" +
+                "    BEFORE UPDATE ON submissions\n" +
+                "    FOR EACH ROW\n" +
+                "BEGIN\n" +
+                "\n" +
+                "    DECLARE optional_points INT;\n" +
+                "    DECLARE required_points INT;\n" +
+                "\n" +
+                "    SET optional_points = NEW.points;\n" +
+                "\n" +
+                "    IF (NEW.sex IS NOT NULL) THEN\n" +
+                "        SET optional_points = optional_points + 2;\n" +
+                "    END IF;\n" +
+                "\n" +
+                "    IF (NEW.age IS NOT NULL) THEN\n" +
+                "        SET optional_points = optional_points + 2;\n" +
+                "    END IF;\n" +
+                "\n" +
+                "    IF (NEW.expertise_level IS NOT NULL) THEN\n" +
+                "        SET optional_points = optional_points + 2;\n" +
+                "    END IF;\n" +
+                "\n" +
+                "    SELECT count(*)\n" +
+                "    INTO required_points\n" +
+                "    FROM responses R\n" +
+                "    WHERE submission_id = NEW.id;\n" +
+                "\n" +
+                "    SET NEW.points = optional_points + required_points;\n" +
+                "\n" +
+                "END;");
+        con.close();
 
         // --- Admins --- \\
         User admin1 = User.builder().firstName("Admin").lastName("1").email("admin1@email.com").password(new BCryptPasswordEncoder().encode("pwd")).role(UserRole.ADMIN).productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
@@ -112,13 +157,13 @@ public class GamifiedMarketingApplication {
         question2_1.addResponse(response2_2);
 
         // --- Submissions --- \\
-        Submission sub_user1 = Submission.builder().age(12).expertiseLevel(ExpertiseLevel.LOW).sex(Sex.MALE).submissionStatus(SubStatus.CONFIRMED).responses(new ArrayList<>()).build();
+        Submission sub_user1 = Submission.builder().age(12).expertiseLevel(ExpertiseLevel.LOW).sex(Sex.MALE).submissionStatus(SubStatus.CONFIRMED).points(0).responses(new ArrayList<>()).build();
         user1.addSubmission(sub_user1);
         sub_user1.setProduct(product1);
         sub_user1.addResponse(response1_1);
         sub_user1.addResponse(response2_1);
 
-        Submission sub_user2 = Submission.builder().age(24).expertiseLevel(ExpertiseLevel.HIGH).points(0).sex(Sex.FEMALE).submissionStatus(SubStatus.CANCELED).responses(new ArrayList<>()).build();
+        Submission sub_user2 = Submission.builder().age(24).expertiseLevel(ExpertiseLevel.HIGH).sex(Sex.FEMALE).submissionStatus(SubStatus.CANCELED).points(0).responses(new ArrayList<>()).build();
         user2.addSubmission(sub_user2);
         sub_user2.setProduct(product1);
         sub_user2.addResponse(response1_2);
@@ -129,7 +174,7 @@ public class GamifiedMarketingApplication {
         userRepository.save(user2);
 
         String[] badWords = {"2g1c","acrotomophilia","anal","anilingus","anus","apeshit","arsehole","ass","asshole","assmunch","erotic","autoerotic","babeland","bangbros","bareback","barenaked","bastard","bastardo","bastinado","bbw","bdsm","beaner","beaners","bestiality","bimbos","birdlock","bitch","bitches","blowjob","blumpkin","bollocks","bondage","boner","boob","boobs","bukkake","bulldyke","bullshit","bunghole","busty","butt","buttcheeks","butthole","camgirl","camslut","camwhore","carpetmuncher","circlejerk","clit","clitoris","clusterfuck","cock","cocks","coprolagnia","coprophilia","cornhole","coon","coons","creampie","cum","cumming","cunnilingus","cunt","darkie","date rape","daterape","deepthroat","dendrophilia","dick","dildo","dingleberry","dingleberries","dirty pillows","doggie style","doggiestyle","doggy style","doggystyle","dolcett","domination","dominatrix","dommes","double dong","dry hump","dvda","ecchi","ejaculation","erotic","erotism","escort","eunuch","faggot","fecal","felch","fellatio","feltch","femdom","figging","fingerbang","fingering","fisting","footjob","frotting","fuck","fuckin","fucking","fucktards","fudgepacker","futanari","goatcx","goatse","gokkun","goodpoop","goregasm","grope","g-spot","guro","handjob","hardcore","hentai","homoerotic","honkey","hooker","hot chick","huge fat","humping","incest","intercourse","jailbait","jigaboo","jiggaboo","jiggerboo","jizz","juggs","kike","kinbaku","kinkster","kinky","knobbing","lolita","lovemaking","masturbate","nudity","nympho","nymphomania","octopussy","omorashi","orgasm","orgy","paedophile","paki","panties","panty","pedobear","pedophile","pegging","penis","pissing","piss pig","pisspig","playboy","pole smoker","ponyplay","poof","poon","poontang","punany","poop chute","poopchute","porn","porno","pornography","pthc","pubes","pussy","queaf","queef","quim","raghead","rape","raping","rapist","rectum","reverse cowgirl","rimjob","rimming","sadism","santorum","scat","schlong","scissoring","semen","sex","sexo","sexy","shaved pussy","shemale","shibari","shit","shitblimp","shitty","shota","shrimping","skeet","slanteye","slut","s&m","smut","snatch","snowballing","sodomize","sodomy","spic","splooge","spooge","spunk","strapon","strappado","strip club","suck","sucks","suicide girls","sultry women","swastika","swinger","tainted love","tea bagging","threesome","throating","tight white","tit","tits","titties","titty","tongue in a","topless","tosser","towelhead","tranny","tribadism","tub girl","tubgirl","tushy","twat","twink","twinkie","undressing","upskirt","urethra play","urophilia","vagina","venus mound","vibrator","violet wand","vorarephilia","voyeur","vulva","wank","wetback","wet dream","white power","wrapping men","xx","xxx","yaoi","yellow showers","yiffy","zoophilia","🖕"};
-        for(String badWord: badWords){
+        for(String badWord: badWords) {
             badWordRepository.save(BadWord.builder().text(badWord).build());
         }
     }
