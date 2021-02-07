@@ -186,7 +186,7 @@ public class SubmissionService {
 
             userRepository.save(sessionUser);
 
-            return new ViewResponse(true, submission.getId(), null);
+            return new ViewResponse(true, null, null);
 
         } catch (NumberFormatException e) {
 

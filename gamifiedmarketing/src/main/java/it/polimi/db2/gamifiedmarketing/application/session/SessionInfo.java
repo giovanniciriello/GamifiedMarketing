@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class SessionInfo {
 
-    private User user;
-
     @Autowired
     private UserRepository userRepository;
 

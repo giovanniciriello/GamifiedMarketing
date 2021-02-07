@@ -151,7 +151,7 @@
 
             deleteProduct(){
                 $.ajax({
-                    url: '/product/'+this.productDate,
+                    url: '/product/delete/'+this.productDate,
                     method: 'DELETE',
                     success: () => {
                         this.show_deleted_msg = true;

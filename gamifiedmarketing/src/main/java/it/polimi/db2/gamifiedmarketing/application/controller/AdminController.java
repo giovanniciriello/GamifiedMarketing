@@ -41,7 +41,7 @@ public class AdminController {
         return "search-product";
     }
 
-    @DeleteMapping(value = "/product/{date}")
+    @DeleteMapping(value = "/product/delete/{date}")
     @ResponseBody
     public ResponseEntity<ViewResponse> deleteProductByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         ViewResponse response = productService.deleteProductByDate(date);

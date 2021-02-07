@@ -9,9 +9,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
 
 import javax.sql.DataSource;
 
@@ -24,9 +22,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
-
-    @Autowired
-    private CustomAccessDeniedHandler accessDeniedHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -60,7 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/login", "/registration.html").permitAll()
                     .antMatchers("/submission/start").hasAuthority("USER")
-                    .antMatchers("/product/search", "/product/create", "/product/delete").hasAuthority("ADMIN")
+                    .antMatchers("/product/search", "/product/create", "/product/delete/**").hasAuthority("ADMIN")
+
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
