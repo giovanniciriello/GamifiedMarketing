@@ -53,11 +53,11 @@
                     </div>
                 </div>
 
-                <div class="alert alert-warning" th:if="${product == null}">🙃 &nbsp;No product found for this date</div>
+                <div x-cloak class="alert alert-warning" th:if="${product == null}">🙃 &nbsp;No product found for this date</div>
 
-                <div class="alert alert-success" x-show.transition.in="show_deleted_msg"><i class="fa fa-check"></i> Successfull deleted product!</div>
+                <div x-cloak class="alert alert-success" x-show.transition.in="show_deleted_msg"><i class="fa fa-check"></i> Successfull deleted product!</div>
 
-                <div class="card card-primary mt-4" th:if="${product != null}" x-show.transition.out="!show_deleted_msg">
+                <div x-cloak class="card card-primary mt-4" th:if="${product != null}" x-show.transition.out="!show_deleted_msg">
 
                     <div class="card-header">
                         <h3 class="card-title">Product of the day <b th:text="${product.getFormattedDate()}"></b></h3>
