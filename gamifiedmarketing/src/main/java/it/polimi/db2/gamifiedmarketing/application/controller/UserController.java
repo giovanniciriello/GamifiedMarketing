@@ -66,7 +66,7 @@ public class UserController {
 
     @GetMapping("/leaderboard")
     public String getLeaderBoardPage(Model model){
-        List<Submission> subs = submissionService.getAllSubmissionOfTheDay();
+        List<Submission> subs = submissionService.getAllConfirmedSubmissionOfTheDay();
         model.addAttribute("submissions", subs);
         return "leaderboard";
     }

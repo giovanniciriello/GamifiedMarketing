@@ -42,6 +42,10 @@ public class SubmissionService {
         return submissionRepository.getAllSubmissionOfTheDay(LocalDate.now(), Sort.by(Sort.Direction.DESC, "points"));
     }
 
+    public List<Submission> getAllConfirmedSubmissionOfTheDay() {
+        return submissionRepository.getAllConfirmedSubmissionOfTheDay(LocalDate.now(), Sort.by(Sort.Direction.DESC, "points"));
+    }
+
     public ViewResponse logUserCancel(Integer product_id) {
 
         /*  Guards:
@@ -77,7 +81,7 @@ public class SubmissionService {
                 throw new Exception("You have yet a submission on that product!");
             }
 
-            Submission submission = Submission.builder().user(sessionUser).product(product).submissionStatus(SubStatus.CANCELED).build();
+            Submission submission = Submission.builder().user(sessionUser).product(product).submissionStatus(SubStatus.CANCELED).points(0).build();
             submissionRepository.save(submission);
             return new ViewResponse(true, submission.getId(), null);
 

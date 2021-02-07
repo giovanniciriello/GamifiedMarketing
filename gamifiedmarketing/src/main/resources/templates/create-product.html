@@ -196,6 +196,7 @@
                 this.show_success_msg = false;
 
                 if(this.name === '' || this.image_url === ''|| this.date === '' || this.questions.length === 0){
+                    this.validation_error_msg = 'Please fill the required inputs';
                     this.show_validation_error_msg = true;
                     return;
                 }

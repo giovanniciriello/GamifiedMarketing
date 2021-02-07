@@ -81,12 +81,12 @@
                                     <h4 class="card-title w-100">
                                         <a class="d-block w-100 d-flex justify-content-between" data-toggle="collapse" th:href="${'#collapse-submission-'+submission.id}" aria-expanded="true">
                                             <span><b th:text="${submission.user.getFullName()}"></b></span>
-                                            <span th:class="'badge '+${submission.submissionStatus.toString() == 'CANCELED' ? 'badge-danger' : 'badge-success'}" th:text="${submission.submissionStatus}"></span>
+                                            <span th:class="'badge '+${submission.getIsCanceled() ? 'badge-danger' : 'badge-success'}" th:text="${submission.submissionStatus}"></span>
                                         </a>
                                     </h4>
                                 </div>
                                 <div th:id="${'collapse-submission-'+submission.id}" class="collapse" data-parent="#accordion" style="">
-                                    <div class="card-body">
+                                    <div th:if="${!submission.getIsCanceled()}" class="card-body">
                                         <div class="w-100 mb-4">
                                             <span class="badge badge-warning" th:if="${submission.getAge()}" th:text="${submission.getAge()}+' years'"></span>
                                             <span class="badge badge-info" th:if="${submission.getExpertiseLevel()}" th:text="'Expertise '+${submission.getExpertiseLevel()}"></span>

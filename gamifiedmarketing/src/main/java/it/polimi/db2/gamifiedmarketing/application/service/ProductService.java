@@ -69,7 +69,7 @@ public class ProductService {
             }
 
             // Check if a product already exists for that date
-            if (productRepository.findByDate(LocalDate.now()) != null) {
+            if (productRepository.findByDate(productRequest.date) != null) {
                 throw new Exception("A stored product has already the same date. Change the date");
             }
 
