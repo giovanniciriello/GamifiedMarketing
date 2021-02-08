@@ -134,8 +134,10 @@ public class SubmissionService {
 
             sessionUser = userRepository.findByEmail(sessionUser.getEmail());
 
+            Integer age = Integer.parseInt(submissionRequest.getAge());
+            age = submissionRequest.getAge().equals("") ? null : age;
             Submission submission = Submission.builder()
-                    .age(submissionRequest.getAge())
+                    .age(age)
                     .expertiseLevel(submissionRequest.getExpertiseLevel().getExpertiseLevel())
                     .sex(submissionRequest.getSex())
                     .points(0)

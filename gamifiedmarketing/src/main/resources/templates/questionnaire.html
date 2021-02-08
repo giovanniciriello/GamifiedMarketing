@@ -33,7 +33,7 @@
         <section class="content">
             <div class="container" x-data="questionnaireForm()" x-cloak>
 
-                <div class="alert alert-danger" x-show="show_validation_error_msg">
+                <div x-cloak class="alert alert-danger" x-show="show_validation_error_msg">
                     <i class="fa fa-exclamation-triangle"></i> <span x-text="validation_error_msg"></span>
                 </div>
 

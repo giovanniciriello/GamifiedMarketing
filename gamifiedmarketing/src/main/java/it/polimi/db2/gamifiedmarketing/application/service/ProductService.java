@@ -79,15 +79,14 @@ public class ProductService {
             }
 
             User user = userRepository.findById(sessionInfo.getCurrentUser().getId()).get();
-            List<Question> questions = new ArrayList<>();
-            Product product = Product.builder().name(productRequest.name).description(productRequest.description).imageUrl(productRequest.image_url).date(productRequest.date).questions(questions).build();
+            //List<Question> questions = new ArrayList<>();
+            Product product = Product.builder().name(productRequest.name).description(productRequest.description).imageUrl(productRequest.image_url).date(productRequest.date).questions(new ArrayList<>()).build();
             for(int i = 0; i< productRequest.questions.size(); i++) {
                 Question question = Question.builder()
                         .title(productRequest.questions.get(i).title)
                         .subtitle(productRequest.questions.get(i).subtitle)
-                        .product(product)
                         .build();
-                questions.add(question);
+                product.addQuestion(question);
             }
 
             product.setAdmin(user);
