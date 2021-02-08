@@ -51,6 +51,7 @@ public class UserService {
             userRepository.save(user);
 
             return new ViewResponse(true, user, null);
+
         } catch (Exception e) {
             var errors = new ArrayList<String>();
             errors.add(e.getMessage());
