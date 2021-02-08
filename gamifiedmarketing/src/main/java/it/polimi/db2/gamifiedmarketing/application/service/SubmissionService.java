@@ -134,10 +134,8 @@ public class SubmissionService {
 
             sessionUser = userRepository.findByEmail(sessionUser.getEmail());
 
-            Integer age = Integer.parseInt(submissionRequest.getAge());
-            age = submissionRequest.getAge().equals("") ? null : age;
             Submission submission = Submission.builder()
-                    .age(age)
+                    .age(submissionRequest.getAge())
                     .expertiseLevel(submissionRequest.getExpertiseLevel().getExpertiseLevel())
                     .sex(submissionRequest.getSex())
                     .points(0)
@@ -194,11 +192,6 @@ public class SubmissionService {
 
             return new ViewResponse(true, null, null);
 
-        } catch (NumberFormatException e) {
-
-            var errors = new ArrayList<String>();
-            errors.add("The age has to be a number");
-            return new ViewResponse(false, errors);
         } catch (Exception e) {
 
             var errors = new ArrayList<String>();

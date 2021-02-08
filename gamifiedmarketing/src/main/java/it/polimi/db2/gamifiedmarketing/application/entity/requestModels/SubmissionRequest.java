@@ -13,7 +13,7 @@ public class SubmissionRequest {
 
     private Sex sex;
 
-    private String age;
+    private Integer age;
 
     private ExpertiseLevel expertiseLevel;
 
