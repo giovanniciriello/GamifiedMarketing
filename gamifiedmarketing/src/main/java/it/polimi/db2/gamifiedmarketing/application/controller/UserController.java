@@ -53,7 +53,7 @@ public class UserController {
             model.addAttribute("email", email);
             model.addAttribute("pwd", pwd);
             return getLoginPage();
-        } else{
+        } else {
             model.addAttribute("firstName", firstName);
             model.addAttribute("lastName", lastName);
             model.addAttribute("email", email);
