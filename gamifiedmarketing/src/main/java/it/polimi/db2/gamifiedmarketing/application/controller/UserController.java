@@ -41,14 +41,24 @@ public class UserController {
         return "../static/login";
     }
 
+    @GetMapping("/register")
+    public String getRegisterPage() {
+        return "../static/registration";
+    }
+
     @PostMapping("/register")
-    @ResponseBody
-    public ResponseEntity<ViewResponse> registerUser(Model model, String firstName, String lastName, String email, String pwd, String reinsertedPwd) {
+    public String registerUser(Model model, String firstName, String lastName, String email, String pwd, String reinsertedPwd) {
         ViewResponse response = userService.registerUser(firstName, lastName, email, pwd, reinsertedPwd);
         if (response.isValid) {
-            return ResponseEntity.ok(response);
+            model.addAttribute("email", email);
+            model.addAttribute("pwd", pwd);
+            return getLoginPage();
         } else{
-            return ResponseEntity.badRequest().body(response);
+            model.addAttribute("firstName", firstName);
+            model.addAttribute("lastName", lastName);
+            model.addAttribute("email", email);
+            model.addAttribute("error", response.errors.get(0));
+            return getRegisterPage();
         }
     }
 
