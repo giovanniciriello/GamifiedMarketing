@@ -42,7 +42,7 @@
 
             <form th:action="@{/register}" method="POST">
                 <div class="input-group mb-3">
-                    <input name="firstName" type="text" class="form-control" placeholder="First Name" id="firstName" th:value="${firstName}">
+                    <input name="firstName" type="text" class="form-control" placeholder="First Name" id="firstName" th:value="${firstName}" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input name="lastName" type="text" class="form-control" placeholder="Last Name" id="lastName" th:value="${lastName}">
+                    <input name="lastName" type="text" class="form-control" placeholder="Last Name" id="lastName" th:value="${lastName}" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input name="email" type="email" class="form-control" placeholder="Email" id="email" th:value="${email}">
+                    <input name="email" type="email" class="form-control" placeholder="Email" id="email" th:value="${email}" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input name="pwd" type="password" class="form-control" placeholder="Password">
+                    <input name="pwd" type="password" class="form-control" placeholder="Password" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input name="reinsertedPwd" type="password" class="form-control" placeholder="Retype password">
+                    <input name="reinsertedPwd" type="password" class="form-control" placeholder="Retype password" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
