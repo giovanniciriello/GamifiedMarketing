@@ -45,7 +45,7 @@ public class UserService {
                     .lastName(ln)
                     .email(email)
                     .role(UserRole.USER)
-                    .password(new BCryptPasswordEncoder().encode("pwd"))
+                    .password(new BCryptPasswordEncoder().encode(pwd))
                     .productsCreated(new ArrayList<>()).submissions(new ArrayList<>()).build();
 
             userRepository.save(user);
