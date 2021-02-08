@@ -111,7 +111,7 @@ public class GamifiedMarketingApplication {
         String[] textReviews = {
                 "First of all, I purchased this directly from Amazon. Look out for and you are guaranteed to receive a legitimate product. Other reviewers who are claiming that the product is counterfeit are probably purchasing from third party sellers.",
                 "I am someone who does not enjoy the in-ear style earbuds. The ones with rubber tips that you jam into your ear canals. They are usually uncomfortable and give me headaches. For this reason, I have stuck with the traditional EarPods and AirPods design..",
-                "i have found that after the airpod shows as being connected and is active on my Google Pixel, if I close the wireless case, the airpod is disconnected. Why is this happening? I thought this was compatible with Android..",
+                "I have found that after the airpod shows as being connected and is active on my Google Pixel, if I close the wireless case, the airpod is disconnected. Why is this happening? I thought this was compatible with Android..",
         };
         for (String textReview: textReviews){
             for(Product product: products){
